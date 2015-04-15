@@ -1,6 +1,7 @@
 <?php
 
 require('configs/include.php');
+require('modules/m_phpass/PasswordHash.php');
 
 class c_registrar_usuario extends super_controller {
     
@@ -24,6 +25,12 @@ class c_registrar_usuario extends super_controller {
             {throw_exception("No coincide contraseña");}
             
             //que no este insertado en la base
+
+        $hasher = new PasswordHash(8, FALSE);    
+        $encriptada=$hasher->HashPassword($usuario->get('contraseña'));
+        unset($hasher);
+        
+        $usuario->set('contraseña',$encriptada);
         $this->registrar($usuario);
     }
     

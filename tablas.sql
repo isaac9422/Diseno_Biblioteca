@@ -13,7 +13,7 @@ PRIMARY KEY (codigo_biblioteca, codigo_publicacion)
 CREATE TABLE usuario(
 identificacion INTEGER(20) NOT NULL,
 nombre VARCHAR(30) NOT NULL,
-contraseña VARCHAR(30) NOT NULL,
+contraseña VARCHAR(100) NOT NULL,
 direccion VARCHAR(40) NOT NULL,
 telefono INTEGER(20) NOT NULL,
 estado VARCHAR(20) NOT NULL,
@@ -24,7 +24,7 @@ PRIMARY KEY(identificacion));
 CREATE TABLE empleado(
 identificacion INTEGER(20) NOT NULL,
 nombre VARCHAR(30) NOT NULL,
-contraseña VARCHAR(30) NOT NULL,
+contraseña VARCHAR(100) NOT NULL,
 direccion VARCHAR(40) NOT NULL,
 telefono INTEGER(20) NOT NULL,
 email VARCHAR(40) NOT NULL,
@@ -34,7 +34,7 @@ PRIMARY KEY (identificacion)
 CREATE TABLE administrador(
 identificacion INTEGER(20) NOT NULL,
 nombre VARCHAR(30) NOT NULL,
-contraseña VARCHAR(30) NOT NULL,
+contraseña VARCHAR(100) NOT NULL,
 direccion VARCHAR(40) NOT NULL,
 telefono INTEGER(20) NOT NULL,
 email VARCHAR(40) NOT NULL,

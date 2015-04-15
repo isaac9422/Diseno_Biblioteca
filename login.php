@@ -1,37 +1,45 @@
 <?php
 
-
-
 require('configs/include.php');
 require('modules/m_phpass/PasswordHash.php');
 
 class c_login extends super_controller {
     
    
-    public function add()
+   public function ingresar()
            
     {
         
+        $option['usuario']['lvl2']='by_email';
+        $data['usuario']['email'] = $this->post->email;
+        $this->orm->connect();
+        $this->orm->read_data(array("usuario"),$option);
+        $usuario = $this->orm->get_objects("usuario");
+        $this->orm->close();
+        
+        $encriptada = $usuario->get('contraseña');
+        
+        $contraseña = $this-> post->contraseña;
         $hasher = new PasswordHash(8, FALSE);
         //para encriptar
-        $contrasena= '12445';
-        $encriptada=$hasher->HashPasswod($contrasena);
+        
+        print_r2($usuario);
+        //$encriptada=$hasher->HashPassword($contrasena);
         //para comprobar
-        $password='12445';
-        if($hasher->CheckPassword($password, $encriptada))
-        {
-                //coinciden
-        }
+        if($hasher->CheckPassword($contraseña, $encriptada)){
+            //session_start();
+            print_r2($encriptada);
+            $_SESSION['usuario']['nombre']=$usuario->get('nombre');
+            $this->session=$_SESSION;
+            print_r2($this->session);
+            header("location: index.php");
+        }else{
+            print_r2($encriptada);
+        } 
 
         unset($hasher);
-        
-        $_SESSION['usuario'][nombre]=$usuario->get('nombre');
-        $_SESSION['usuario'][apellido]=$usuario->get('direccion');
-        $this->session=$_SESSION;
-        
-        $usuario = new clerk($this->post);
-        if(is_empty($usuario->get('identificacion')))
-		{throw_exception("Debe ingresar un número de cédula");}
+        //unset($this->session);
+        //session_destroy();
 		
         $this->orm->connect();
         $this->orm->insert_data("normal",$usuario);//para insertar en la basededatos
@@ -56,8 +64,9 @@ class c_login extends super_controller {
     
     public function run()
     {
-        try {if (isset($this->get->option)){$this->{$this->get->option}();}}
-        catch (Exception $e) 
+        try {if (isset($this->post->btn_ingresar))
+            {$this->ingresar();}   
+        }catch (Exception $e) 
 		{
 			$this->error=1; 
                         $this->engine->assign('object',$this->post); 

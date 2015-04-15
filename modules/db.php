@@ -145,14 +145,16 @@ class db
 		$info = array();
 		switch($option['lvl1'])
 		{																																																																																																										
-			case "user":
-			switch($option['lvl2'])
-			{
-				case "all": 
-					//
-					break;
-			}
-			break;
+                        case "usuario":
+                        switch($option['lvl2'])
+                        {
+                            case "all" :					
+                                $info=$this->get_data("SELECT * FROM usuario;"); break;
+                            case "by_email":
+                                $email=mysqli_real_escape_string($this->cn,$data['email']);
+                                $info=$this->get_data("SELECT * FROM usuario WHERE email='$email';"); break;
+                        }
+                        break;
 			
 			default: break;
 		}
