@@ -7,23 +7,25 @@ class c_modificarPerfil extends super_controller {
         $this->engine->assign('title', $this->gvar['n_index']);
 
         $this->engine->display('header.tpl');
+        if(isset($this->msg_warning)){
+            $this->engine->display('message.tpl');
+        }
         $this->engine->display('modificarPerfil.tpl');
         $this->engine->display('footer.tpl');
     }
 
     public function modificar() {
-
-        $this->msg_warning = "Hola Mundo";
-        $this->type_warning = "success";
-        $this->engine->assign('type_warning', $this->type_warning);
-        $this->engine->assign('msg_warning', $this->msg_warning);
-        $this->engine->display('message.tpl');
+        
+            $this->msg_warning = "Hola Mundo";
+            $this->type_warning = "success";
+            $this->engine->assign('type_warning', $this->type_warning);
+            $this->engine->assign('msg_warning', $this->msg_warning);
+            $this->engine->display('message.tpl');
     }
 
     public function run() {
         try {
             if (!isset($this->get->option)) {
-                
             } else {
                 if ($this->get->option === "modificar") {
                     $this->{$this->get->option}();

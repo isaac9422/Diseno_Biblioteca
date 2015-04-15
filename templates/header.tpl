@@ -69,6 +69,6 @@
 
 <table cellpadding="0" cellspacing="10">
 <tr><td align="left" width="210px" valign="top">
-{include file='lateral.tpl'}
+{*include file='lateral.tpl'*}
 </td>
 <td align="left" valign="top">
