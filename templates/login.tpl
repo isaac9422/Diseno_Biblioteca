@@ -7,7 +7,7 @@
 <b><a name="login"> </a></b><br /><br />
 <input name="Email" type="text" class="input-medium" placeholder="Email*"><br /><br />
 <input name="Contraseña" type="password" class="input-medium" placeholder="Contraseña*"><br /><br />
-<input type="radio" name="rol" value="usuario"><font color="Black">       Usuario   </font >
+<input type="radio" name="rol" value="usuario" checked><font color="Black">       Usuario   </font >
 <input type="radio" name="rol" value="Administrador"><font color="Black">    Administrador   </font >
 <input type="radio" name="rol" value="Empleado"><font color="Black">     Empleado   </font ><br>
 <button type="submit" class="btn">Ingresar</button>
