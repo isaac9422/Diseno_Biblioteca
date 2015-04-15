@@ -79,19 +79,28 @@ class db
 	//function for add data to db
 	public function insert($options,$object) 
 	{
-		switch($options['lvl1'])
-		{																																																																																													
-			case "user":
-			switch($options['lvl2'])
-			{
-				case "normal":
-					//
-					break;
-			}
-			break;
-			
-			default: break;
-		}
+            switch($options['lvl1'])
+            {																																																																																													
+                case "usuario":
+                switch($options['lvl2'])
+                {
+                        case "normal":
+                        $identificacion=mysqli_real_escape_string($this->cn,$object->get('identificacion'));
+                        $email=mysqli_real_escape_string($this->cn,$object->get('email'));
+                        $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
+                        $direccion=mysqli_real_escape_string($this->cn, $object->get('direccion'));
+                        $telefono=mysqli_real_escape_string($this->cn,$object->get('telefono'));
+                        $contraseña=mysqli_real_escape_string($this->cn,$object->get('contraseña'));
+                        $this->do_operation("INSERT INTO usuario (identificacion,nombre, contraseña,"
+                                . "email,direccion,telefono,estado,multa) "
+                                . "VALUES ('$identificacion', '$nombre', '$contraseña', '$email',"
+                                . "'$direccion', '$telefono', 'Activo','0');");
+                        break;
+                }
+                break;
+
+                default: break;
+            }
 	}
 	
 	//function for edit data from db
