@@ -13,7 +13,7 @@ class c_index extends super_controller {
 		$this->engine->display('index.tpl');
                 //$this->engine->display('lateral.tpl');
 
-                $this->engine->display('lateral2.tpl');
+                $this->engine->display('login.tpl');
 
 		$this->engine->display('footer.tpl');
 	}

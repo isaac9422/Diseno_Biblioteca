@@ -10,7 +10,7 @@
 <b>Teléfono:*</b> <input type="text" name="telefono" required/><br />
 <b>Contraseña:*</b> <input type="password" name="contraseña" required/><br />
 <b>Repetir contraseña:*</b> <input type="password" name="contraseña2" required/><br />
-<input class="btn btn-primary" type="submit" value=submit"Registrar Usuario" name="btn_registrar_usuario"/>
+<input class="btn btn-primary" type="submit" value="Registrar Usuario" name="btn_registrar_usuario"/>
 </td></tr></table>
 </form>
 </div>
