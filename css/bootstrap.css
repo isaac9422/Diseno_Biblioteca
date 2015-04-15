@@ -5386,7 +5386,7 @@ a.thumbnail:hover {
   list-style: none;
 }
 
-.label,
+.etiqueta,
 .badge {
   display: inline-block;
   padding: 2px 4px;
@@ -5400,7 +5400,7 @@ a.thumbnail:hover {
   background-color: #999999;
 }
 
-.label {
+.etiqueta {
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
           border-radius: 3px;
@@ -5414,7 +5414,7 @@ a.thumbnail:hover {
           border-radius: 9px;
 }
 
-a.label:hover,
+a.etiqueta:hover,
 a.badge:hover {
   color: #ffffff;
   text-decoration: none;
@@ -5471,13 +5471,13 @@ a.badge:hover {
   background-color: #1a1a1a;
 }
 
-.btn .label,
+.btn .etiqueta,
 .btn .badge {
   position: relative;
   top: -1px;
 }
 
-.btn-mini .label,
+.btn-mini .etiqueta,
 .btn-mini .badge {
   top: 0;
 }
