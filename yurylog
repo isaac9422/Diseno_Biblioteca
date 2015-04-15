@@ -1,0 +1,13 @@
+require('modules/m_phpass/PasswordHash.php');
+$hasher = new PasswordHash(8, FALSE);
+//para encriptar
+$contrasena= '12445';
+$encriptada=$hacher->HashPasswod($contrasena);
+//para comprobar
+$password='12445';
+if($hasher->CheckPassword($password, $encriptada))
+{
+	//coinciden
+}
+
+unset($hasher);
