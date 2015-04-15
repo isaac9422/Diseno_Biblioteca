@@ -8,8 +8,9 @@ class c_index extends super_controller {
 	{
 		$this->engine->assign('title',$this->gvar['n_index']);
 		
-		$this->engine->display('header.tpl');
+		//$this->engine->display('header.tpl');
 		$this->engine->display('index.tpl');
+                //$this->engine->display('lateral.tpl');
 		$this->engine->display('footer.tpl');
 	}
 	

@@ -37,7 +37,7 @@ nombre VARCHAR(30) NOT NULL,
 contraseña VARCHAR(30) NOT NULL,
 direccion VARCHAR(40) NOT NULL,
 telefono INTEGER(20) NOT NULL,
-email VARCHAR(40),
+email VARCHAR(40) NOT NULL,
 PRIMARY KEY (identificacion)
 );
  
