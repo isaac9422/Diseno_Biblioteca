@@ -1,12 +1,33 @@
 ﻿<?php
 require('configs/include.php');
+require('modules/m_phpass/PasswordHash.php');
 
 class c_modificarPerfil extends super_controller {
 
     public function display() {
+
         $this->engine->assign('title', "Modificar Perfil");
-        print_r2($this->session);
-        $this->engine->assign('objecto', $this->session['objecto_usuario']);
+        $option['usuario']['lvl2'] = 'by_email';
+        $data['usuario']['email'] = $this->session['email'];
+        $user;
+
+        $this->orm->connect();
+        if ($this->session['tipo_usuario'] == 'usuario') {
+            $this->orm->read_data(array($this->session['tipo_usuario']), $option, $data);
+            $user = $this->orm->get_objects("usuario");
+            $user = $user[0];
+        } else if ($this->session['tipo_usuario'] == 'empleado') {
+            $this->orm->read_data(array($this->session['tipo_usuario']), $option, $data);
+            $user = $this->orm->get_objects("usuario");
+            $user = $user[0];
+        } else if ($this->session['tipo_usuario'] == 'administrador') {
+            $this->orm->read_data(array($this->session['tipo_usuario']), $option, $data);
+            $user = $this->orm->get_objects("usuario");
+            $user = $user[0];
+        }
+        $this->orm->close();
+
+        $this->engine->assign('objeto', $user);
         $this->engine->display('header.tpl');
         $this->engine->display('modificarPerfil.tpl');
         $this->engine->display('footer.tpl');
@@ -15,7 +36,7 @@ class c_modificarPerfil extends super_controller {
     public function modificar() {
         $user;
 
-        if ($this->session['tipo_usuario'] === 'usuario') {
+        if ($this->session['tipo_usuario'] == 'usuario') {
             $user = new usuario($this->post);
         } else if ($this->session['tipo_usuario'] == 'empleado') {
             $user = new empleado($this->post);
@@ -23,24 +44,32 @@ class c_modificarPerfil extends super_controller {
             $user = new administrador($this->post);
         }
 
-        //Verificar que la contraseña ingresada corresponde al usuario logueado
+        $hasher = new PasswordHash(8, FALSE);
+        $encriptada = $hasher->HashPassword($user->get('contraseña'));
 
-        if (is_empty($user->get('email'))) {
-            throw_exception("Debe ingresar un email");
+        if ($hasher->CheckPassword($user->get('contraseña'), $encriptada)) {
+
+            $user->set('contraseña', $encriptada);
+
+            if (is_empty($user->get('email'))) {
+                throw_exception("Debe ingresar un email");
+            }
+            $user->auxiliars['emailViejo'] = $this->post->emailOld;
+            $user->auxiliars['password'] = $hasher->HashPassword($user->get('contraseña'));
+            
+            $this->orm->connect();
+            $this->orm->update_data("normal", $user);
+            $this->orm->close();
+
+            //Se especifica el tipo y el mensaje de warning(mensaje) que se va a mostrar
+            $this->type_warning = "success";
+            $this->msg_warning = "Perfil modificado correctamente";
+            $this->temp_aux = 'message.tpl';
+            $this->engine->assign('type_warning', $this->type_warning);
+            $this->engine->assign('msg_warning', $this->msg_warning);
+        } else {
+            throw_exception("Contraseñan no coincide con e-mail");
         }
-        $user->auxiliars['emailViejo'] = $this->post->emailOld;
-        $user->auxiliars['password'] = $this->post->password;
-
-        $this->orm->connect();
-        $this->orm->update_data("normal", $user);
-        $this->orm->close();
-
-        //Se especifica el tipo y el mensaje de warning(mensaje) que se va a mostrar
-        $this->type_warning = "success";
-        $this->msg_warning = "Perfil modificado correctamente";
-        $this->temp_aux = 'message.tpl';
-        $this->engine->assign('type_warning', $this->type_warning);
-        $this->engine->assign('msg_warning', $this->msg_warning);
     }
 
     public function cancelar() {
