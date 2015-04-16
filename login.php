@@ -5,6 +5,7 @@ require('modules/m_phpass/PasswordHash.php');
 
 class c_login extends super_controller {
 
+
     public function verificar() {
          if (is_empty($this->post->email)) {
             throw_exception("Contraseñan no coincide con e-mail");
@@ -20,7 +21,7 @@ class c_login extends super_controller {
         $data['usuario']['email'] = $this->post->email;
         $tipo_usuario = $this->post->rol;
         $this->orm->connect();
-        $this->orm->read_data(array("$tipo_usuario"), $option, $data);
+        $this->orm->read_data(array($tipo_usuario), $option, $data);
         $usuario = $this->orm->get_objects("usuario");
         $this->orm->close();
         
@@ -36,7 +37,6 @@ class c_login extends super_controller {
         $hasher = new PasswordHash(8, FALSE);
 
         if ($hasher->CheckPassword($contraseña, $encriptada)) {
-
             $_SESSION['objeto_usuario']=$usuario;
             $_SESSION['tipo_usuario'] = $this->post->rol;
             $this->session = $_SESSION;

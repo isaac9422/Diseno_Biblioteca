@@ -1,7 +1,6 @@
 
 <b></b><br /><br />
 
-
 <table cellspacing="0" cellpadding="0"><tr><td class="font-white" align="center">
 {if isset($smarty.session.objeto_usuario)}
     <form class="well well-small form-search" action="{$gvar.l_global}login.php" method="post">

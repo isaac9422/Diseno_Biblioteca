@@ -19,7 +19,8 @@ class user extends object_standard
 	//data about the attributes
 	public function metadata()
 	{
-		return array("id" => array(), "name" => array(), "user" => array(), "password" => array(), "type" => array(), "email" => array()); 
+		return array("id" => array(), "name" => array(), "user" => array(),
+                    "password" => array(), "type" => array(), "email" => array()); 
 	}
 
 	public function primary_key()

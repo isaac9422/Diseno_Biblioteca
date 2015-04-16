@@ -1,6 +1,6 @@
 <?php
  
-class user extends object_standard
+class empleado extends object_standard
 {
 	//attributes
 	protected $identificacion;
