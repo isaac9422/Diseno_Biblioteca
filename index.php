@@ -29,8 +29,9 @@ class c_index extends super_controller {
             if($hasher->CheckPassword($contraseña, $encriptada)){
                 //session_start();
                 //print_r2($encriptada);
-                $_SESSION['usuario']['nombre']=$usuario->get('nombre');
-                $_SESSION['usuario']['email']=$usuario->get('nombre');
+                $_SESSION['email']=$usuario->get('email');
+                $_SESSION['nombre']=$usuario->get('nombre');
+                $_SESSION['tipo_usuario']=$this->post->rol;
                 $this->session=$_SESSION;
                 //print_r2($this->session);
                 header("location: index.php");
@@ -45,24 +46,27 @@ class c_index extends super_controller {
 
         }	
     
-	public function display()
+        public function salir(){
+            unset($this->session);
+            session_destroy();
+            header("location: index.php");
+        }
+
+        public function display()
 	{
 		$this->engine->assign('title',$this->gvar['n_index']);
 		
 		$this->engine->display('header.tpl');
 
 		$this->engine->display('index.tpl');
-                //$this->engine->display('lateral.tpl');
-
-                $this->engine->display('login.tpl');
 
 		$this->engine->display('footer.tpl');
 	}
 	
 	public function run()
 	{
-            try {if (isset($this->post->btn_ingresar))
-                {$this->ingresar();}   
+            try {
+
             }catch (Exception $e) 
 		{
 			$this->error=1; 
