@@ -43,7 +43,6 @@
     <input type="text" class="search-query span2" placeholder="Search">
   </form>
 <ul class="nav pull-right">
-    <li>{$smarty.session.tipo_usuario}</li>
     <li {if $active eq {$gvar.n_contact}}class="active"{/if}><a href="{$gvar.l_contact}">{$gvar.n_contact}</a></li>
     <li class="divider-vertical"></li>
     <a href="http://twitter.com/frameworkg"><img src="{$gvar.l_global}images/twtt.png" /></a>

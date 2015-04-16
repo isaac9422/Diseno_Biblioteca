@@ -2,20 +2,15 @@
 require('configs/include.php');
 require('modules/m_phpass/PasswordHash.php');
 
-class c_inicioAdministrador extends super_controller {
+class c_inicioUsuario extends super_controller {
 
     public function display() {
         $this->engine->assign('title', $this->gvar['n_index']);
 
         $this->engine->display('header.tpl');
 
-        $this->engine->display('index.tpl');
-
-        if (!is_null($this->msg_warning)) {
-            $this->engine->display('message.tpl');
-            unset($this->msg_warning);
-        }
-
+        $this->engine->display('inicio_usuario.tpl');
+        
         $this->engine->display('footer.tpl');
     }
 
@@ -34,6 +29,6 @@ class c_inicioAdministrador extends super_controller {
 
 }
 
-$call = new c_inicioAdministrador();
+$call = new c_inicioUsuario();
 $call->run();
 ?>

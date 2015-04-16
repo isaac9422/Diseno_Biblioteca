@@ -139,7 +139,7 @@ class db {
     //function for edit data from db
     public function update($options, $object) {
         switch ($options['lvl1']) {
-             case "usuario":
+            case "usuario":
                 switch ($options['lvl2']) {
                     case "normal":
                         $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
@@ -148,14 +148,11 @@ class db {
                         $direccion = mysqli_real_escape_string($this->cn, $object->get('direccion'));
                         $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
                         $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
-                        
-                        $emailOld = mysqli_real_escape_string($this->cn, $object->auxiliars.emailOld);
-                        $password = mysqli_real_escape_string($this->cn, $object->auxiliars.password);
-                        
-                        $this->do_operation("UPDATE  usuario SET identificacion = '$identificacion',nombre = '$nombre'"
-                                . "contraseña = '$contraseña', email = '$email', direccion = '$direccion'"
-                                . ",telefono = '$telefono' WHERE email = '$emailOld' AND "
-                                . "contraseña = '$password');");
+
+
+                        $this->do_operation("UPDATE  usuario SET nombre = '$nombre', contraseña = '$contraseña'"
+                                . ", email = '$email', direccion = '$direccion'"
+                                . ", telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
                 }
                 break;
@@ -169,14 +166,10 @@ class db {
                         $direccion = mysqli_real_escape_string($this->cn, $object->get('direccion'));
                         $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
                         $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
-                        
-                        $emailOld = mysqli_real_escape_string($this->cn, $object->auxiliars.emailOld);
-                        $password = mysqli_real_escape_string($this->cn, $object->auxiliars.password);
-                        
+
                         $this->do_operation("UPDATE  empleado SET identificacion = '$identificacion',nombre = '$nombre'"
                                 . "contraseña = '$contraseña', email = '$email', direccion = '$direccion'"
-                                . ",telefono = '$telefono' WHERE email = '$emailOld' AND "
-                                . "contraseña = '$password');");
+                                . ",telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
                 }
                 break;
@@ -190,14 +183,10 @@ class db {
                         $direccion = mysqli_real_escape_string($this->cn, $object->get('direccion'));
                         $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
                         $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
-                        
-                        $emailOld = mysqli_real_escape_string($this->cn, $object->auxiliars.emailOld);
-                        $password = mysqli_real_escape_string($this->cn, $object->auxiliars.password);
-                        
+
                         $this->do_operation("UPDATE  administrador SET identificacion = '$identificacion',nombre = '$nombre'"
                                 . "contraseña = '$contraseña', email = '$email', direccion = '$direccion'"
-                                . ",telefono = '$telefono' WHERE email = '$emailOld' AND "
-                                . "contraseña = '$password');");
+                                . ",telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
                 }
                 break;
@@ -227,39 +216,6 @@ class db {
         switch ($option['lvl1']) {
             case "usuario":
 
-            switch ($option['lvl2']) {
-                case "all" :
-                    $info = $this->get_data("SELECT * FROM usuario;");
-                    break;
-                case "by_email":
-                    $email = mysqli_real_escape_string($this->cn, $data['email']);
-                    $info = $this->get_data("SELECT * FROM usuario WHERE email='$email';");
-                    break;
-            }
-            break;
-            case "empleado":
-            switch ($option['lvl2']) {
-                case "all" :
-                    $info = $this->get_data("SELECT * FROM empleado;");
-                    break;
-                case "by_email":
-                    $email = mysqli_real_escape_string($this->cn, $data['email']);
-                    $info = $this->get_data("SELECT * FROM empleado WHERE email='$email';");
-                    break;
-            }
-            break;
-            case "administrador":
-            switch ($option['lvl2']) {
-                case "all" :
-                    $info = $this->get_data("SELECT * FROM administrador;");
-                    break;
-                case "by_email":
-                    $email = mysqli_real_escape_string($this->cn, $data['email']);
-                    $info = $this->get_data("SELECT * FROM administrador WHERE email='$email';");
-                    break;
-            }
-            break;
-
                 switch ($option['lvl2']) {
                     case "all" :
                         $info = $this->get_data("SELECT * FROM usuario;");
@@ -270,6 +226,27 @@ class db {
                         break;
                 }
                 break;
+            case "empleado":
+                switch ($option['lvl2']) {
+                    case "all" :
+                        $info = $this->get_data("SELECT * FROM empleado;");
+                        break;
+                    case "by_email":
+                        $email = mysqli_real_escape_string($this->cn, $data['email']);
+                        $info = $this->get_data("SELECT * FROM empleado WHERE email='$email';");
+                        break;
+                }
+                break;
+            case "administrador":
+                switch ($option['lvl2']) {
+                    case "all" :
+                        $info = $this->get_data("SELECT * FROM administrador;");
+                        break;
+                    case "by_email":
+                        $email = mysqli_real_escape_string($this->cn, $data['email']);
+                        $info = $this->get_data("SELECT * FROM administrador WHERE email='$email';");
+                        break;
+                }
 
             default: break;
         }

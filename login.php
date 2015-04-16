@@ -51,8 +51,9 @@ class c_login extends super_controller {
             $_SESSION['tipo_usuario'] = $this->post->rol;
             $_SESSION['email'] = $this->post->email;
             $this->session = $_SESSION;
-
-            header("location: index.php");
+            
+            $location = "inicio_".$this->post->rol;
+            header("location: $location.php");
         } else {
             {throw_exception("Contraseñan no coincide con e-mail");}
         }
@@ -69,7 +70,6 @@ class c_login extends super_controller {
     public function display() {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
-        $this->engine->display('index.tpl');
         $this->engine->display('footer.tpl');
     }
 
