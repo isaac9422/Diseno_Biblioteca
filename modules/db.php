@@ -100,7 +100,38 @@ class db {
                         break;
                 }
                 break;
-
+            case "empleado":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
+                        $email = mysqli_real_escape_string($this->cn, $object->get('email'));
+                        $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
+                        $direccion = mysqli_real_escape_string($this->cn, $object->get('direccion'));
+                        $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
+                        $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
+                        $this->do_operation("INSERT INTO empleado (identificacion,nombre, contraseña,"
+                                . "email,direccion,telefono) "
+                                . "VALUES ('$identificacion', '$nombre', '$contraseña', '$email',"
+                                . "'$direccion', '$telefono');");
+                        break;
+                }
+                break;
+            case "administrador":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
+                        $email = mysqli_real_escape_string($this->cn, $object->get('email'));
+                        $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
+                        $direccion = mysqli_real_escape_string($this->cn, $object->get('direccion'));
+                        $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
+                        $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
+                        $this->do_operation("INSERT INTO administrador (identificacion,nombre, contraseña,"
+                                . "email,direccion,telefono) "
+                                . "VALUES ('$identificacion', '$nombre', '$contraseña', '$email',"
+                                . "'$direccion', '$telefono');");
+                        break;
+                }
+                break;
             default: break;
         }
     }

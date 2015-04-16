@@ -3,10 +3,10 @@
 require('configs/include.php');
 require('modules/m_phpass/PasswordHash.php');
 
-class c_registrar_usuario extends super_controller {
+class c_registrar_administrador_empleado extends super_controller {
 
-    public function verificar() {
-        $usuario = new usuario($this->post);
+    public function verificar($usuario) {
+        
         if (is_empty($usuario->get('email'))) {
             throw_exception("Ingrese e-mail correctamente");
         } elseif (is_empty($usuario->get('identificacion'))) {
@@ -24,24 +24,48 @@ class c_registrar_usuario extends super_controller {
         } elseif ($this->post->contraseña2 != $usuario->get('contraseña')) {
             throw_exception("No coincide contraseña");
         }
-
+        
+        return $usuario;
         //que no este insertado en la base
 
+    }
+
+    public function registrarEmpleado($usuario) {
+        
         $hasher = new PasswordHash(8, FALSE);
         $encriptada = $hasher->HashPassword($usuario->get('contraseña'));
         unset($hasher);
 
         $usuario->set('contraseña', $encriptada);
-        $this->registrar($usuario);
-    }
-
-    public function registrar($usuario) {
+   
+        
         $this->orm->connect();
         $this->orm->insert_data("normal", $usuario);
         $this->orm->close();
 
         $this->type_warning = "success";
-        $this->msg_warning = "Usario registrado correctamente";
+        $this->msg_warning = "Empleado registrado correctamente";
+
+        $this->temp_aux = 'message.tpl';
+        $this->engine->assign('type_warning', $this->type_warning);
+        $this->engine->assign('msg_warning', $this->msg_warning);
+    }
+    
+        public function registrarAdministrador($usuario) {
+        
+        $hasher = new PasswordHash(8, FALSE);
+        $encriptada = $hasher->HashPassword($usuario->get('contraseña'));
+        unset($hasher);
+
+        $usuario->set('contraseña', $encriptada);
+
+        
+        $this->orm->connect();
+        $this->orm->insert_data("normal", $usuario);
+        $this->orm->close();
+
+        $this->type_warning = "success";
+        $this->msg_warning = "Administrador registrado correctamente";
 
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
@@ -51,17 +75,24 @@ class c_registrar_usuario extends super_controller {
     public function display() {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
-        $this->engine->display('registrar_usuario.tpl');
+        $this->engine->display('registrar_administrador_empleado.tpl');
         $this->engine->display('footer.tpl');
     }
 
     public function run() {
         try {
             if(!isset($this->session)){
-                header("location: index.php");
+             //   header("location: index.php");
             }
-            if (isset($this->post->btn_registrar_usuario)) {
-                $this->verificar();
+            if (isset($this->post->btn_registrar_empleado)) {
+                $empleado = new empleado($this->post);
+                $aux = $this->verificar($empleado);
+                $this->registrarEmpleado($aux);
+            }
+            if (isset($this->post->btn_registrar_administrador)) {
+                $administrador = new administrador($this->post);
+                $aux = $this->verificar($administrador);
+                $this->registrarAdministrador($aux);
             }
         } catch (Exception $e) {
             $this->error = 1;
@@ -75,6 +106,6 @@ class c_registrar_usuario extends super_controller {
 
 }
 
-$call = new c_registrar_usuario();
+$call = new c_registrar_administrador_empleado();
 $call->run();
 ?>

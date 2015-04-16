@@ -17,12 +17,22 @@ class c_login extends super_controller {
     }
     
     public function ingresar() {
-        $option['usuario']['lvl2'] = 'by_email';
-        $data['usuario']['email'] = $this->post->email;
         $tipo_usuario = $this->post->rol;
+        if($tipo_usuario == "administrador"){
+            $option['administrador']['lvl2'] = 'by_email';
+            $data['administrador']['email'] = $this->post->email;
+        }elseif($tipo_usuario == "empleado"){
+            $option['empleado']['lvl2'] = 'by_email';
+            $data['empleado']['email'] = $this->post->email;
+        }elseif($tipo_usuario == "usuario"){
+            $option['usuario']['lvl2'] = 'by_email';
+            $data['usuario']['email'] = $this->post->email;
+        }
+
+        
         $this->orm->connect();
         $this->orm->read_data(array($tipo_usuario), $option, $data);
-        $usuario = $this->orm->get_objects("usuario");
+        $usuario = $this->orm->get_objects($tipo_usuario);
         $this->orm->close();
         
         if(is_empty($usuario)){
