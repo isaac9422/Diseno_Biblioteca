@@ -15,8 +15,9 @@ class c_index extends super_controller {
             $usuario = $this->orm->get_objects("usuario");
             $this->orm->close();
             
+            $usuario = $usuario[0];
             //print_r2($usuario);
-            $encriptada = $usuario[0]->get('contraseña');
+            $encriptada = $usuario->get('contraseña');
 
             $contraseña = $this-> post->contraseña;
             $hasher = new PasswordHash(8, FALSE);
@@ -29,6 +30,7 @@ class c_index extends super_controller {
                 //session_start();
                 //print_r2($encriptada);
                 $_SESSION['usuario']['nombre']=$usuario->get('nombre');
+                $_SESSION['usuario']['email']=$usuario->get('nombre');
                 $this->session=$_SESSION;
                 //print_r2($this->session);
                 header("location: index.php");

@@ -94,7 +94,7 @@ class db
                         $this->do_operation("INSERT INTO usuario (identificacion,nombre, contraseña,"
                                 . "email,direccion,telefono,estado,multa) "
                                 . "VALUES ('$identificacion', '$nombre', '$contraseña', '$email',"
-                                . "'$direccion', '$telefono', 'Activo','0');");
+                                . "'$direccion', '$telefono', 'ACTIVO','0');");
                         break;
                 }
                 break;

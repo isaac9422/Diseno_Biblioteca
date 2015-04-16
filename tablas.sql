@@ -20,6 +20,10 @@ estado VARCHAR(20) NOT NULL,
 multa INTEGER(20) NOT NULL,
 email VARCHAR(40) NOT NULL,
 PRIMARY KEY(identificacion));
+
+INSERT INTO usuario VALUE('100','pablo','1234','calle 4',5555555,'ACTIVO',0,'pablo@correo.com');
+INSERT INTO usuario VALUE('200','diana','gato','calle 4',5555555,'ACTIVO',0,'diana@correo.com');
+INSERT INTO usuario VALUE('300','omar','casa2000perro','calle 4',5555555,'ACTIVO',0,'omar@correo.com');
  
 CREATE TABLE empleado(
 identificacion INTEGER(20) NOT NULL,
@@ -67,3 +71,4 @@ CREATE TABLE colaboracion (
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
     FOREIGN KEY (codigo_biblioteca,codigo_publicacion) REFERENCES publicacion(codigo_biblioteca,codigo_publicacion)
 );
+

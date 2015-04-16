@@ -1,0 +1,1 @@
+<a href="{$gvar.l_global}registrar_usuario.php">Registrar Usuario</a></br>

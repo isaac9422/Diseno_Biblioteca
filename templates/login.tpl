@@ -1,5 +1,5 @@
 
-<b>Pagina de Ingreso</b><br /><br /><img src="" /><br /><br />
+<b></b><br /><br />
 
 
 <table cellspacing="0" cellpadding="0"><tr><td class="font-white" align="center">
@@ -13,6 +13,8 @@
     <input type="radio" name="rol" value="Empleado"><font color="Black">     Empleado   </font ><br>
     <input type="submit" class="btn btn-primary" name ="btn_ingresar" value="Ingresar"></input>
     </form>
+{else}
+    
 {/if}
 </td></tr></table>
 
