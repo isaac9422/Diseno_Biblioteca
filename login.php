@@ -18,8 +18,9 @@ class c_login extends super_controller {
     public function ingresar() {
         $option['usuario']['lvl2'] = 'by_email';
         $data['usuario']['email'] = $this->post->email;
+        $tipo_usuario = $this->post->rol;
         $this->orm->connect();
-        $this->orm->read_data(array("usuario"), $option, $data);
+        $this->orm->read_data(array("$tipo_usuario"), $option, $data);
         $usuario = $this->orm->get_objects("usuario");
         $this->orm->close();
         

@@ -140,17 +140,38 @@ class db {
         $info = array();
         switch ($option['lvl1']) {
             case "usuario":
-                switch ($option['lvl2']) {
-                    case "all" :
-                        $info = $this->get_data("SELECT * FROM usuario;");
-                        break;
-                    case "by_email":
-                        $email = mysqli_real_escape_string($this->cn, $data['email']);
-                        $info = $this->get_data("SELECT * FROM usuario WHERE email='$email';");
-                        break;
-                }
-                break;
-
+            switch ($option['lvl2']) {
+                case "all" :
+                    $info = $this->get_data("SELECT * FROM usuario;");
+                    break;
+                case "by_email":
+                    $email = mysqli_real_escape_string($this->cn, $data['email']);
+                    $info = $this->get_data("SELECT * FROM usuario WHERE email='$email';");
+                    break;
+            }
+            break;
+            case "empleado":
+            switch ($option['lvl2']) {
+                case "all" :
+                    $info = $this->get_data("SELECT * FROM empleado;");
+                    break;
+                case "by_email":
+                    $email = mysqli_real_escape_string($this->cn, $data['email']);
+                    $info = $this->get_data("SELECT * FROM empleado WHERE email='$email';");
+                    break;
+            }
+            break;
+            case "administrador":
+            switch ($option['lvl2']) {
+                case "all" :
+                    $info = $this->get_data("SELECT * FROM administrador;");
+                    break;
+                case "by_email":
+                    $email = mysqli_real_escape_string($this->cn, $data['email']);
+                    $info = $this->get_data("SELECT * FROM administrador WHERE email='$email';");
+                    break;
+            }
+            break;
             default: break;
         }
         return $info;
