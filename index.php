@@ -14,8 +14,13 @@ class c_index extends super_controller {
             $this->orm->connect();
             $this->orm->read_data(array("usuario"),$option,$data);
             $usuario = $this->orm->get_objects("usuario");
+            print_r2($usuario);
             $this->orm->close();
             
+
+            print_r2($usuario);
+            $encriptada = $usuario[0]->get('contraseña');
+
             $usuario = $usuario[0];
             //print_r2($usuario);
             $encriptada = $usuario->get('contraseña');

@@ -69,6 +69,7 @@ CREATE TABLE colaboracion (
 );
 
 
+
 INSERT INTO usuario VALUE('100','pablo','1234','calle 4',5555555,'ACTIVO',0,'pablo@correo.com');
 INSERT INTO usuario VALUE('200','diana','gato','calle 4',5555555,'ACTIVO',0,'diana@correo.com');
 INSERT INTO usuario VALUE('300','omar','casa2000perro','calle 4',5555555,'ACTIVO',0,'omar@correo.com');
