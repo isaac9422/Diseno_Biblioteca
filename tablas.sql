@@ -67,3 +67,5 @@ CREATE TABLE colaboracion (
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
     FOREIGN KEY (codigo_biblioteca,codigo_publicacion) REFERENCES publicacion(codigo_biblioteca,codigo_publicacion)
 );
+
+
