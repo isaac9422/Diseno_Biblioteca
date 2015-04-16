@@ -4,22 +4,30 @@
         <title>Página Modificar Perfil</title>
         <meta charset="utf-8">
         <style>
-            .etiqueta{
-		float: left
+            .etiq{
+                display: inline-block;
+                width: 95px;
+                vertical-align: middle;
+            }
+            .campos{
+                display: block;
+                vertical-align: middle;
+                margin: 10px;
             }
         </style>
     </head>
     <body>
-        <form action="{$gvar.l_global}modificarPerfil.php?option=modificar" method="post">
-        <b class="etiqueta">Contraseña actual :</b><input type="password" name="contraseña" value="" /><br> 
-        <b class="etiqueta">Nueva contraseña  :</b><input type="password" name="password" value="" /> <br> 
-        <b class="etiqueta">Nombre            :</b><input type="text" name="nombre" value="" /> <br> 
-        <b class="etiqueta">Email             :</b><input type="email" name="email" value="" /> <br> 
-        <b class="etiqueta">Telefono          :</b><input type="tel" name="telefono" value="" /> <br> 
-        <b class="etiqueta">Direccion         :</b><input type="text" name="direccion" value="" /> <br> 
-        <br> 
-        <input type="submit" value="Modificar" name="modificar" />
-        <input type="button" value="Cancelar" name="cancelar" />
+        <form action="{$gvar.l_global}modificarPerfil.php" method="post">
+            <b class="etiq">Contraseña actual :</b><input class="campos" type="password" name="password" value="{$objeto->get('contraseña')}" /><br> 
+            <b class="etiq">Nueva contraseña  :</b><input class="campos" type="password" name="contraseña" value="" /> <br> 
+            <b class="etiq">Nombre            :</b><input class="campos" type="text" name="nombre" value="{$objeto->get('nombre')}" /> <br> 
+            <b class="etiq">Email             :</b><input class="campos" type="email" name="email" value="{$objeto->get('email')}" /> <br>
+            <b class="etiq">Email             :</b><input class="campos" type="hidden" name="emailOld" value="{$objeto->get('email')}" /> <br>
+            <b class="etiq">Telefono          :</b><input class="campos" type="tel" name="telefono" value="{$objeto->get('telefono')}" /> <br> 
+            <b class="etiq">Direccion         :</b><input class="campos" type="text" name="direccion" value="{$objeto->get('direccion')}" /> <br> 
+            <br> 
+            <input class="btn btn-primary" type="submit" value="Modificar" name="modificar" />
+            <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelar" />
         </form>
     </body>
 </html>
