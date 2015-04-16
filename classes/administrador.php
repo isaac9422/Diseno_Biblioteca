@@ -19,7 +19,9 @@ class administrador extends object_standard
 	//data about the attributes
 	public function metadata()
 	{
-		return array("identificacion" => array(), "nombre" => array(), "contraseña" => array(), "direccion" => array(), "telefono" => array(), "email" => array()); 
+		return array("identificacion" => array(), "nombre" => array(),
+                    "contraseña" => array(), "direccion" => array(), 
+                    "telefono" => array(), "email" => array()); 
 	}
 
 	public function primary_key()
