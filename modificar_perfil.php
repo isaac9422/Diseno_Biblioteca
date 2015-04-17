@@ -119,12 +119,15 @@ class c_modificarPerfil extends super_controller {
 
     public function run() {
         try {
-            if (isset($this->post->modificar)) {
-                $this->modificar();
-            }
-            if (isset($this->post->cancelar)) {
-                $this->cancelar();
-            }
+ 
+                if (isset($this->post->modificar)) {
+                    $this->modificar();
+                }
+                if (isset($this->post->cancelar)) {
+                    $this->cancelar();
+                }
+                
+            
         } catch (Exception $e) {
             $this->error = 1;
             //Se coge el mensaje arrojado por la excepcion

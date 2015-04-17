@@ -17,6 +17,7 @@
         </style>
     </head>
     <body>
+        {if isset($smarty.session.objeto_usuario)}
         <form action="{$gvar.l_global}modificar_perfil.php" method="post">
             <b class="etiq">Contraseña actual :</b><input class="campos" type="password" name="contraseñaA" /><br> 
             <b class="etiq">Nueva contraseña  :</b><input class="campos" type="password" name="contraseña" /> <br>
@@ -30,5 +31,6 @@
             <input class="btn btn-primary" type="submit" value="Modificar" name="modificar" />
             <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelar" />
         </form>
+            {/if}
     </body>
 </html>
