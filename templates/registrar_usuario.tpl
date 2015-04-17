@@ -1,5 +1,5 @@
 <div class="square">
-    {if isset($smarty.session.objeto_usuario)}
+    {if !isset($smarty.session.objeto_usuario)}
         <table width="100%" border="0" cellpadding="0" cellspacing="5">
             <tr><td>
                     <form action="{$gvar.l_global}registrar_usuario.php" method="post">
