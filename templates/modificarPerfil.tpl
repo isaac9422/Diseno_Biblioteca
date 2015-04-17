@@ -25,7 +25,7 @@
             <b class="etiq">Nombre            :</b><input class="campos" type="text" name="nombre" value="{$objeto->get('nombre')}" /> <br> 
             <b class="etiq">Email             :</b><input class="campos" type="email" name="email" value="{$objeto->get('email')}" /> <br>
             <b class="etiq">Telefono          :</b><input class="campos" type="tel" name="telefono" value="{$objeto->get('telefono')}" /> <br> 
-            <b class="etiq">Direccion         :</b><input class="campos" type="text" name="direccion" value="{$objeto->get('direccion')}" /> <br> 
+            <b class="etiq">Direccion         :</b><input class="campos" type="text" name="direccion" value="{$objeto->get('direccion')}"/> <br> 
             <br> 
             <input class="btn btn-primary" type="submit" value="Modificar" name="modificar" />
             <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelar" />
