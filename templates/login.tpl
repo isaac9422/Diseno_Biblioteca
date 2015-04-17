@@ -3,10 +3,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-
-        <b></b><br /><br />
-
-        <table cellspacing="0" cellpadding="0"><tr><td class="font-white" align="center">
+        <table cellspacing="0" cellpadding="0"><tr><td class="font-white" align="left">
                     {if isset($smarty.session.objeto_usuario)}
                         <form class="well well-small form-search" action="{$gvar.l_global}login.php" method="post">
                             <input type="submit" class="btn btn-primary" name ="btn_salir" value="Salir"></input>
