@@ -11,7 +11,7 @@
     </head>
     <body>
 <table cellspacing="0" cellpadding="0"><tr><td class="font-white" align="right">
-            {if isset($smarty.session.objeto_usuario)}
+            {if isset($smarty.session.objeto_usuario) }
                 <button class="btn"><a href="{$gvar.l_global}modificar_perfil.php">Modificar Perfil</a></br></button>
                 <button class="btn"><a href="{$gvar.l_global}registrar_usuario.php">Registrar Usuario</a></br></button>
             {/if}

@@ -16,7 +16,14 @@ class c_inicioAdministrador extends super_controller {
 
     public function run() {
         try {
-            $this->display();
+            if ($this->session['tipo_usuario'] != 'administrador') {
+                $tipo = $this->session['tipo_usuario'];
+                if ($tipo != "usuario" && $tipo != "empleado") {
+                    header("location: index.php");
+                } else {
+                    header("location: inicio_$tipo.php");
+                }
+            }
         } catch (Exception $e) {
             $this->error = 1;
             $this->engine->assign('object', $this->post);
@@ -25,6 +32,7 @@ class c_inicioAdministrador extends super_controller {
             $this->engine->assign('msg_warning', $this->msg_warning);
             $this->temp_aux = 'message.tpl';
         }
+        $this->display();
     }
 
 }
