@@ -23,7 +23,7 @@
 <div class="navbar navbar-inverse">
 <div class="navbar-inner">
 <div class="container" style="width: auto;">
-<a class="brand" href="{$gvar.l_index}"><img src="{$gvar.l_global}images/logo.png" /></a>
+    <a class="brand" href="{$gvar.l_index}"><img src="{$gvar.l_global}images/logo1.png" width="180px" height="36px"/></a>
 <ul class="nav">
     <li {if $active eq {$gvar.n_index}}class="active"{/if}><a href="{$gvar.l_index}">{$gvar.n_index}</a></li>
     {if isset($smarty.session.user) && $smarty.get.option neq 'logout'}
