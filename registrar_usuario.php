@@ -30,7 +30,7 @@ class c_registrar_usuario extends super_controller {
         $hasher = new PasswordHash(8, FALSE);
         $encriptada = $hasher->HashPassword($usuario->get('contraseña'));
         unset($hasher);
-
+        //echo "registrar" + $encriptada;
         $usuario->set('contraseña', $encriptada);
         $this->registrar($usuario);
     }

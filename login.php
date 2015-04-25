@@ -36,16 +36,18 @@ class c_login extends super_controller {
         $this->orm->close();
         
         if(is_empty($usuario)){
-            {throw_exception("Contraseñan no coincide con e-mail");}
+            {throw_exception("Contraseña no coincide con e-mail");}
         }
 
         $usuario = $usuario[0];
 
         $encriptada = $usuario->get('contraseña');
-
-        $contraseña = $this->post->contraseña;
-        $hasher = new PasswordHash(8, FALSE);
-
+        echo $encriptada;
+        
+        $contraseña = $this->post->contraseña; //contraseña del tpl
+        $hasher = new PasswordHash(8, FALSE); //contraseña aleatoria de 8 carateres
+        
+        
         if ($hasher->CheckPassword($contraseña, $encriptada)) {
             $_SESSION['objeto_usuario']=$usuario;
             $_SESSION['tipo_usuario'] = $this->post->rol;
@@ -55,7 +57,7 @@ class c_login extends super_controller {
             $location = "inicio_".$this->post->rol;
             header("location: $location.php");
         } else {
-            {throw_exception("Contraseñan no coincide con e-mail");}
+            {throw_exception("Contraseña no coincide con e-mail.");}
         }
 
         unset($hasher);
@@ -70,7 +72,9 @@ class c_login extends super_controller {
     public function display() {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
+        
         $this->engine->display('footer.tpl');
+        
     }
 
     public function run() {
