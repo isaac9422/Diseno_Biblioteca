@@ -10,11 +10,11 @@ class c_buscarPublicacion extends super_controller
     public function lookup()
     {
       
-        
+       
         
         if(!isset($this->post->textoBusqueda)){ // cuando el campo esta vacio
-            throw_exception("Debe ingresar un criterio de búsqueda");
-        }
+            throw_exception("Debe ingresar un criterio de búsqueda.");
+      }
         
         $criterio=$this->post->criterioBusqueda;
         $text=$this->post->textoBusqueda;
@@ -47,13 +47,13 @@ class c_buscarPublicacion extends super_controller
         
         $criterio=array(array('by_codigo_publicacion','codigo publicacion'),
                           array('by_autor','autor'),
-                            array('by_nombre','nombre autor'));
+                            array('by_nombre','nombre publicacion'));
         
            //left join  en los dos  para las dos primeras si quiero buscar publicaciones sin autor       
         
         $this->engine->assign('publicacion', $this->publicacion);
         $this->engine->assign('criterio', $criterio);
-        $this->engine->assign('title', 'Buscar Publicación');
+        $this->engine->assign('title', 'Resultados de la búsqueda');
                
         $this->engine->display('header.tpl');
         $this->engine->display('message.tpl'); 

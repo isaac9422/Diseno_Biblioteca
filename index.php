@@ -7,11 +7,12 @@ class c_index extends super_controller {
         
         $criterio=array(array('by_codigo_publicacion','codigo publicacion'),
                           array('by_autor','autor'),
-                            array('by_nombre','nombre autor'));
+                            array('by_nombre','nombre publicacion'));
         
         $this->engine->assign('criterio', $criterio);
         
-        $this->engine->assign('title', $this->gvar['n_index']);
+        $this->engine->assign('title', 'Página Inicial' );
+        //$this->gvar['n_index']
 
         $this->engine->display('header.tpl');
 
