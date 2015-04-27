@@ -10,7 +10,6 @@ class c_modificarPerfil extends super_controller {
         $this->asignarDatos();
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
-        time_nanosleep(0, 900000000);
         $this->engine->display('modificarPerfil.tpl');
         $this->engine->display('footer.tpl');
     }
@@ -119,6 +118,10 @@ class c_modificarPerfil extends super_controller {
 
     public function run() {
         try {
+            $tipo = $this->session['tipo_usuario'];
+            if ($tipo != 'empleado' && $tipo != "usuario" && $tipo != "administrador") {
+                header("location: index.php");
+            }
             if (isset($this->post->modificar)) {
                 $this->modificar();
             }

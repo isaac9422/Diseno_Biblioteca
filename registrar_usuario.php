@@ -73,9 +73,11 @@ class c_registrar_usuario extends super_controller {
 
     public function run() {
         try {
-            if (!isset($this->session)) {
-                header("location: index.php");
+            $tipo = $this->session['tipo_usuario'];
+            if ($tipo == 'empleado' || $tipo == "usuario" || $tipo == "administrador") {
+                header("location: inicio_$tipo.php");
             }
+
             if (isset($this->post->btn_registrar_usuario)) {
                 $this->verificar();
             }
