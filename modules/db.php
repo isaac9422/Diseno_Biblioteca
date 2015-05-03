@@ -256,12 +256,12 @@ class db {
                     
                     case "by_codigo_publicacion":
                         $codigo_publicacion= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p left join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca and c.codigo_publicacion=p.codigo_publicacion left join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca and c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
                         break;
                     
                     case "by_nombre":
                         $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p left join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca and c.codigo_publicacion=p.codigo_publicacion left join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca and c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
                         break;
                     
                     case "by_autor":

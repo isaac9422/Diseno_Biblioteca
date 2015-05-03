@@ -25,7 +25,7 @@ class publicacion extends object_standard
 
 	public function primary_key()
 	{
-		return array("codigo_publicacion,codigo_biblioteca");
+		return array("codigo_biblioteca");
 	}
 	
 	public function relational_keys($class, $rel_name)

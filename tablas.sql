@@ -1,4 +1,4 @@
- 
+﻿ 
 CREATE TABLE publicacion (
 codigo_biblioteca VARCHAR(30) NOT NULL,  
 codigo_publicacion VARCHAR(30) NOT NULL,
@@ -63,6 +63,6 @@ CREATE TABLE colaboracion (
     autor INTEGER(20),
     codigo_biblioteca VARCHAR(30),
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
-    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca)
-	PRIMARY KEY (autor, codigo_biblioteca),
+    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca),
+	PRIMARY KEY (autor, codigo_biblioteca)
 );
