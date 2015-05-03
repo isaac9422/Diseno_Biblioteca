@@ -154,6 +154,19 @@ class db {
                                 . ", email = '$email', direccion = '$direccion'"
                                 . ", telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
+                    
+                    case "multa":
+                        $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
+
+                        $this->do_operation("UPDATE  usuario SET multa=0, estado='activo' WHERE identificacion = '$identificacion';");
+                        break;
+                    
+                    case "bloquear":
+                        $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
+                         $estado = mysqli_real_escape_string($this->cn, $object->get('estado'));
+                        $this->do_operation("UPDATE  usuario SET multa=0, estado='$estado' WHERE identificacion = '$identificacion';");
+                        break;
+                    
                 }
                 break;
 
@@ -190,6 +203,8 @@ class db {
                         break;
                 }
                 break;
+            
+
 
             default: break;
         }
