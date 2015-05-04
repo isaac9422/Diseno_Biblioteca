@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Smarty Debug Console</title>
-<style type="text/css">
+<style type="text/css"> 
 {literal}
 body, h1, h2, td, th, p {
     font-family: sans-serif;
