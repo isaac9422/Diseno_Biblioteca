@@ -7,10 +7,14 @@
         {/section}
     </ul>
 
-    <button class="btn btn-info btn-block" onclick="function1()" name="prestar">Prestar</button>
+    <button class="btn btn-info" onclick="function1()" name="prestar">Prestar</button>
+    <button class="btn btn-warning" onclick="function2()" name="cancelar">Cancelar</button>
 </td>
 <script >
     function function1() {
         location.href='prestar_publicacion.php?option=prestar';
+    }
+    function function2() {
+        location.href='index.php';
     }
 </script>

@@ -9,7 +9,7 @@ class c_inicioEmpleado extends super_controller {
 
         $this->engine->display('header.tpl');
 
-        $this->engine->display('inicio_empleado.tpl');
+        $this->engine->display('menu.tpl');
 
         $this->engine->display('footer.tpl');
     }

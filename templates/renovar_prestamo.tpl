@@ -29,3 +29,11 @@
         </table>
     </div>
 </div>
+<br>            
+<button class="btn btn-warning" onclick="function2()" name="cancelar">Cancelar</button>
+
+<script >
+    function function2() {
+        location.href='index.php';
+    }
+</script>

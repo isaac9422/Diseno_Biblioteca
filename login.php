@@ -72,7 +72,7 @@ class c_login extends super_controller {
     public function display() {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
-        
+        $this->engine->display('menu.tpl');
         $this->engine->display('footer.tpl');
         
     }

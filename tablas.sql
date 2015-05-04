@@ -1,11 +1,10 @@
-﻿ 
 CREATE TABLE publicacion (
 codigo_biblioteca VARCHAR(30) NOT NULL,  
 codigo_publicacion VARCHAR(30) NOT NULL,
 categoria VARCHAR(30) NOT NULL,
 tipo VARCHAR(30) NOT NULL,  
 nombre VARCHAR(30) NOT NULL,
-clasificacion VARCHAR(20) NOT NULL,  
+clasificacion VARCHAR(30) NOT NULL,  
 fecha_publicacion DATE NOT NULL,
 PRIMARY KEY (codigo_biblioteca)
 );  
