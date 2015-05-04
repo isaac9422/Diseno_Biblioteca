@@ -24,12 +24,12 @@ class c_buscarPublicacion extends super_controller {
 
         $this->orm->close();
         
-        print_r2($auxiliars);
+        //print_r2($auxiliars);
 
         if (count($this->publicacion) <= 0) {   //criterio no produce resultado
             throw_exception("No se produjo algún resultado");
         }
-        print_r2($this->publicacion);
+        //print_r2($this->publicacion);
     }
 
     public function display() {
