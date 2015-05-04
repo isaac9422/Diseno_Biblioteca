@@ -23,11 +23,15 @@
 }
 
 #content{
+<<<<<<< HEAD
 //HEAD
    // background-image: url("http://images.alphacoders.com/434/thumb-350-434098.jpg");
 
     /*background-image: url("http://images.alphacoders.com/434/thumb-350-434098.jpg");*/
 //>>>>>>> a50450c43742f6f6f3c6b75120afb7db21c86429
+=======
+    /*background-image: url("http://images.alphacoders.com/434/thumb-350-434098.jpg");*/
+>>>>>>> a50450c43742f6f6f3c6b75120afb7db21c86429
     padding-left: 25px;
     padding-right: 25px;
     position: inherit;
