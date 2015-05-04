@@ -1,4 +1,7 @@
 Este archivo es creado para indicar que cambios debemos hacer a alguna anotación que tuviesemos hecho en el trabajo.
 En general, para compartirnos como una secuencia de notas de uno a otro.
 
-Le adicione ciertas cosas de diseño
+
+El tipo de la publicación indica si es revista, libro, audio, etc
+La categoria dice a que pertenece: Academia, musica, ocio
+La clasificacion permitira saber si es reservada o si tiene "alguna restriccion PG"

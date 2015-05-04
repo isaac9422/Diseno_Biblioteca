@@ -4,20 +4,13 @@ require('configs/include.php');
 class c_index extends super_controller {
 
     public function display() {
-        
-        $criterio=array(array('by_codigo_publicacion','codigo publicacion'),
-                          array('by_autor','autor'),
-                            array('by_nombre','nombre publicacion'));
-        
-        $this->engine->assign('criterio', $criterio);
-        
-        $this->engine->assign('title', 'Página Inicial' );
-        //$this->gvar['n_index']
+
+        $this->engine->assign('title', 'Página Inicial');
 
         $this->engine->display('header.tpl');
 
         $this->engine->display('index.tpl');
-        
+
         $this->engine->display('buscarpublicacion.tpl');
 
         $this->engine->display('footer.tpl');
@@ -25,7 +18,12 @@ class c_index extends super_controller {
 
     public function run() {
         try {
-            
+            if (isset($this->session['tipo_usuario'])) {
+                $tipo = $this->session['tipo_usuario'];
+                if ($tipo === 'empleado' || $tipo === "usuario" || $tipo === "administrador") {
+                    header("location: inicio_$tipo.php");
+                }
+            }
         } catch (Exception $e) {
             $this->error = 1;
             $this->engine->assign('object', $this->post);
@@ -33,7 +31,6 @@ class c_index extends super_controller {
             $this->engine->assign('type_warning', $this->type_warning);
             $this->engine->assign('msg_warning', $this->msg_warning);
             $this->temp_aux = $this->display();
-            'message.tpl';
         }
         $this->display();
     }

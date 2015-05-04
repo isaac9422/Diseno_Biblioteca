@@ -41,7 +41,7 @@ class c_registrar_usuario extends super_controller {
         $this->orm->close();
 
         $this->type_warning = "success";
-        $this->msg_warning = "Usario registrado correctamente";
+        $this->msg_warning = "Usuario registrado correctamente";
 
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
@@ -73,11 +73,12 @@ class c_registrar_usuario extends super_controller {
 
     public function run() {
         try {
-            $tipo = $this->session['tipo_usuario'];
-            if ($tipo == 'empleado' || $tipo == "usuario" || $tipo == "administrador") {
-                header("location: inicio_$tipo.php");
+            if (isset($this->session['tipo_usuario'])) {
+                $tipo = $this->session['tipo_usuario'];
+                if ($tipo === 'empleado' || $tipo === "usuario" || $tipo === "administrador") {
+                    header("location: inicio_$tipo.php");
+                }
             }
-
             if (isset($this->post->btn_registrar_usuario)) {
                 $this->verificar();
             }
