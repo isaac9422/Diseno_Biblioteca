@@ -132,6 +132,30 @@ class db {
                         break;
                 }
                 break;
+             case "autor":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
+                        $this->do_operation("INSERT INTO autor (nombre) VALUES ('$nombre');");
+                        break;
+                }
+                break;
+              case "publicacion":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
+                        $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
+                        $categoria = mysqli_real_escape_string($this->cn, $object->get('categoria'));
+                        $tipo = mysqli_real_escape_string($this->cn, $object->get('tipo'));
+                        $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
+                        $this->do_operation("INSERT INTO publicacion (codigo_biblioteca,codigo_publicacion, nombre,"
+                                . "categoria,tipo,fecha_publicacion) "
+                                . "VALUES ('$codigo_biblioteca', '$codigo_publicacion', '$nombre', '$categoria',"
+                                . "'$tipo', '$fecha_publicacion');");
+                        break;
+                }
+                break;
             default: break;
         }
     }

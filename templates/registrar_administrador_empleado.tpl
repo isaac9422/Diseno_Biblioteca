@@ -31,6 +31,8 @@
                             <b>Repetir contraseña:*</b> <input type="password" name="contraseña2" required/><br />
                             <input class="btn btn-primary" type="submit" value="Registrar" name="btn_registrar_empleado"/>
                         </td><td>
+            </form>
+            <form action="{$gvar.l_global}registrar_administrador_empleado.php" method="post">
                             <h3>Registrar Administrador</h3>
                             <b>E-mail:* </b> <input type="email" name="email" required/><br />
                             <b>Identificación:*</b> <input type="text" name="identificacion" required/><br />
