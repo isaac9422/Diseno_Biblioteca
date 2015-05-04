@@ -31,8 +31,9 @@ class c_modificarPerfil extends super_controller {
             $user = $this->orm->get_objects("administrador");
         }
         $user = $user[0];
-        $this->engine->assign('objeto', $user);
         $this->orm->close();
+
+        $this->engine->assign('objeto', $user);
     }
 
     public function modificar() {
@@ -76,6 +77,15 @@ class c_modificarPerfil extends super_controller {
             $user->set('contraseña', $hasher->HashPassword($user->get('contraseña')));
 
             $this->orm->connect();
+//
+//            $option[$this->session['tipo_usuario']]['lvl2'] = 'by_email';
+//            $data[$this->session['tipo_usuario']]['email'] = $user->get('email');
+//            
+//            $this->orm->read_data(array($this->session['tipo_usuario']), $option, $data);
+//            $count = $this->orm->get_objects($this->session['tipo_usuario']);
+//            if(isset($count)){
+//                throw_exception("Email ya se encuentra registrado");
+//            }
 
             $this->orm->update_data("normal", $user);
             $this->orm->close();

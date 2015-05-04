@@ -1,8 +1,25 @@
-
-<div class="square">
-    {if isset($smarty.session.objeto_usuario)}
-        <form action="{$gvar.l_global}modificar_perfil.php" method="post" >
-            <b class="etiq">Contraseña actual :</b><input class="campos" type="password" name="contraseñaA" /><br>
+<!-Doctype html>
+<html>
+    <head>
+        <title>Página Modificar Perfil</title>
+        <meta charset="utf-8">
+        <style>
+            .etiq{
+                display: inline-block;
+                width: 100px;
+                vertical-align: middle;
+            }
+            .campos{
+                display: block;
+                vertical-align: middle;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        {if isset($smarty.session.objeto_usuario)}
+        <form action="{$gvar.l_global}modificar_perfil.php" method="post">
+            <b class="etiq">Contraseña actual :</b><input class="campos" type="password" name="contraseñaA" /><br> 
             <b class="etiq">Nueva contraseña  :</b><input class="campos" type="password" name="contraseña" /> <br>
             <input type="hidden" name="contraseñaActual" value="{$objeto->get('contraseña')}" />
             <input type="hidden" name="identificacion" value="{$objeto->get('identificacion')}" />
@@ -14,5 +31,6 @@
             <input class="btn btn-primary" type="submit" value="Modificar" name="modificar" />
             <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelar" />
         </form>
-    {/if}
-</div>
+            {/if}
+    </body>
+</html>

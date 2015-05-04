@@ -49,7 +49,7 @@ class c_login extends super_controller {
         
         
         if ($hasher->CheckPassword($contraseña, $encriptada)) {
-            $_SESSION['objeto_usuario']=  serialize($usuario);
+            $_SESSION['objeto_usuario']=$usuario;
             $_SESSION['tipo_usuario'] = $this->post->rol;
             $_SESSION['email'] = $this->post->email;
             $this->session = $_SESSION;
@@ -101,3 +101,5 @@ class c_login extends super_controller {
 $call = new c_login();
 $call->run();
 ?>
+
+

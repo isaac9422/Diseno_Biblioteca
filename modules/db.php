@@ -132,23 +132,6 @@ class db {
                         break;
                 }
                 break;
-
-            case "prestamo":
-                switch ($options['lvl2']) {
-                    case "normal":
-                        $usuario = mysqli_real_escape_string($this->cn, $object->get('usuario'));
-                        $codigoBiblioteca = mysqli_real_escape_string($this->cn, $object->get('codigoBiblioteca'));
-                        $fechaInicio = mysqli_real_escape_string($this->cn, $object->get('fechaInicio'));
-                        $fechaFin = mysqli_real_escape_string($this->cn, $object->get('fechaFin'));
-                        $fechaEntrega = null;
-                        $cantidadRenovacion = 1;
-                        $this->do_operation("INSERT INTO prestamo (usuario,codigo_biblioteca, fecha_inicio,"
-                                . "fecha_fin,fecha_entrega,cantidad_renovacion) "
-                                . "VALUES ('$usuario', '$codigoBiblioteca', '$fechaInicio', '$fechaFin',"
-                                . "'$fechaEntrega', '$cantidadRenovacion');");
-                        break;
-                }
-                break;
              case "autor":
                 switch ($options['lvl2']) {
                     case "normal":
@@ -190,22 +173,16 @@ class db {
                         $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
                         $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
 
+
                         $this->do_operation("UPDATE  usuario SET nombre = '$nombre', contraseña = '$contraseña'"
                                 . ", email = '$email', direccion = '$direccion'"
                                 . ", telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
                     
-                    case "multar":
-                        $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
-                        $multa = mysqli_real_escape_string($this->cn, $object->get('multa'));
-                        $this->do_operation("UPDATE usuario SET estado='INACTIVO', multa = '$multa'"
-                                . " WHERE identificacion = '$identificacion';");
-                        break;
-                    
                     case "multa":
                         $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
 
-                        $this->do_operation("UPDATE  usuario SET multa=0, estado='ACTIVO' WHERE identificacion = '$identificacion';");
+                        $this->do_operation("UPDATE  usuario SET multa=0, estado='activo' WHERE identificacion = '$identificacion';");
                         break;
                     
                     case "bloquear":
@@ -253,32 +230,6 @@ class db {
             
 
 
-            case "prestamo":
-                switch ($options['lvl2']) {
-                    case "normal":
-                        $usuario = mysqli_real_escape_string($this->cn, $object->get('usuario'));
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
-                        $fecha_inicio = mysqli_real_escape_string($this->cn, $object->get('fecha_inicio'));
-                        $cantidad_renovacion = mysqli_real_escape_string($this->cn, $object->get('cantidad_renovacion'));
-                        $fecha_fin = mysqli_real_escape_string($this->cn, $object->get('fecha_fin'));
-
-                        $this->do_operation("UPDATE  prestamo SET cantidad_renovacion = '$cantidad_renovacion', "
-                                . "fecha_fin = '$fecha_fin' WHERE usuario = '$usuario' AND "
-                                . "fecha_inicio = '$fecha_inicio' AND codigo_biblioteca = '$codigo_biblioteca';");
-                        break;
-                    case "return":
-                        $usuario = mysqli_real_escape_string($this->cn, $object->get('usuario'));
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
-                        $fecha_inicio = mysqli_real_escape_string($this->cn, $object->get('fecha_inicio'));
-                        $fecha_entrega = mysqli_real_escape_string($this->cn, $object->get('fecha_entrega'));
-
-                        $this->do_operation("UPDATE  prestamo SET fecha_entrega = '$fecha_entrega' WHERE "
-                                . "usuario = '$usuario' AND fecha_inicio = '$fecha_inicio' AND "
-                                . "codigo_biblioteca = '$codigo_biblioteca';");
-                        break;
-                }
-                break;
-
             default: break;
         }
     }
@@ -325,7 +276,6 @@ class db {
                         break;
                 }
                 break;
-
             case "administrador":
                 switch ($option['lvl2']) {
                     case "all" :
@@ -336,52 +286,29 @@ class db {
                         $info = $this->get_data("SELECT * FROM administrador WHERE email='$email';");
                         break;
                 }
-                break;
 
-            case "publicacion":
+             case "publicacion":
                 switch ($option['lvl2']) {
                     case "all" :
                         $info = $this->get_data("SELECT * FROM publicacion;");
                         break;
-                    case "one" :
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $data['codigo_biblioteca']);
-                        $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_biblioteca = '$codigo_biblioteca'");
-                        break;
-
+                    
                     case "by_codigo_publicacion":
                         $codigo_publicacion= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
                         break;
-
+                    
                     case "by_nombre":
                         $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
                         break;
-
+                    
                     case "by_autor":
                         $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
                         break;
                 }
-                break;
-
-            case "prestamo":
-                switch ($option['lvl2']) {
-                    case "all" :
-                        $info = $this->get_data("SELECT * FROM prestamo;");
-                        break;
-                    case "for_renew":
-                        $usuario = mysqli_real_escape_string($this->cn, $data['usuario']);
-                        $info = $this->get_data("SELECT * FROM prestamo WHERE usuario= '$usuario' AND "
-                                . "cantidad_renovacion < 3 AND fecha_entrega IS NULL;");
-                        break;
-                    case "for_return":
-                        $usuario = mysqli_real_escape_string($this->cn, $data['usuario']);
-                        $info = $this->get_data("SELECT * FROM prestamo WHERE usuario='$usuario' AND fecha_entrega IS NULL;");
-                        break;
-                }
-                break;
-
+                
             default: break;
         }
         return $info;

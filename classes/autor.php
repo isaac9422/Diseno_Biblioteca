@@ -4,8 +4,8 @@ class autor extends object_standard
 {
 	//attributes
 	protected $consecutivo;
-	protected $nombre;
-
+	protected $nombr;
+	
 	//components
 	var $components = array();
 	
