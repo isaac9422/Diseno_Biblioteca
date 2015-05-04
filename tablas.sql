@@ -43,13 +43,14 @@ PRIMARY KEY (identificacion)
  
 CREATE TABLE autor
 (
-consecutivo INTEGER(20),
+consecutivo INTEGER(20) NOT NULL AUTO_INCREMENT,
 nombre VARCHAR(30) not null,
 PRIMARY KEY(consecutivo)
 );
  
 CREATE TABLE prestamo(
 fecha_inicio DATE NOT NULL,
+fecha_entrega DATE,
 fecha_fin DATE NOT NULL,
 codigo_biblioteca VARCHAR(30) NOT NULL,
 usuario INTEGER(20) NOT NULL,
