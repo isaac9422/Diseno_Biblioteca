@@ -23,11 +23,13 @@ class c_buscarPublicacion extends super_controller {
         $this->publicacion = $this->orm->get_objects("publicacion", NULL, $auxiliars); //recibe 3 campos pero los  ultimos son opcionales  
 
         $this->orm->close();
+        
+        print_r2($auxiliars);
 
         if (count($this->publicacion) <= 0) {   //criterio no produce resultado
             throw_exception("No se produjo algún resultado");
         }
-        //print_r2($this->publicacion);
+        print_r2($this->publicacion);
     }
 
     public function display() {

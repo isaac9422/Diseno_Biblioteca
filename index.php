@@ -4,6 +4,11 @@ require('configs/include.php');
 class c_index extends super_controller {
 
     public function display() {
+        
+        $criterio=array(array('by_codigo_publicacion','codigo publicacion'),
+                          array('by_autor','autor'),
+                            array('by_nombre','nombre publicacion'));
+        
 
         $this->engine->assign('title', 'Página Inicial');
 
