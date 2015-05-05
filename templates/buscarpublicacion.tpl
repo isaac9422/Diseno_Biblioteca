@@ -20,7 +20,6 @@
                 <b>Tipo:</b> {$publicacion[i]->get('tipo')}<br />
                 <b>Nombre:</b> {$publicacion[i]->get('nombre')}<br />
                 <b>Fecha de publicación:</b> {$publicacion[i]->get('fecha_publicacion')}<br />
-                <b>Ejemplares disponibles:</b> {$publicacion[i]->get('cantidad_disponible')}<br />
                 <b>Nombre Autor:</b> {$publicacion[i]->auxiliars['nombreAutor']}<br />
 
             </td></tr>

@@ -33,8 +33,7 @@
             <b>Nombre:</b> <input type="text" name="nombre" value="{if isset($object)}{$object->get('nombre')}{/if}"/><br />
             <b>Fecha de publicación:</b> <input type="text" name="fecha_publicacion" value="{if isset($object)}{$object->get('fecha_publicacion')}{/if}"/><br />
             <b>Clasificación:</b> <input type="text" name="clasificacion" value="{if isset($object)}{$object->get('clasificacion')}{/if}" /><br />
-            <b>Ejemplares disponibles:</b> <input type="text" name="cantidad_disponible" value="{if isset($object)}{$object->get('cantidad_disponible')}{/if}" /><br />
-            <b>cantidad total:</b> <input type="text" name="cantidad_total" value="{if isset($object)}{$object->get('cantidad_total')}{/if}" /><br />
+            
             <input class="btn btn-primary" type="submit" value="Modificar" /><br />
             
                       

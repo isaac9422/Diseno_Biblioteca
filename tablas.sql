@@ -7,9 +7,7 @@ tipo VARCHAR(30) NOT NULL,
 nombre VARCHAR(30) NOT NULL,
 clasificacion VARCHAR(20) NOT NULL,  
 fecha_publicacion DATE NOT NULL,
-PRIMARY KEY (codigo_biblioteca),
-cantidad_disponible INTEGER(3) NOT NULL,
-cantidad_total INTEGER(3) NOT NULL
+PRIMARY KEY (codigo_biblioteca)
 );  
  
  
