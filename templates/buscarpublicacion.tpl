@@ -3,9 +3,9 @@
     <tr> 
         <td> <form action="{$gvar.l_global}buscarPublicacion.php?option=lookup" method="post">
                 <select name ="criterioBusqueda">
-                    <option value="by_codigo_publicacion">Por código de publicación</option>
-                    <option value="by_autor">Por autor</option>
-                    <option value="by_nombre">Por nombre</option>
+                    <option value="by_codigo_publicacion">código de publicación</option>
+                    <option value="by_autor"> autor</option>
+                    <option value="by_nombre">nombre publicación</option>
                 </select> 
                 <input type='text' name='textoBusqueda' placeholder='Buscar'>
                 <button class="btn btn-success">Buscar</button>
@@ -20,6 +20,7 @@
                 <b>Tipo:</b> {$publicacion[i]->get('tipo')}<br />
                 <b>Nombre:</b> {$publicacion[i]->get('nombre')}<br />
                 <b>Fecha de publicación:</b> {$publicacion[i]->get('fecha_publicacion')}<br />
+                <b>Ejemplares disponibles:</b> {$publicacion[i]->get('cantidad_disponible')}<br />
                 <b>Nombre Autor:</b> {$publicacion[i]->auxiliars['nombreAutor']}<br />
 
             </td></tr>

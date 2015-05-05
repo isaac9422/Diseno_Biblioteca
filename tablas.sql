@@ -1,12 +1,15 @@
+﻿ 
 CREATE TABLE publicacion (
 codigo_biblioteca VARCHAR(30) NOT NULL,  
 codigo_publicacion VARCHAR(30) NOT NULL,
 categoria VARCHAR(30) NOT NULL,
 tipo VARCHAR(30) NOT NULL,  
 nombre VARCHAR(30) NOT NULL,
-clasificacion VARCHAR(30) NOT NULL,  
+clasificacion VARCHAR(20) NOT NULL,  
 fecha_publicacion DATE NOT NULL,
-PRIMARY KEY (codigo_biblioteca)
+PRIMARY KEY (codigo_biblioteca),
+cantidad_disponible INTEGER(3) NOT NULL,
+cantidad_total INTEGER(3) NOT NULL
 );  
  
  
@@ -64,6 +67,6 @@ CREATE TABLE colaboracion (
     autor INTEGER(20),
     codigo_biblioteca VARCHAR(30),
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
-    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca),
+    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
     PRIMARY KEY (autor, codigo_biblioteca)
 );

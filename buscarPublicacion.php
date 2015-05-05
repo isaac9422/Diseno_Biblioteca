@@ -30,6 +30,10 @@ class c_buscarPublicacion extends super_controller {
 
         $criterio = $this->post->criterioBusqueda;
         $text = $this->post->textoBusqueda;
+        
+//        if($this->post->cantidad_disponible <= 3){
+//            throw_exception("No hay ejemplares disponibles");
+//        }
 
         $option['publicacion']['lvl2'] = $criterio;
         $auxiliars['publicacion'] = array("nombreAutor");
