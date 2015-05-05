@@ -35,6 +35,18 @@ class c_administrar extends super_controller {
 
     public function run() {
         try {
+            $tipo = $this->session['tipo_usuario'];
+            if ($tipo != 'empleado' && $tipo != "usuario" && $tipo != "administrador") {
+                header("location: index.php");
+            }
+
+            if ($this->session['tipo_usuario'] == 'usuario') {
+                //Llamar index de usuario
+                header("location: inicio_usuario.php");
+            } else if ($this->session['tipo_usuario'] == 'empleado') {
+                //Llamar index de empleado
+                header("location: inicio_empleado.php");
+            }
             if (isset($this->get->option)) {
                 $this->{$this->get->option}();
             }
