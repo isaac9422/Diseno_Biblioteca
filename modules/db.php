@@ -344,6 +344,10 @@ class db {
                         $email = mysqli_real_escape_string($this->cn, $data['email']);
                         $info = $this->get_data("SELECT * FROM usuario WHERE email='$email';");
                         break;
+                    case "id":
+                        $identificacion = mysqli_real_escape_string($this->cn, $data['identificacion']);
+                        $info = $this->get_data("SELECT * FROM usuario WHERE identificacion='$identificacion';");
+                        break;                   
                 }
                 break;
             case "empleado":

@@ -19,6 +19,23 @@ class c_update extends super_controller {
             throw_exception("Debe ingresar una identificacion");
         }
 
+        
+        $id=($usuario->get('identificacion'));
+       
+       $cod['usuario']['identificacion']=$id;
+       $options['usuario']['lvl2']="id"; //Para que salga todo con todo -> Cambiar Aqui a all.
+        
+        $this->orm->connect();
+        $this->orm->read_data(array("usuario"),$options,$cod);  // Arreglo de nombre de las tablas que voy a leer. 
+        $usuario_existe=$this->orm->get_objects("usuario");
+        $this->orm->close();
+        
+       
+        
+         if (!isset($usuario_existe)) {
+            throw_exception("Usuario No encontrado");
+        }
+        
         $this->orm->connect();
         $this->orm->update_data("multa", $usuario);
         $this->orm->close();
