@@ -46,7 +46,7 @@ class c_modificar_publicacion extends super_controller {
         $this->orm->close();
 
         $this->type_warning = "success";
-        //$this->msg_warning = "Empleado editado correctamente";
+        //$this->msg_warning = "Publicacion editada correctamente";
         throw_exception("Publicacion editada correctamente");
         
 
