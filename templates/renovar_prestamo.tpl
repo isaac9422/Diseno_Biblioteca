@@ -1,4 +1,3 @@
-{*<td align="center" valign="top">*}
 <div class="square">
     <h4>Actualmente tienes activo los siguientes prestamos:</h4>
     <br>
@@ -29,3 +28,11 @@
         </table>
     </div>
 </div>
+<br>            
+<button class="btn btn-warning" onclick="function2()" name="cancelar">Cancelar</button>
+
+<script >
+    function function2() {
+        location.href = 'index.php';
+    }
+</script>

@@ -14,7 +14,7 @@
                 margin: 5px;
             }
         </style>
-    </head>
+    </head>-
     <body>
         <div class="square">
             {*if isset($smarty.session.objeto_usuario)*}

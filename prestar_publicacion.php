@@ -9,11 +9,9 @@ class c_prestarPublicacion extends super_controller {
 
         $this->engine->display('header.tpl');
 
-        $this->engine->display('prestar_publicacion.tpl');
-
-        $this->engine->display('inicio_usuario.tpl');
-
         $this->engine->display($this->temp_aux);
+
+        $this->engine->display('prestar_publicacion.tpl');
 
         $this->engine->display('footer.tpl');
     }
@@ -23,6 +21,11 @@ class c_prestarPublicacion extends super_controller {
         if ($user->get('estado') != "ACTIVO") {
             throw_exception("En este momento, no puedes realizar prestamos");
         }
+        
+        
+//      if($this->post->cantidad_disponible <= 3){
+//           throw_exception("No hay ejemplares disponibles");
+//       }
 
         $contadorReserva = 0;
         $contadorNormal = 0;

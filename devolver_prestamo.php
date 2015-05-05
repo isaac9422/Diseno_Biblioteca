@@ -9,11 +9,9 @@ class c_devolverPrestamo extends super_controller {
 
         $this->engine->display('header.tpl');
 
-        $this->engine->display('devolver_prestamo.tpl');
-
-        $this->engine->display('inicio_usuario.tpl');
-
         $this->engine->display($this->temp_aux);
+
+        $this->engine->display('devolver_prestamo.tpl');
 
         $this->engine->display('footer.tpl');
     }

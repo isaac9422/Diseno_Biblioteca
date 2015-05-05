@@ -65,6 +65,6 @@ CREATE TABLE colaboracion (
     autor INTEGER(20),
     codigo_biblioteca VARCHAR(30),
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
-    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca),
+    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
     PRIMARY KEY (autor, codigo_biblioteca)
 );

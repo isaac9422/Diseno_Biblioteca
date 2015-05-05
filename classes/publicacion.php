@@ -10,6 +10,8 @@ class publicacion extends object_standard
 	protected $nombre;
 	protected $fecha_publicacion;
         protected $clasificacion;
+        protected $cantidad_disponible;
+        protected $cantidad_total;
 
 
         //components
@@ -22,7 +24,8 @@ class publicacion extends object_standard
 	public function metadata()
 	{
 		return array("codigo_publicacion" => array(), "codigo_biblioteca" => array(), "categoria" => array(),
-                    "tipo" => array(), "nombre" => array(), "fecha_publicacion" => array(), "clasificacion" => array()); 
+                    "tipo" => array(), "nombre" => array(), "fecha_publicacion" => array(), "clasificacion" => array(), 
+                    "cantidad_disponible" => array(), "cantidad_total" => array()); 
 	}
 
 	public function primary_key()
