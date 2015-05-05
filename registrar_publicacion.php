@@ -3,7 +3,13 @@
 require('configs/include.php');
 
 class c_registrar_publicacion extends super_controller {
-
+    
+    public function verificarFecha($fecha){
+        $day = explode("/",$fecha);
+        $month= explode("/",$fecha);
+        $year = explode("/",$fecha);
+    }
+    
     public function verificar() {
         $publicacion = new publicacion($this->post);
         if (is_empty($publicacion->get('codigo_biblioteca'))) {
@@ -16,6 +22,8 @@ class c_registrar_publicacion extends super_controller {
             throw_exception("Ingrese categoría correctamente");
         }else if(is_empty($publicacion->get('tipo'))){
             throw_exception("Ingrese tipo correctamente");
+        }else if(is_empty($publicacion->get('clasificacion'))){
+            throw_exception("Ingrese clasificación correctamente");
         }else if(is_empty($publicacion->get('fecha_publicacion'))){
             throw_exception("Ingrese Fecha publicación correctamente");
         }

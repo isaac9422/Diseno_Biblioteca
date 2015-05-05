@@ -165,11 +165,12 @@ class db {
                         $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
                         $categoria = mysqli_real_escape_string($this->cn, $object->get('categoria'));
                         $tipo = mysqli_real_escape_string($this->cn, $object->get('tipo'));
+                        $clasificacion = mysqli_real_escape_string($this->cn, $object->get('clasificacion'));
                         $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
                         $this->do_operation("INSERT INTO publicacion (codigo_biblioteca,codigo_publicacion, nombre,"
-                                . "categoria,tipo,fecha_publicacion) "
+                                . "categoria,tipo,clasificacion,fecha_publicacion) "
                                 . "VALUES ('$codigo_biblioteca', '$codigo_publicacion', '$nombre', '$categoria',"
-                                . "'$tipo', '$fecha_publicacion');");
+                                . "'$tipo', '$clasificacion', '$fecha_publicacion');");
                         break;
                 }
                 break;
