@@ -278,6 +278,27 @@ class db {
                         break;
                 }
                 break;
+            
+            
+             case "publicacion":
+                switch($options['lvl2'])
+                {
+                        case "normal":
+                        $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get('codigo_publicacion'));
+                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get('codigo_biblioteca'));
+                        $categoria=mysqli_real_escape_string($this->cn,$object->get('categoria'));
+                        $tipo=mysqli_real_escape_string($this->cn,$object->get('tipo'));
+                        $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
+                        $fecha_publicacion=mysqli_real_escape_string($this->cn,$object->get('fecha_publicacion'));
+                        $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
+                        //$id=mysqli_real_escape_string($this->cn,$object->auxiliars['id']);
+                        $id_ant=mysqli_real_escape_string($this->cn,$object->auxiliars['id_ant']);
+                        //echo "-->>>>> " . $object->auxiliars['id_ant'];
+                        echo("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', codigo_biblioteca='$codigo_biblioteca', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_biblioteca='$codigo_biblioteca';");
+                        $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', codigo_biblioteca='$codigo_biblioteca', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_biblioteca='$codigo_biblioteca';"); //WHERE id='$id_ant' para modificar el id
+                        break;
+                }
+                break;
 
             default: break;
         }
@@ -291,6 +312,15 @@ class db {
                     case "normal":
                         //
                         break;
+                }
+                break;
+            
+            case "publicacion":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get("codigo_biblioteca"));
+			$this->do_operation("delete from publicacion where codigo_biblioteca='$codigo_biblioteca'"); 
+                    break;
                 }
                 break;
 
