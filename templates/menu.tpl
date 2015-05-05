@@ -6,6 +6,8 @@
                 <div class="btn-group-vertical">
                     <button class="btn  btn-xs"><a href="{$gvar.l_global}index.php">Inicio</a></button>
                     <button class="btn  btn-xs"><a href="{$gvar.l_global}modificar_perfil.php">Modificar Perfil</a></button>
+                    <button class="btn btn-xs"><a href="{$gvar.l_global}quitar_multa.php">Quitar Multa</a></button>
+                    <button class="btn  btn-xs"><a href="{$gvar.l_global}administrar_cuenta.php">Administrar cuenta</a></button>
                 </div>
             </td>
         {else if $smarty.session.tipo_usuario == 'empleado'}
@@ -31,10 +33,10 @@
         {/if}
     {else}
         <td align="right"valign="top">
-                <div class="btn-group-vertical">
-                    <button class="btn  btn-xs"><a href="{$gvar.l_global}registrar_usuario.php">Registrar Usuario</a></br></button>
-                </div>
-            </td>
-        {/if}
+            <div class="btn-group-vertical">
+                <button class="btn  btn-xs"><a href="{$gvar.l_global}registrar_usuario.php">Registrar Usuario</a></br></button>
+            </div>
+        </td>
+    {/if}
 </body>
 </html>

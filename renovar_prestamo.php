@@ -9,9 +9,9 @@ class c_renovarPrestamo extends super_controller {
 
         $this->engine->display('header.tpl');
 
-        $this->engine->display('renovar_prestamo.tpl');
-
         $this->engine->display($this->temp_aux);
+
+        $this->engine->display('renovar_prestamo.tpl');
 
         $this->engine->display('footer.tpl');
     }

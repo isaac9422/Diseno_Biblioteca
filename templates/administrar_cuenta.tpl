@@ -1,5 +1,5 @@
 
-<div class="square">
+<div class="square" >
     <form action="{$gvar.l_global}administrar_cuenta.php?option=administrar" method="post">
         <table width="100%" border="0" cellpadding="0" cellspacing="5">
             <tr><td>
@@ -13,7 +13,18 @@
                     <input class="radio" type="radio" name="estado" value="activo"><font color="Black">Activo   </font ><br>
                     <br />
                     <input class="btn btn-info" type="submit" value="Seleccionar" />
-                    </td></tr></table>  
-                    </form>
-
+                </td></tr>
+        </table>
+    </form>
+    <table width="100%" border="0" cellpadding="0" cellspacing="5">
+        <tr><td>
+                <button class="btn btn-warning" onclick="function2()" name="cancelar">  Cancelar</button>
+            </td></tr></table>  
 </div>
+<br>            
+
+<script >
+    function function2() {
+        location.href = 'index.php';
+    }
+</script>
