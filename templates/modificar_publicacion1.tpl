@@ -39,6 +39,17 @@
                       
         </td></tr></table>
     </form>
+
+                <table width="100%" border="0" cellpadding="0" cellspacing="5">
+        <tr><td>
+                <button class="btn btn-warning" onclick="function2()" name="cancelar">  Cancelar</button>
+            </td></tr></table>  
 </div>
 </body>
+
+<script >
+    function function2() {
+        location.href = 'index.php';
+    }
+</script>
 </html>

@@ -4,6 +4,22 @@ require('configs/include.php');
 
 class c_update extends super_controller {
 
+        public function cancelar() {
+        //Definir a cual página de inicio debe ser redireccionado
+        if ($this->session['tipo_usuario'] == 'usuario') {
+            //Llamar index de usuario
+            header("location: inicio_usuario.php");
+        } else if ($this->session['tipo_usuario'] == 'empleado') {
+            //Llamar index de empleado
+            header("location: inicio_empleado.php");
+        } else if ($this->session['tipo_usuario'] == 'administrador') {
+            //Llamar index de administrador
+            header("location: inicio_administrador.php");
+        } else {
+            header("location: index.php");
+        }
+    }
+    
     public function display() {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
