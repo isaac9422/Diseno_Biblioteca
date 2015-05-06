@@ -18,7 +18,8 @@ class c_renovarPrestamo extends super_controller {
 
     public function prestamosActivos() {
         $user = unserialize($this->session[objeto_usuario]);
-        if ($user->get('estado') != "ACTIVO") {
+        
+        if (strcasecmp($user->get('estado'),"ACTIVO") != 0 ) {
             throw_exception("En este momento, no puedes realizar renovaciones");
         }
 
@@ -49,7 +50,7 @@ class c_renovarPrestamo extends super_controller {
         $dt = $prestamo->get('fecha_fin');
         //Se convierte a timestamp para operar
         $st = strtotime($dt);
-        if ($libro->get('clasificacion') == "Reserva") {
+        if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
             if (getdate($st) . wday > 4) {
                 $d = strtotime("next Monday", $st);
                 $prestamo->set('fecha_fin', date("Y-m-d", $d));

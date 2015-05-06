@@ -46,17 +46,21 @@
                                     <option value="reserva">Reserva</option>                                    
                                 </select> <br />
                                 <b>Fecha publicación:* </b> <input type="date" name="fecha_publicacion" required value=""/><br />
+
                                 <input class="btn btn-primary" type="submit" value="Registrar Publicación" name="btn_registrar_publicacion"/>
+
                             </form>
                                 <form action="{$gvar.l_global}registrar_publicacion.php" method="post">
                                      <input class="btn btn-warning" type="submit" value="Cancelar" name="btn_cancelar" />
                                 </form>
                         </td>
+                        <!--
                         <td>
                                 <b>Autor:* </b></br> 
                                 
                                 <input type="text" name="autor" required value=""/><br />
                         </td>
+                        -->
                     </tr>
                 </table>
             {/if}
