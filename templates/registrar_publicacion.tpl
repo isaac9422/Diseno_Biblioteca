@@ -30,7 +30,7 @@
                                 <b>Categoría:* </b> <input type="text" name="categoria" required value=""/><br />
                                 <b>Tipo:* </b> <input type="text" name="tipo" required value=""/><br />
                                 <b>Fecha publicación:* </b> <input type="date" name="fecha_publicacion" required value=""/><br />
-                                <input class="btn btn-primary" type="submit" value="Registrar Autor" name="btn_registrar_publicacion"/>
+                                <input class="btn btn-primary" type="submit" value="Registrar publicación" name="btn_registrar_publicacion"/>
                                
                             </form>
                                 <form action="{$gvar.l_global}registrar_publicacion.php" method="post">

@@ -18,21 +18,16 @@ class c_prestarPublicacion extends super_controller {
 
     public function prestar() {
         $user = unserialize($this->session[objeto_usuario]);
-        if ($user->get('estado') != "ACTIVO") {
+        if (strcasecmp($user->get('estado'),"ACTIVO") != 0) {
             throw_exception("En este momento, no puedes realizar prestamos");
         }
         
-        
-//      if($this->post->cantidad_disponible <= 3){
-//           throw_exception("No hay ejemplares disponibles");
-//       }
-
         $contadorReserva = 0;
         $contadorNormal = 0;
         $publicaciones = unserialize($this->session[libros]);
         unset($this->session[libros]);
         foreach ($libro as $publicaciones) {
-            if ($libro->get('clasificacion') == "Reserva") {
+            if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
                 $contadorReserva++;
             } else {
                 $contadorNormal++;
@@ -49,7 +44,7 @@ class c_prestarPublicacion extends super_controller {
             $prestamo->set('codigo_biblioteca', $libro->get('codigo_biblioteca'));
             $prestamo->set('usuario', $user->get('identificacion'));
             $prestamo->set('fecha_inicio', date('Y-m-d'));
-            if ($libro->get('clasificacion') == "Reserva") {
+            if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
                 if (getdate().wday > 4) {
                     $d = strtotime("next Monday");
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
