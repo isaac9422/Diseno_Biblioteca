@@ -17,7 +17,7 @@
                     <button class="btn  btn-xs"><a href="{$gvar.l_global}modificar_perfil.php">Modificar Perfil</a></button>
                     <button class="btn  btn-xs"><a href="{$gvar.l_global}registrar_autor.php">Registrar Autor</a></br></button>
                     <button class="btn  btn-xs"><a href="{$gvar.l_global}registrar_publicacion.php">Registrar Publicación</a></br></button>
-
+                    <button class="btn  btn-xs"><a href="{$gvar.l_global}modificar_publicacion.php">Modificar Publicacion</a></br></button>
                 </div>
             </td>
         {else}
