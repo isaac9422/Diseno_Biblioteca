@@ -4,6 +4,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="shortcut icon" href="{$gvar.l_global}favicon.ico" />
         <title>{$title}</title>
+        <style>
+                table#busqueda {
+                 
+                  border: 1px solid black;
+                } 
+
+                table#busqueda td {
+                  border: 1px solid black;
+                }   
+        </style>
         {literal} 
             <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/styles.css); </style>
             <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/bootstrap.css); </style>
@@ -15,6 +25,7 @@
             <script type='text/javascript'>l_global = '{/literal}{$gvar.l_global}{literal}';</script>
             <script src="{/literal}{$gvar.l_global}{literal}js/jquery-1.11.2.min.js" language="Javascript"></script>
             <script src="{/literal}{$gvar.l_global}{literal}js/bootstrap.js" language="Javascript"></script>
+            
         {/literal}
     </head>
 
