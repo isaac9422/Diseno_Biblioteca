@@ -15,7 +15,8 @@
     </tr>
     <tr>
         <td>
-            <table id="busqueda" >
+            <table id="busqueda" class="table table-bordered table-hover table-condensed">
+                <thead>
                 <tr style="font-weight: bold;">
                     <td>Código Biblioteca</td>
                     <td>Código Publicación</td>
@@ -26,7 +27,7 @@
                     <td>Nombre Autor</td>
                     <td>Prestar</td>
                 </tr>
-                
+                </thead>
     {section loop=$publicacion name=i}
         
         <tr>
