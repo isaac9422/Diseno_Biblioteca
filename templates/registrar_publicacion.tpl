@@ -49,13 +49,10 @@
                             <td>
                                 <b>Autor(es):* </b>
                                 <select multiple="multiple" id="autores" name="mis_autores[]" style="width:200px;height:400px">
-                                    <option value='aaaa'>elem 1ljkfspjoisafdohisafdohiasfdihoasñmlasfd</option>
-                                    <option value='bbbbb_2'>elem 2</option>
-                                    <option value='cccc_3'>elem 3</option>
-                                    <option value='ddd_4'>elem 4</option>
-                                    <option value='eeee_100'>elem 100</option>
+                                    {section loop=$autores name=i}
+                                        <option value='{$autores[i]->get('consecutivo')}'>{$autores[i]->get('nombre')}</option>
+                                    {/section} 
                                 </select>
-
                             </td>
                         </tr>
                         <tr>

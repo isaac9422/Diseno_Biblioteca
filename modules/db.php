@@ -157,7 +157,7 @@ class db {
                         break;
                 }
                 break;
-              case "publicacion":
+            case "publicacion":
                 switch ($options['lvl2']) {
                     case "normal":
                         $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
@@ -171,6 +171,16 @@ class db {
                                 . "categoria,tipo,clasificacion,fecha_publicacion) "
                                 . "VALUES ('$codigo_biblioteca', '$codigo_publicacion', '$nombre', '$categoria',"
                                 . "'$tipo', '$clasificacion', '$fecha_publicacion');");
+                        break;
+                }
+                break;
+            case "colaboracion":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $autor = mysqli_real_escape_string($this->cn, $object->get('autor'));
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
+                        $this->do_operation("INSERT INTO colaboracion (codigo_publicacion,autor) VALUES "
+                                . "('$codigo_publicacion','$autor');");
                         break;
                 }
                 break;
@@ -418,7 +428,13 @@ class db {
                         break;
                 }
                 break;
-
+            case "autor":
+                switch ($option['lvl2']) {
+                    case "all" :
+                        $info = $this->get_data("SELECT * FROM autor;");
+                        break;
+                }
+                break;
             default: break;
         }
         return $info;

@@ -14,11 +14,11 @@ class colaboracion extends object_standard {
     public function metadata() {
         return array("autor" => array("foreign_name" => "c_a", "foreign" => "autor", 
                       "foreign_attribute" => "consecutivo"), "codigo_publicacion" => array("foreign_name" => "c_p",
-                          "foreign" => "publicacion", "foreign_attribute" => "codigo_biblioteca"));
+                          "foreign" => "publicacion", "foreign_attribute" => "codigo_publicacion"));
     }
 
     public function primary_key() {
-        return array("codigo_biblioteca", "autor");
+        return array("codigo_publicacion", "autor");
     }
 
     public function relational_keys($class, $rel_name) {

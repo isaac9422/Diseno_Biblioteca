@@ -27,7 +27,17 @@ class c_registrar_publicacion extends super_controller {
         }else if(is_empty($publicacion->get('fecha_publicacion'))){
             throw_exception("Ingrese Fecha publicación correctamente");
         }
-          // $this->registrar($publicacion);
+
+        $this->registrar($publicacion);
+
+        $mis_autores = $this->post->mis_autores;
+        settype($data, 'object');
+        $data->codigo_publicacion = $publicacion->get('codigo_publicacion');
+        foreach ($mis_autores as $consecutivo ){
+            $data ->autor = $consecutivo;
+            $colaboracion = new colaboracion($data);
+            registrar_colaboracion($colaboracion);
+        }
     }
 
     public function registrar($publicacion) {
@@ -41,6 +51,12 @@ class c_registrar_publicacion extends super_controller {
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
         $this->engine->assign('msg_warning', $this->msg_warning);
+    }
+    
+    public function registrar_colaboracion($colaboracion){
+        $this->orm->connect();
+        $this->orm->insert_data("normal", $colaboracion);
+        $this->orm->close();
     }
 
     public function cancelar() {
@@ -59,8 +75,14 @@ class c_registrar_publicacion extends super_controller {
         }
     }
     
-    public function prueba(){
-        print_r2($this->post);
+    public function mostrar_autor(){
+        $option['autor']['lvl2'] = 'all';
+        $this->orm->connect();
+        $this->orm->read_data(array("autor"), $option);
+        $autor = $this->orm->get_objects("autor");
+        $this->orm->close();
+        
+        $this->engine->assign('autores',$autor);
     }
 
     public function display() {
@@ -78,6 +100,8 @@ class c_registrar_publicacion extends super_controller {
             }else if($tipo != 'empleado'){
                 header("location: index.php");
             }
+            $this->mostrar_autor();
+            
             if (isset($this->post->btn_registrar_publicacion)) {
                 $this->verificar();
             }
