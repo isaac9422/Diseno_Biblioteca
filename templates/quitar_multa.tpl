@@ -12,13 +12,13 @@
     </form>
     <table width="100%" border="0" cellpadding="0" cellspacing="5">
         <tr><td>
-                <button class="btn btn-warning" onclick="function2()" name="cancelar">  Cancelar</button>
+                <button class="btn btn-warning" onclick="indice()" name="cancelar">  Cancelar</button>
             </td></tr></table>  
 </div>
 <br>            
 
 <script >
-    function function2() {
+    function indice() {
         location.href = 'index.php';
     }
 </script>

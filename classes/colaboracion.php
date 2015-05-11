@@ -4,7 +4,7 @@ class colaboracion extends object_standard {
 
     //attributes
     protected $autor;
-    protected $codigo_biblioteca;
+    protected $codigo_publicacion;
     //components
     var $components = array();
     //auxiliars for primary key and for files
@@ -13,7 +13,7 @@ class colaboracion extends object_standard {
     //data about the attributes
     public function metadata() {
         return array("autor" => array("foreign_name" => "c_a", "foreign" => "autor", 
-                      "foreign_attribute" => "consecutivo"), "codigo_biblioteca" => array("foreign_name" => "c_p",
+                      "foreign_attribute" => "consecutivo"), "codigo_publicacion" => array("foreign_name" => "c_p",
                           "foreign" => "publicacion", "foreign_attribute" => "codigo_biblioteca"));
     }
 

@@ -27,7 +27,7 @@ class c_registrar_publicacion extends super_controller {
         }else if(is_empty($publicacion->get('fecha_publicacion'))){
             throw_exception("Ingrese Fecha publicación correctamente");
         }
-        $this->registrar($publicacion);
+          // $this->registrar($publicacion);
     }
 
     public function registrar($publicacion) {
@@ -57,6 +57,10 @@ class c_registrar_publicacion extends super_controller {
         } else {
             header("location: index.php");
         }
+    }
+    
+    public function prueba(){
+        print_r2($this->post);
     }
 
     public function display() {

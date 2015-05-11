@@ -12,8 +12,10 @@
             <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/bootstrap-min.css); </style>
             <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/styles.css); </style>
             <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/t_dark.css); </style>
+            <style type="text/css"> @import url({/literal}{$gvar.l_global}{literal}css/multi-select.css); </style>
             <script type='text/javascript'>l_global = '{/literal}{$gvar.l_global}{literal}';</script>
             <script src="{/literal}{$gvar.l_global}{literal}js/jquery-1.11.2.min.js" language="Javascript"></script>
+            <script src="{/literal}{$gvar.l_global}{literal}js/jquery.multi-select.js" language="Javascript"></script>
             <script src="{/literal}{$gvar.l_global}{literal}js/bootstrap.js" language="Javascript"></script>
         {/literal}
     </head>
