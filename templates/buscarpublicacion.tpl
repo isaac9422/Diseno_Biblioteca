@@ -13,15 +13,39 @@
         </td> 
 
     </tr>
+    <tr>
+        <td>
+            <table id="busqueda" >
+                <tr style="font-weight: bold;">
+                    <td>Código Biblioteca</td>
+                    <td>Código Publicación</td>
+                    <td>Categoría</td>
+                    <td>Tipo</td>
+                    <td>Nombre</td>
+                    <td>Fecha de publicación</td>
+                    <td>Nombre Autor</td>
+                    <td>Prestar</td>
+                </tr>
+                
     {section loop=$publicacion name=i}
-        <tr><td><b>Código Biblioteca:</b> {$publicacion[i]->get('codigo_biblioteca')}<br />
-                <b>Código Publicación:</b> {$publicacion[i]->get('codigo_publicacion')}<br />
-                <b>Categoría:</b> {$publicacion[i]->get('categoria')}<br />
-                <b>Tipo:</b> {$publicacion[i]->get('tipo')}<br />
-                <b>Nombre:</b> {$publicacion[i]->get('nombre')}<br />
-                <b>Fecha de publicación:</b> {$publicacion[i]->get('fecha_publicacion')}<br />
-                <b>Nombre Autor:</b> {$publicacion[i]->auxiliars['nombreAutor']}<br />
-
-            </td></tr>
+        
+        <tr>
+            <td> {$publicacion[i]->get('codigo_biblioteca')}</td>   
+            <td> {$publicacion[i]->get('codigo_publicacion')}</td> 
+            <td> {$publicacion[i]->get('categoria')}</td> 
+            <td> {$publicacion[i]->get('tipo')}</td> 
+            <td> {$publicacion[i]->get('nombre')}</td> 
+            <td> {$publicacion[i]->get('fecha_publicacion')}</td> 
+            <td> {$publicacion[i]->auxiliars['nombreAutor']}</td> 
+            <td style="text-align: center;"><input type="checkbox" /></td>
+            </tr>
+            
         {/section}
+                   
+            
+            </table>
+        <br/>
+        <input type="button" class="btn btn-success" value="Prestar" />
+        </td> 
+    </tr>
 </table>

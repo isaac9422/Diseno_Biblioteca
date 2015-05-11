@@ -5,14 +5,7 @@
           
             <b>Ingrese el codigo de la publicacion:</b> <input type="text" name="codigo_biblioteca" /><br />
             <input class="btn btn-primary" type="submit" value="seleccionar" /><br />
-            
-                       
-                    
-            
-   
-       
-    
-            
+
         </td></tr></table>
     </form>
 </div>
