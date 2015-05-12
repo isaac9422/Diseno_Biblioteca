@@ -3,18 +3,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <style>
-            b{
-                display: inline-block;
-                width: 100px;
-                vertical-align: middle;
-            }
-            input{
-                display: block;
-                vertical-align: middle;
-                margin: 5px;
-            }
-        </style>
     </head>
     <body>
         <div class="square">
@@ -73,18 +61,4 @@
     function indice() {
         location.href = 'index.php';
     }
-  
-    {*var n=2;
-    function agregarAutor() {
-
-        var t = document.getElementById("autores");
-        t.innerHTML += "<b>Autor"+n+":* </b> <input type='text' name='autor"+n+"' required value=''/><br />"
-        n++;
-    }
-    function quitarAutor() {
-        var t = document.getElementById("autores");
-        t.
-        t.innerHTML --;//= "<b>Autor"+n+":* </b> <input type='text' name='autor"+n+"' required value=''/><br />"
-        n--;
-    }*}
 </script>

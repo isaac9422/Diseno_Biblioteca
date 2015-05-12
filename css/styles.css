@@ -49,3 +49,14 @@ table#busqueda td {
 #example table td{
     text-align: center !important;
 }
+
+b{
+    display: inline-block;
+    width: 100px;
+    vertical-align: middle;
+}
+input{
+    display: block;
+    vertical-align: middle;
+    margin: 5px;
+}

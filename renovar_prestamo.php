@@ -18,8 +18,8 @@ class c_renovarPrestamo extends super_controller {
 
     public function prestamosActivos() {
         $user = unserialize($this->session[objeto_usuario]);
-        
-        if (strcasecmp($user->get('estado'),"ACTIVO") != 0 ) {
+
+        if (strcasecmp($user->get('estado'), "ACTIVO") != 0) {
             throw_exception("En este momento, no puedes realizar renovaciones");
         }
 
@@ -36,37 +36,48 @@ class c_renovarPrestamo extends super_controller {
 
         date_default_timezone_set("America/Bogota");
         $user = unserialize($this->session[objeto_usuario]);
-        $prestamo = new prestamo($this->get);
-        $prestamo->set('cantidad_renovacion', 1 + $prestamo->get('cantidad_renovacion'));
-        $prestamo->set('usuario', $user->get('identificacion'));
         $this->orm->connect();
-
-        $options['publicacion']['lvl2'] = "one";
-        $data['publicacion']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
-        $this->orm->read_data(array("publicacion"), $options, $data);
-        $publicacion = $this->orm->get_objects("publicacion");
-        $libro = $publicacion[0];
-        //Cojo la fecha que tiene parseada actualmente
-        $dt = $prestamo->get('fecha_fin');
-        //Se convierte a timestamp para operar
-        $st = strtotime($dt);
-        if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
-            if (getdate($st) . wday > 4) {
-                $d = strtotime("next Monday", $st);
-                $prestamo->set('fecha_fin', date("Y-m-d", $d));
-            } else {
-                $d = strtotime("tomorrow", $st);
-                $prestamo->set('fecha_fin', date("Y-m-d", $d));
-            }
+        if (!isset($this->post->renovaciones)) {
+            $this->type_warning = "warning";
+            $this->msg_warning = "No has seleccionado nada";
         } else {
-            $d = strtotime("+16 days", $st);
-            $prestamo->set('fecha_fin', date("Y-m-d", $d));
-        }
-        $this->orm->update_data("normal", $prestamo);
-        $this->orm->close();
+            foreach ($this->post->renovaciones as $seleccion) {
+                $seleccion = explode(",", $seleccion);
+                $prestamo = new prestamo();
+                $prestamo->set("codigo_biblioteca", $seleccion[0]);
+                $prestamo->set("fecha_inicio", $seleccion[1]);
+                $prestamo->set("fecha_fin", $seleccion[2]);
+                $prestamo->set("cantidad_renovacion", 1 + $seleccion[3]);
+                $prestamo->set('usuario', $user->get('identificacion'));
 
-        $this->type_warning = "success";
-        $this->msg_warning = "Publicación renovada exitosamente";
+                $options['publicacion']['lvl2'] = "one";
+                $data['publicacion']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+                $this->orm->read_data(array("publicacion"), $options, $data);
+                $publicacion = $this->orm->get_objects("publicacion");
+                $libro = $publicacion[0];
+                //Cojo la fecha que tiene parseada actualmente
+                $fechaFinDate = $prestamo->get('fecha_fin');
+                //Se convierte a timestamp para operar
+                $fechaFinLong = strtotime($fechaFinDate);
+                if (strcasecmp($libro->get('clasificacion'), "Reserva") == 0) {
+                    if (getdate($fechaFinLong) . wday > 4) {
+                        $d = strtotime("next Monday", $fechaFinLong);
+                        $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                    } else {
+                        $d = strtotime("tomorrow", $fechaFinLong);
+                        $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                    }
+                } else {
+                    $d = strtotime("+16 days", $fechaFinLong);
+                    $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                }
+                $this->orm->update_data("normal", $prestamo);
+            }
+
+            $this->type_warning = "success";
+            $this->msg_warning = "Publicación renovada exitosamente";
+        }
+        $this->orm->close();
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
         $this->engine->assign('msg_warning', $this->msg_warning);
@@ -82,8 +93,11 @@ class c_renovarPrestamo extends super_controller {
                     header("location: inicio_$tipo.php");
                 }
             }
-            if (isset($this->get->option)) {
-                $this->{$this->get->option}();
+            if (isset($this->post->renovar)) {
+                $this->renovar();
+            }
+            if (isset($this->post->cancelar)) {
+                header("location: index.php");
             }
             $this->prestamosActivos();
         } catch (Exception $e) {

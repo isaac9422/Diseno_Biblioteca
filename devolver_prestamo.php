@@ -28,47 +28,56 @@ class c_devolverPrestamo extends super_controller {
     }
 
     public function devolver() {
-
         date_default_timezone_set("America/Bogota");
         $user = unserialize($this->session[objeto_usuario]);
-        $prestamo = new prestamo($this->get);
-        $prestamo->set('usuario', $user->get('identificacion'));
         $this->orm->connect();
-        $prestamo->set('fecha_entrega', date("Y-m-d"));
-        $this->orm->update_data("return", $prestamo);
-
-        $fechaFin = strtotime($prestamo->get('fecha_fin'));
-        $fechaEntrega = strtotime($prestamo->get('fecha_entrega'));
-
-        if ($fechaEntrega > $fechaFin) {
-            $dif = date_diff(date_create($prestamo->get('fecha_entrega')), date_create($prestamo->get('fecha_fin')));
-            $array = (array) $dif;
-            $options['publicacion']['lvl2'] = "one";
-            $data['publicacion']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
-            $this->orm->read_data(array("publicacion"), $options, $data);
-            $publicacion = $this->orm->get_objects("publicacion");
-            $libro = $publicacion[0];
-            if ($libro->get('clasificacion') == "Reserva") {
-                $user->set('multa', 5000 * $array[d]);
-            } else {
-                $user->set('multa', 1000 * $array[d]);
-            }
-            $user->set('estado', "INACTIVO");
-            unset($this->session[objeto_usuario]);
-            $_SESSION['objeto_usuario'] = serialize($user);
-            $_SESSION['tipo_usuario'] = $this->session[tipo_usuario];
-            $_SESSION['email'] = $this->session[email];
-            $this->session = $_SESSION;
-            
-
-            $this->orm->update_data("multar", $user);
+        if (!isset($this->post->devoluciones)) {
             $this->type_warning = "warning";
-            $this->msg_warning = "Prestamo retornado exitosamente, pero tuviste retraso para entregarlo";
+            $this->msg_warning = "No has seleccionado nada";
         } else {
-            $this->type_warning = "success";
-            $this->msg_warning = "Prestamo retornado exitosamente";
-        }
+            foreach ($this->post->devoluciones as $seleccion) {
+                $seleccion = explode(",", $seleccion);
+                $prestamo = new prestamo();
+                $prestamo->set("codigo_biblioteca", $seleccion[0]);
+                $prestamo->set("fecha_inicio", $seleccion[1]);
+                $prestamo->set("fecha_fin", $seleccion[2]);
+                $prestamo->set("cantidad_renovacion", 1 + $seleccion[3]);
+                $prestamo->set('usuario', $user->get('identificacion'));
+                $prestamo->set('fecha_entrega', date("Y-m-d"));
+                $this->orm->update_data("return", $prestamo);
 
+                $fechaFin = strtotime($prestamo->get('fecha_fin'));
+                $fechaEntrega = strtotime($prestamo->get('fecha_entrega'));
+
+                if ($fechaEntrega > $fechaFin) {
+                    $dif = date_diff(date_create($prestamo->get('fecha_entrega')), date_create($prestamo->get('fecha_fin')));
+                    $array = (array) $dif;
+                    $options['publicacion']['lvl2'] = "one";
+                    $data['publicacion']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+                    $this->orm->read_data(array("publicacion"), $options, $data);
+                    $publicacion = $this->orm->get_objects("publicacion");
+                    $libro = $publicacion[0];
+                    if ($libro->get('clasificacion') == "Reserva") {
+                        $user->set('multa', 5000 * $array[d]);
+                    } else {
+                        $user->set('multa', 1000 * $array[d]);
+                    }
+                    $user->set('estado', "INACTIVO");
+                    unset($this->session[objeto_usuario]);
+                    $_SESSION['objeto_usuario'] = serialize($user);
+                    $_SESSION['tipo_usuario'] = $this->session[tipo_usuario];
+                    $_SESSION['email'] = $this->session[email];
+                    $this->session = $_SESSION;
+
+                    $this->orm->update_data("multar", $user);
+                    $this->type_warning = "warning";
+                    $this->msg_warning = "Prestamo retornado exitosamente, pero tuviste retraso para entregarlo";
+                } else {
+                    $this->type_warning = "success";
+                    $this->msg_warning = "Prestamo retornado exitosamente";
+                }
+            }
+        }
         $this->orm->close();
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
@@ -85,8 +94,11 @@ class c_devolverPrestamo extends super_controller {
                     header("location: inicio_$tipo.php");
                 }
             }
-            if (isset($this->get->option)) {
-                $this->{$this->get->option}();
+            if (isset($this->post->devolver)) {
+                $this->devolver();
+            }
+            if (isset($this->post->cancelar)) {
+                header("location: index.php");
             }
             $this->prestamosActivos();
         } catch (Exception $e) {

@@ -137,15 +137,15 @@ class db {
                 switch ($options['lvl2']) {
                     case "normal":
                         $usuario = mysqli_real_escape_string($this->cn, $object->get('usuario'));
-                        $codigoBiblioteca = mysqli_real_escape_string($this->cn, $object->get('codigoBiblioteca'));
-                        $fechaInicio = mysqli_real_escape_string($this->cn, $object->get('fechaInicio'));
-                        $fechaFin = mysqli_real_escape_string($this->cn, $object->get('fechaFin'));
+                        $codigoBiblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
+                        $fechaInicio = mysqli_real_escape_string($this->cn, $object->get('fecha_inicio'));
+                        $fechaFin = mysqli_real_escape_string($this->cn, $object->get('fecha_fin'));
                         $fechaEntrega = null;
                         $cantidadRenovacion = 1;
                         $this->do_operation("INSERT INTO prestamo (usuario,codigo_biblioteca, fecha_inicio,"
                                 . "fecha_fin,fecha_entrega,cantidad_renovacion) "
                                 . "VALUES ('$usuario', '$codigoBiblioteca', '$fechaInicio', '$fechaFin',"
-                                . "'$fechaEntrega', '$cantidadRenovacion');");
+                                . "NULL, '$cantidadRenovacion');");
                         break;
                 }
                 break;

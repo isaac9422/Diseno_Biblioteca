@@ -1,38 +1,38 @@
 
-<h4>Actualmente tienes activo los siguientes prestamos:</h4>
-<br>
-<div id="example" class="square table-responsive">
-    <table class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <th>Código biblioteca</th>
-                <th>Cantidad de renovaciones</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {section loop=$prestamos name=i}
-                
+<form action="{$gvar.l_global}renovar_prestamo.php" method="post">  
+    <h4>Actualmente tienes activo los siguientes prestamos:</h4>
+    <br>
+    <div id="example" class="square table-responsive">
+        <table class="table table-hover table-condensed">
+            <thead>
                 <tr>
-                    <td>{$prestamos[i]->get('codigo_biblioteca')}</td>
-                    <td>{$prestamos[i]->get('cantidad_renovacion')}</td>
-                    <td>{$prestamos[i]->get('fecha_inicio')}</td>
-                    <td>{$prestamos[i]->get('fecha_fin')}</td>
-                    <td><form action="{$gvar.l_global}renovar_prestamo.php?option=renovar&codigo_biblioteca={$prestamos[i]->get('codigo_biblioteca')}&fecha_inicio={$prestamos[i]->get('fecha_inicio')}&fecha_fin={$prestamos[i]->get('fecha_fin')}&cantidad_renovacion={$prestamos[i]->get('cantidad_renovacion')}" 
-                              method="post">                                
-                            <button class="btn btn-small btn-info">Renovar</button></form></td>
+                    <th></th>
+                    <th>Código biblioteca</th>
+                    <th>Número de renovaciones</th>
+                    <th>Fecha Inicio</th>
+                    <th>Fecha Fin</th>
                 </tr>
-            {/section}
-        </tbody>
-    </table>
-</div>
-<br>            
-<button class="btn btn-warning" onclick="function2()" name="cancelar">Cancelar</button>
+            </thead>
+            <tbody>
+                {section loop=$prestamos name=i}
+                    <tr>
+                        <td><input type="checkbox" name="renovaciones[]" value="{$prestamos[i]->get('codigo_biblioteca')},{$prestamos[i]->get('fecha_inicio')},{$prestamos[i]->get('fecha_fin')},{$prestamos[i]->get('cantidad_renovacion')}"> </td>
+                        <td>{$prestamos[i]->get('codigo_biblioteca')}</td>
+                        <td>{$prestamos[i]->get('cantidad_renovacion')}</td>
+                        <td>{$prestamos[i]->get('fecha_inicio')}</td>
+                        <td>{$prestamos[i]->get('fecha_fin')}</td>
+                    </tr>
+                {/section}
+            </tbody>
+        </table>
+    </div>
+    <br>                              
+    <button class="btn btn-success" name="renovar">Renovar</button>
+    <button class="btn btn-warning" onclick="volver()" name="cancelar">Cancelar</button>
+</form>
 
 <script >
-    function function2() {
+    function volver() {
         location.href = 'index.php';
     }
 </script>

@@ -1,6 +1,5 @@
 ﻿<?php
 require('configs/include.php');
-require('modules/m_phpass/PasswordHash.php');
 
 class c_prestarPublicacion extends super_controller {
 
@@ -18,16 +17,16 @@ class c_prestarPublicacion extends super_controller {
 
     public function prestar() {
         $user = unserialize($this->session[objeto_usuario]);
-        if (strcasecmp($user->get('estado'),"ACTIVO") != 0) {
+        if (strcasecmp($user->get('estado'), "ACTIVO") != 0) {
             throw_exception("En este momento, no puedes realizar prestamos");
         }
-        
+
         $contadorReserva = 0;
         $contadorNormal = 0;
-        $publicaciones = unserialize($this->session[libros]);
-        unset($this->session[libros]);
-        foreach ($libro as $publicaciones) {
-            if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
+        $publicaciones = $this->session['libros'];
+        foreach ($publicaciones as $libro) {
+            $libro = unserialize($libro);
+            if (strcasecmp($libro->get('clasificacion'), "Reserva") == 0) {
                 $contadorReserva++;
             } else {
                 $contadorNormal++;
@@ -36,16 +35,17 @@ class c_prestarPublicacion extends super_controller {
         if ($contadorReserva > 1 || $contadorNormal > 3) {
             throw_exception("Excedes el máximo permitido para prestar");
         }
-        
+
         date_default_timezone_set("America/Bogota");
         $this->orm->connect();
-        foreach ($libro as $publicaciones) {
+        foreach ($publicaciones as $libro) {
+            $libro = unserialize($libro);
             $prestamo = new prestamo();
             $prestamo->set('codigo_biblioteca', $libro->get('codigo_biblioteca'));
             $prestamo->set('usuario', $user->get('identificacion'));
             $prestamo->set('fecha_inicio', date('Y-m-d'));
-            if (strcasecmp($libro->get('clasificacion'),"Reserva") == 0) {
-                if (getdate().wday > 4) {
+            if (strcasecmp($libro->get('clasificacion'), "Reserva") == 0) {
+                if (getdate() . wday > 4) {
                     $d = strtotime("next Monday");
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
                 } else {
@@ -59,6 +59,8 @@ class c_prestarPublicacion extends super_controller {
             $this->orm->insert_data("normal", $prestamo);
         }
         $this->orm->close();
+        unset($_SESSION['libros']);
+        $this->session = $_SESSION;
 
         $this->type_warning = "success";
         $this->msg_warning = "Prestamo registrado correctamente";
@@ -66,6 +68,20 @@ class c_prestarPublicacion extends super_controller {
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
         $this->engine->assign('msg_warning', $this->msg_warning);
+    }
+
+    public function listarBuscados() {
+
+        if (!isset($this->session['libros'])) {
+            
+        } else {
+            $buscados = array();
+            foreach ($this->session['libros'] as $publicacion){
+                $publicacion = unserialize($publicacion);
+                array_push($buscados, $publicacion);
+            }
+            $this->engine->assign('preview', $buscados);
+        }
     }
 
     public function run() {
@@ -81,6 +97,7 @@ class c_prestarPublicacion extends super_controller {
             if (isset($this->get->option)) {
                 $this->{$this->get->option}();
             }
+            $this->listarBuscados();
         } catch (Exception $e) {
             $this->error = 1;
             $this->engine->assign('object', $this->post);
