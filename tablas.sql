@@ -66,4 +66,10 @@ FOREIGN KEY (codigo_biblioteca) REFERENCES ejemplar(codigo_biblioteca),
 FOREIGN KEY (usuario) REFERENCES usuario(identificacion),
 PRIMARY KEY(codigo_biblioteca,usuario,fecha_inicio));
  
-c
+CREATE TABLE colaboracion (
+    autor INTEGER(20),
+    codigo_biblioteca VARCHAR(30),
+    FOREIGN KEY (autor) REFERENCES autor(consecutivo),
+    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
+    PRIMARY KEY (autor, codigo_biblioteca)
+);
