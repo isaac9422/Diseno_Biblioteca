@@ -1,15 +1,21 @@
 ﻿ 
 CREATE TABLE publicacion (
-codigo_biblioteca VARCHAR(30) NOT NULL,  
 codigo_publicacion VARCHAR(30) NOT NULL,
 categoria VARCHAR(30) NOT NULL,
 tipo VARCHAR(30) NOT NULL,  
 nombre VARCHAR(30) NOT NULL,
 clasificacion VARCHAR(20) NOT NULL,  
 fecha_publicacion DATE NOT NULL,
-PRIMARY KEY (codigo_biblioteca)
+PRIMARY KEY (codigo_publicacion)
 );  
  
+CREATE TABLE ejemplar(
+codigo_biblioteca VARCHAR(30) NOT NULL,
+codigo_publicacion VARCHAR(30) NOT NULL,
+FOREIGN KEY (codigo_publicacion) REFERENCES publicacion(codigo_publicacion),
+PRIMARY KEY(codigo_biblioteca,codigo_publicacion)
+);
+
  
 CREATE TABLE usuario(
 identificacion INTEGER(20) NOT NULL,
@@ -56,15 +62,8 @@ fecha_fin DATE NOT NULL,
 codigo_biblioteca VARCHAR(30) NOT NULL,
 usuario INTEGER(20) NOT NULL,
 cantidad_renovacion INTEGER(20) NOT NULL,
-FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca),
+FOREIGN KEY (codigo_biblioteca) REFERENCES ejemplar(codigo_biblioteca),
 FOREIGN KEY (usuario) REFERENCES usuario(identificacion),
 PRIMARY KEY(codigo_biblioteca,usuario,fecha_inicio));
  
- 
-CREATE TABLE colaboracion (
-    autor INTEGER(20),
-    codigo_biblioteca VARCHAR(30),
-    FOREIGN KEY (autor) REFERENCES autor(consecutivo),
-    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
-    PRIMARY KEY (autor, codigo_biblioteca)
-);
+c

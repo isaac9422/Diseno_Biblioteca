@@ -24,9 +24,8 @@
         <tr><td>
           
         
-            <b>MODIFICAR PUBLICACION</b><br /><br />
-       
-            <b>Código Biblioteca:</b> <input type="text" name="codigo_biblioteca" value="{if isset($object)}{$object->get('codigo_biblioteca')}{/if}" readonly="readonly" /><br />
+            <b>MODIFICAR PUBLICACION</b><br /><br />       
+
             <b>Código Publicación:</b> <input type="text" name="codigo_publicacion" value="{if isset($object)}{$object->get('codigo_publicacion')}{/if}"/><br />
             <b>Categoría:</b> <input type="text" name="categoria" value="{if isset($object)}{$object->get('categoria')}{/if}"/><br />
             <b>Tipo:</b> <input type="text" name="tipo" value="{if isset($object)}{$object->get('tipo')}{/if}"/><br />
@@ -42,13 +41,13 @@
 
                 <table width="100%" border="0" cellpadding="0" cellspacing="5">
         <tr><td>
-                <button class="btn btn-warning" onclick="function2()" name="cancelar">  Cancelar</button>
+                <button class="btn btn-warning" onclick="paginaInicial()" name="cancelar">  Cancelar</button>
             </td></tr></table>  
 </div>
 </body>
 
 <script >
-    function function2() {
+    function paginaInicial() {
         location.href = 'index.php';
     }
 </script>

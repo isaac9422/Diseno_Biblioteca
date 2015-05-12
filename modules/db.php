@@ -159,17 +159,16 @@ class db {
                 break;
             case "publicacion":
                 switch ($options['lvl2']) {
-                    case "normal":
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
+                    case "normal":                        
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
                         $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
                         $categoria = mysqli_real_escape_string($this->cn, $object->get('categoria'));
                         $tipo = mysqli_real_escape_string($this->cn, $object->get('tipo'));
                         $clasificacion = mysqli_real_escape_string($this->cn, $object->get('clasificacion'));
                         $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
-                        $this->do_operation("INSERT INTO publicacion (codigo_biblioteca,codigo_publicacion, nombre,"
+                        $this->do_operation("INSERT INTO publicacion (codigo_publicacion, nombre,"
                                 . "categoria,tipo,clasificacion,fecha_publicacion) "
-                                . "VALUES ('$codigo_biblioteca', '$codigo_publicacion', '$nombre', '$categoria',"
+                                . "VALUES ('$codigo_publicacion', '$nombre', '$categoria',"
                                 . "'$tipo', '$clasificacion', '$fecha_publicacion');");
                         break;
                 }
@@ -296,7 +295,6 @@ class db {
                 {
                         case "normal":
                         $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get('codigo_publicacion'));
-                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get('codigo_biblioteca'));
                         $categoria=mysqli_real_escape_string($this->cn,$object->get('categoria'));
                         $tipo=mysqli_real_escape_string($this->cn,$object->get('tipo'));
                         $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
@@ -308,7 +306,7 @@ class db {
                         //$id_ant=mysqli_real_escape_string($this->cn,$object->auxiliars['id_ant']);
                         //echo "-->>>>> " . $object->auxiliars['id_ant'];
                         //echo("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', codigo_biblioteca='$codigo_biblioteca', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_biblioteca='$codigo_biblioteca';");
-                        $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', codigo_biblioteca='$codigo_biblioteca', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_biblioteca='$codigo_biblioteca';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
+                        $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
                         break;
                 }
                 break;
@@ -331,8 +329,8 @@ class db {
             case "publicacion":
                 switch ($options['lvl2']) {
                     case "normal":
-                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get("codigo_biblioteca"));
-			$this->do_operation("delete from publicacion where codigo_biblioteca='$codigo_biblioteca'"); 
+                        $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get("codigo_publicacion"));
+			$this->do_operation("delete from publicacion where codigo_publicacion='$codigo_publicacion'"); 
                     break;
                 }
                 break;
@@ -391,23 +389,23 @@ class db {
                         $info = $this->get_data("SELECT * FROM publicacion;");
                         break;
                     case "one" :
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $data['codigo_biblioteca']);
-                        $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_biblioteca = '$codigo_biblioteca'");
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
+                        $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion'");
                         break;
 
                     case "by_codigo_publicacion":
                         $codigo_publicacion= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
                         break;
 
                     case "by_nombre":
                         $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
                         break;
 
                     case "by_autor":
                         $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_biblioteca=p.codigo_biblioteca inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
                         break;
                 }
                 break;

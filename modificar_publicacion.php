@@ -6,7 +6,7 @@ class c_modificar_publicacion extends super_controller {
 
     public function add() {
         $options['publicacion']['lvl2'] = "one";
-        $cods['publicacion']['codigo_biblioteca'] = $this->post->codigo_biblioteca;
+        $cods['publicacion']['codigo_publicacion'] = $this->post->codigo_publicacion;
 
 
         $this->orm->connect();
@@ -36,8 +36,8 @@ class c_modificar_publicacion extends super_controller {
     public function modificar(){
         
         $publicacion = new publicacion($this->post);
-        if (is_empty($publicacion->get('codigo_biblioteca'))) {
-            throw_exception("Debe ingresar un codigo_biblioteca");
+        if (is_empty($publicacion->get('codigo_publicacion'))) {
+            throw_exception("Debe ingresar un codigo_publicacion");
         }
 
         $this->orm->connect();
@@ -60,11 +60,8 @@ class c_modificar_publicacion extends super_controller {
 
         $this->engine->display('header.tpl');
         if ($this->error == 1) {
-            $this->engine->display($this->temp_aux);
-
-          
-        }
-        
+            $this->engine->display($this->temp_aux);          
+        }        
         $this->engine->display($this->temp_aux2);
         $this->engine->display('footer.tpl');
     }

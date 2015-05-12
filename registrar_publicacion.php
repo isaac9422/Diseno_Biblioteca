@@ -12,9 +12,7 @@ class c_registrar_publicacion extends super_controller {
     
     public function verificar() {
         $publicacion = new publicacion($this->post);
-        if (is_empty($publicacion->get('codigo_biblioteca'))) {
-            throw_exception("Ingrese Código Biblioteca correctamente");
-        }else if(is_empty($publicacion->get('codigo_publicacion'))){
+        if(is_empty($publicacion->get('codigo_publicacion'))){
             throw_exception("Ingrese Código publicación correctamente");
         }else if(is_empty($publicacion->get('nombre'))){
             throw_exception("Ingrese nombre correctamente");
@@ -28,15 +26,21 @@ class c_registrar_publicacion extends super_controller {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
 
+        $mis_autores = $this->post->mis_autores;
+        
+        if(count($mis_autores) < 1){
+            throw_exception("Elija al menos un autor");
+        }
         $this->registrar($publicacion);
 
-        $mis_autores = $this->post->mis_autores;
+        
         settype($data, 'object');
         $data->codigo_publicacion = $publicacion->get('codigo_publicacion');
+        
         foreach ($mis_autores as $consecutivo ){
             $data ->autor = $consecutivo;
             $colaboracion = new colaboracion($data);
-            registrar_colaboracion($colaboracion);
+            $this->registrar_colaboracion($colaboracion);
         }
     }
 

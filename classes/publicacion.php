@@ -4,7 +4,6 @@ class publicacion extends object_standard
 {
 	//attributes
 	protected $codigo_publicacion;
-	protected $codigo_biblioteca;
 	protected $categoria;
 	protected $tipo;
 	protected $nombre;
@@ -21,13 +20,13 @@ class publicacion extends object_standard
 	//data about the attributes
 	public function metadata()
 	{
-		return array("codigo_publicacion" => array(), "codigo_biblioteca" => array(), "categoria" => array(),
+		return array("codigo_publicacion" => array(), "categoria" => array(),
                     "tipo" => array(), "nombre" => array(), "fecha_publicacion" => array(), "clasificacion" => array()); 
 	}
 
 	public function primary_key()
 	{
-		return array("codigo_biblioteca");
+		return array("codigo_publicacion");
 	}
 	
 	public function relational_keys($class, $rel_name)

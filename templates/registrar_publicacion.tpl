@@ -11,7 +11,6 @@
                     <form action="{$gvar.l_global}registrar_publicacion.php" method="post">
                         <tr><td>
                                 <h3>Registrar publicación</h3>
-                                <b>Código biblioteca:* </b> <input type="text" name="codigo_biblioteca" required value=""/><br />
                                 <b>Código publicación:* </b> <input type="text" name="codigo_publicacion" required value=""/><br />
                                 <b>Nombre:* </b> <input type="text" name="nombre" required value=""/><br />
                                 <b>Tipo:* </b>
