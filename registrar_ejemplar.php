@@ -12,7 +12,6 @@ class c_registrar_ejemplar extends super_controller {
             throw_exception("Ingrese Código biblioteca correctamente");
 
         }
-
      
         $this->registrar($ejemplar);
 
