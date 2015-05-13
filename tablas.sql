@@ -68,8 +68,8 @@ PRIMARY KEY(codigo_biblioteca,usuario,fecha_inicio));
  
 CREATE TABLE colaboracion (
     autor INTEGER(20),
-    codigo_biblioteca VARCHAR(30),
+    codigo_publicacion VARCHAR(30),
     FOREIGN KEY (autor) REFERENCES autor(consecutivo),
-    FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
-    PRIMARY KEY (autor, codigo_biblioteca)
+    FOREIGN KEY (codigo_publicacion) REFERENCES publicacion(codigo_publicacion) ON DELETE CASCADE,
+    PRIMARY KEY (autor, codigo_publicacion)
 );
