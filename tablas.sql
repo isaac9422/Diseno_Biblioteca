@@ -13,7 +13,7 @@ CREATE TABLE ejemplar(
 codigo_biblioteca VARCHAR(30) NOT NULL,
 codigo_publicacion VARCHAR(30) NOT NULL,
 FOREIGN KEY (codigo_publicacion) REFERENCES publicacion(codigo_publicacion),
-PRIMARY KEY(codigo_biblioteca,codigo_publicacion)
+PRIMARY KEY(codigo_biblioteca)
 );
 
  

@@ -441,7 +441,7 @@ class db {
             case "autor":
                 switch ($option['lvl2']) {
                     case "all" :
-                        $info = $this->get_data("SELECT * FROM autor;");
+                        $info = $this->get_data("SELECT * FROM autor ORDER BY nombre;");
                         break;
                 }
                 break;

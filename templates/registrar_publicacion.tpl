@@ -34,7 +34,6 @@
                                 <b>Fecha publicación:* </b> <input type="date" name="fecha_publicacion" required value=""/><br />
                             </td>                         
                             <td>
-                                <b>Autor(es):* </b>
                                 <select multiple="multiple" id="autores" name="mis_autores[]" style="width:200px;height:400px">
                                     {section loop=$autores name=i}
                                         <option value='{$autores[i]->get('consecutivo')}'>{$autores[i]->get('nombre')}</option>
@@ -56,7 +55,12 @@
     </body>
 </html>
 <script>
-    $('#autores').multiSelect({ keepOrder: true });
+    $('#autores').multiSelect({
+        keepOrder: true,
+        selectableHeader: "<div><h5>Lista de autores</h5></div>",
+        selectionHeader: "<div><h5>Autores seleccionados</h5></div>",
+    });
+    //$('#autores').multiSelect({ keepOrder: true });
     function indice() {
         location.href = 'index.php';
     }
