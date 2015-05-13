@@ -73,3 +73,7 @@ CREATE TABLE colaboracion (
     FOREIGN KEY (codigo_biblioteca) REFERENCES publicacion(codigo_biblioteca) ON DELETE CASCADE,
     PRIMARY KEY (autor, codigo_biblioteca)
 );
+
+
+
+

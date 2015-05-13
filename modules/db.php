@@ -173,6 +173,18 @@ class db {
                         break;
                 }
                 break;
+            
+               case "ejemplar":
+                switch ($options['lvl2']) {
+                    case "normal":                        
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
+                         $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
+
+                        $this->do_operation("INSERT INTO ejemplar VALUES ('$codigo_biblioteca','$codigo_publicacion');");
+                        break;
+                }
+                break;
+            
             case "colaboracion":
                 switch ($options['lvl2']) {
                     case "normal":
