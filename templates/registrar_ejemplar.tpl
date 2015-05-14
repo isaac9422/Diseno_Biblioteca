@@ -14,7 +14,7 @@
                                 <b>Código Biblioteca:* </b> <input type="text" name="codigo_biblioteca" required value=""/><br />
                        
                             <td>
-                                <b>Código publicación:* </b>
+                                <b>Publicación:* </b>
                                 <select  id="codigo" name="codigo_publicacion" >
                                     {section loop=$publicaciones name=i}
                                         <option value='{$publicaciones[i]->get('codigo_publicacion')}'>{$publicaciones[i]->get('nombre')}</option>
