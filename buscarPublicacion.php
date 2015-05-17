@@ -13,7 +13,7 @@ class c_buscarPublicacion extends super_controller {
         }
 
         $this->engine->assign('publicacion', $this->publicacion);
-        $this->engine->assign('title', 'Resultados de la búsqueda');
+        $this->engine->assign('title', 'Buscar');
 
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
@@ -36,7 +36,7 @@ class c_buscarPublicacion extends super_controller {
 //        }
 
         $option['publicacion']['lvl2'] = $criterio;
-        $auxiliars['publicacion'] = array("nombreAutor");
+        $auxiliars['publicacion'] = array("nombreAutor", "cantidad");
         $data['publicacion']['textoBusqueda'] = $text;
         $this->orm->connect();
         $this->orm->read_data(array("publicacion"), $option, $data); //read_data sirve para leer varias tablas al mismo tiempo
@@ -58,15 +58,24 @@ class c_buscarPublicacion extends super_controller {
             $this->msg_warning = "No has seleccionado nada";
             $this->temp_aux = 'message.tpl';
         } else {
-            $publicacion = new publicacion();
+            $ejemplar = new ejemplar();
             $buscados = array();
-            foreach ($this->post->buscados as $seleccionado){
-                $seleccionado = explode(",", $seleccionado);
-                $publicacion->set('nombre', $seleccionado[0]);
-                $publicacion->set('codigo_biblioteca', $seleccionado[1]);
-                $publicacion->set('codigo_publicacion', $seleccionado[2]);
-                $publicacion->set('clasificacion', $seleccionado[3]);
-                array_push($buscados, serialize($publicacion));
+            
+            if(isset($this->session['libros'])){
+                
+                $buscados =$this->session['libros'];
+                
+            }
+            
+            
+            foreach ($this->post->buscados as $seleccionado){  //se recibe una lista con todos las publicaciones
+                
+                $ejemplar->set('codigo_publicacion', $seleccionado); 
+                
+               
+                
+                array_push($buscados, serialize($ejemplar));
+               
             }
             $_SESSION['libros'] = $buscados;
             $this->session = $_SESSION;

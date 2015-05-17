@@ -396,19 +396,19 @@ class db {
                         $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion'");
                         break;
 
-                    case "by_codigo_publicacion":
-                        $codigo_publicacion= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
-                        break;
+//                   case "by_codigo_publicacion":
+//                        $codigo_publicacion= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
+//                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor WHERE p.codigo_publicacion='$codigo_publicacion';");
+//                        break;
 
                     case "by_nombre":
                         $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
+                        $info = $this->get_data("select p.*, a.nombre as nombreAutor, IFNULL((SELECT COUNT(codigo_publicacion) from ejemplar e left join prestamo pr on e.codigo_biblioteca = pr.codigo_biblioteca where e.codigo_publicacion=p.codigo_publicacion and (pr.fecha_fin is NULL or pr.fecha_fin< now()) group by codigo_publicacion),0) as cantidad from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
                         break;
 
                     case "by_autor":
                         $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
+                        $info = $this->get_data("select p.*, IFNULL((SELECT COUNT(codigo_publicacion) from ejemplar e left join prestamo pr on e.codigo_biblioteca = pr.codigo_biblioteca where e.codigo_publicacion=p.codigo_publicacion and (pr.fecha_fin is NULL or pr.fecha_fin< now()) group by codigo_publicacion),0) as cantidad, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
                         break;
                 }
                 break;
