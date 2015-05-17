@@ -13,7 +13,7 @@ class ejemplar extends object_standard {
     //data about the attributes
     public function metadata() {
         return array("codigo_biblioteca" => array(), "codigo_publicacion" => array("foreign_name" => "e_p",
-                          "foreign" => "publicacion", "foreign_attribute" => "codigo_publicacion"));
+                "foreign" => "publicacion", "foreign_attribute" => "codigo_publicacion"));
     }
 
     public function primary_key() {
@@ -26,6 +26,7 @@ class ejemplar extends object_standard {
                 switch ($rel_name) {
                     case "e_p":
                         return array("publicacion");
+                    default :
                         break;
                 }
                 break;

@@ -140,7 +140,6 @@ class db {
                         $codigoBiblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
                         $fechaInicio = mysqli_real_escape_string($this->cn, $object->get('fecha_inicio'));
                         $fechaFin = mysqli_real_escape_string($this->cn, $object->get('fecha_fin'));
-                        $fechaEntrega = null;
                         $cantidadRenovacion = 1;
                         $this->do_operation("INSERT INTO prestamo (usuario,codigo_biblioteca, fecha_inicio,"
                                 . "fecha_fin,fecha_entrega,cantidad_renovacion) "
@@ -273,8 +272,6 @@ class db {
                 }
                 break;
             
-
-
             case "prestamo":
                 switch ($options['lvl2']) {
                     case "normal":
@@ -312,12 +309,6 @@ class db {
                         $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
                         $fecha_publicacion=mysqli_real_escape_string($this->cn,$object->get('fecha_publicacion'));
                         $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
-                        //$cantidad_disponible=mysqli_real_escape_string($this->cn,$object->get('cantidad_disponible'));
-                        //$cantidad_total=mysqli_real_escape_string($this->cn,$object->get('cantidad_total'));
-                        //$codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->auxiliars['codigo_biblioteca']);
-                        //$id_ant=mysqli_real_escape_string($this->cn,$object->auxiliars['id_ant']);
-                        //echo "-->>>>> " . $object->auxiliars['id_ant'];
-                        //echo("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', codigo_biblioteca='$codigo_biblioteca', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_biblioteca='$codigo_biblioteca';");
                         $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
                         break;
                 }
@@ -418,6 +409,18 @@ class db {
                     case "by_autor":
                         $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("select p.*, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
+                        break;
+                }
+                break;
+
+            case "ejemplar":
+                switch ($option['lvl2']) {
+                    case "all" :
+                        $info = $this->get_data("SELECT * FROM ejemplar;");
+                        break;
+                    case "one" :
+                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $data['codigo_biblioteca']);
+                        $info = $this->get_data("SELECT * FROM ejemplar WHERE codigo_biblioteca = '$codigo_biblioteca'");
                         break;
                 }
                 break;

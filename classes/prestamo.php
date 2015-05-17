@@ -18,7 +18,7 @@ class prestamo extends object_standard {
     public function metadata() {
         return array("fecha_inicio" => array(), "fecha_fin" => array(), "usuario" => array("foreign_name" => "p_u",
             "foreign" => "usuario", "foreign_attribute" => "identificacion"),
-            "codigo_biblioteca" => array("foreign_name" => "p_p", "foreign" => "publicacion",
+            "codigo_biblioteca" => array("foreign_name" => "p_e", "foreign" => "ejemplar",
                 "foreign_attribute" => "codigo_biblioteca"), "cantidad_renovacion" => array(),
             "fecha_entrega" => array());
     }
@@ -36,10 +36,10 @@ class prestamo extends object_standard {
                         break;
                 }
                 break;
-            case "publicacion":
+            case "ejemplar":
                 switch ($rel_name) {
-                    case "p_p":
-                        return array("publicacion");
+                    case "p_e":
+                        return array("ejemplar");
                         break;
                 }
                 break;

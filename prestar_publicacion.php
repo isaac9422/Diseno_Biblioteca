@@ -23,10 +23,15 @@ class c_prestarPublicacion extends super_controller {
 
         $contadorReserva = 0;
         $contadorNormal = 0;
-        $publicaciones = $this->session['libros'];
-        foreach ($publicaciones as $libro) {
-            $libro = unserialize($libro);
-            if (strcasecmp($libro->get('clasificacion'), "Reserva") == 0) {
+        $ejemplares = $this->session['libros'];
+        foreach ($ejemplares as $ejemplar) {
+            $ejemplar = unserialize($ejemplar);
+            $options['publicacion']['lvl2'] = "one";
+            $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+            $this->orm->read_data(array("publicacion"), $options, $data);
+            $publicacion = $this->orm->get_objects("publicacion", $components);
+            $publicacion = $publicacion[0];
+            if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
                 $contadorReserva++;
             } else {
                 $contadorNormal++;
@@ -38,13 +43,18 @@ class c_prestarPublicacion extends super_controller {
 
         date_default_timezone_set("America/Bogota");
         $this->orm->connect();
-        foreach ($publicaciones as $libro) {
-            $libro = unserialize($libro);
+        foreach ($ejemplares as $ejemplar) {
+            $ejemplar = unserialize($ejemplar);
             $prestamo = new prestamo();
-            $prestamo->set('codigo_biblioteca', $libro->get('codigo_biblioteca'));
+            $prestamo->set('codigo_biblioteca', $ejemplar->get('codigo_biblioteca'));
             $prestamo->set('usuario', $user->get('identificacion'));
             $prestamo->set('fecha_inicio', date('Y-m-d'));
-            if (strcasecmp($libro->get('clasificacion'), "Reserva") == 0) {
+            $options['publicacion']['lvl2'] = "one";
+            $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+            $this->orm->read_data(array("publicacion"), $options, $data);
+            $publicacion = $this->orm->get_objects("publicacion", $components);
+            $publicacion = $publicacion[0];
+            if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
                 if (getdate() . wday > 4) {
                     $d = strtotime("next Monday");
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
@@ -53,17 +63,17 @@ class c_prestarPublicacion extends super_controller {
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
                 }
             } else {
-                $d = strtotime("+16 days");
+                $d = strtotime("+14 days");
                 $prestamo->set('fecha_fin', date("Y-m-d", $d));
             }
             $this->orm->insert_data("normal", $prestamo);
+
+            $this->type_warning = "success";
+            $this->msg_warning = "Prestamo registrado correctamente";
         }
         $this->orm->close();
         unset($_SESSION['libros']);
         $this->session = $_SESSION;
-
-        $this->type_warning = "success";
-        $this->msg_warning = "Prestamo registrado correctamente";
 
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
@@ -71,12 +81,17 @@ class c_prestarPublicacion extends super_controller {
     }
 
     public function listarBuscados() {
+        $user = unserialize($this->session[objeto_usuario]);
+
+        if (strcasecmp($user->get('estado'), "ACTIVO") != 0) {
+            throw_exception("En este momento, no puedes realizar renovaciones");
+        }
 
         if (!isset($this->session['libros'])) {
             
         } else {
             $buscados = array();
-            foreach ($this->session['libros'] as $publicacion){
+            foreach ($this->session['libros'] as $publicacion) {
                 $publicacion = unserialize($publicacion);
                 array_push($buscados, $publicacion);
             }

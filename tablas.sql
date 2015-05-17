@@ -1,4 +1,3 @@
-﻿ 
 CREATE TABLE publicacion (
 codigo_publicacion VARCHAR(30) NOT NULL,
 categoria VARCHAR(30) NOT NULL,
@@ -73,7 +72,3 @@ CREATE TABLE colaboracion (
     FOREIGN KEY (codigo_publicacion) REFERENCES publicacion(codigo_publicacion) ON DELETE CASCADE,
     PRIMARY KEY (autor, codigo_publicacion)
 );
-
-
-
-

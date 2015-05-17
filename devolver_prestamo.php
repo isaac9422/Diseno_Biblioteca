@@ -52,12 +52,19 @@ class c_devolverPrestamo extends super_controller {
                 if ($fechaEntrega > $fechaFin) {
                     $dif = date_diff(date_create($prestamo->get('fecha_entrega')), date_create($prestamo->get('fecha_fin')));
                     $array = (array) $dif;
+
+                    $options['ejemplar']['lvl2'] = "one";
                     $options['publicacion']['lvl2'] = "one";
-                    $data['publicacion']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+                    $data['ejemplar']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+                    $this->orm->read_data(array("ejemplar"), $options, $data);
+                    $ejemplar = $this->orm->get_objects("ejemplar", $components);
+                    $ejemplar = $ejemplar[0];
+                    $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
                     $this->orm->read_data(array("publicacion"), $options, $data);
-                    $publicacion = $this->orm->get_objects("publicacion");
-                    $libro = $publicacion[0];
-                    if ($libro->get('clasificacion') == "Reserva") {
+                    $publicacion = $this->orm->get_objects("publicacion", $components);
+                    $publicacion = $publicacion[0];
+
+                    if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
                         $user->set('multa', 5000 * $array[d]);
                     } else {
                         $user->set('multa', 1000 * $array[d]);
@@ -71,10 +78,10 @@ class c_devolverPrestamo extends super_controller {
 
                     $this->orm->update_data("multar", $user);
                     $this->type_warning = "warning";
-                    $this->msg_warning = "Prestamo retornado exitosamente, pero tuviste retraso para entregarlo";
+                    $this->msg_warning = "Prestamo(s) retornado(s) exitosamente, pero tuviste retraso para entregarlo";
                 } else {
                     $this->type_warning = "success";
-                    $this->msg_warning = "Prestamo retornado exitosamente";
+                    $this->msg_warning = "Prestamo(s) retornado(s) exitosamente";
                 }
             }
         }
