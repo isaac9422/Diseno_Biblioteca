@@ -37,7 +37,7 @@ class c_modificar_publicacion extends super_controller {
         
         $publicacion = new publicacion($this->post);
         if (is_empty($publicacion->get('codigo_publicacion'))) {
-            throw_exception("Debe ingresar un codigo_publicacion");
+            throw_exception("No se produjo ningún resultado, código incorrecto");
         }
 
         $this->orm->connect();
@@ -57,7 +57,8 @@ class c_modificar_publicacion extends super_controller {
     }
 
     public function display() {
-
+        
+        $this->engine->assign('title', 'Modificar publicacion');
         $this->engine->display('header.tpl');
         if ($this->error == 1) {
             $this->engine->display($this->temp_aux);          

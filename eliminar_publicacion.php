@@ -8,7 +8,7 @@ class c_eliminar_publicacion extends super_controller {
     {
         $publicacion = new publicacion($this->post);
         if(is_empty($publicacion->get('codigo_biblioteca')))
-		{throw_exception("Debe ingresar un código");}
+		{throw_exception("No se produjo ningún resultado, código incorrecto");}
                 
         
 		
@@ -26,6 +26,8 @@ class c_eliminar_publicacion extends super_controller {
 
     public function display()
     {
+        $this->engine->assign('title', 'Eliminar publicacion');
+        
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('eliminar_publicacion.tpl');
