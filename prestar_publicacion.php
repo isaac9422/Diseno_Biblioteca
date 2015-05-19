@@ -4,7 +4,7 @@ require('configs/include.php');
 class c_prestarPublicacion extends super_controller {
 
     public function display() {
-        $this->engine->assign('title', 'Página inicial Usuario');
+        $this->engine->assign('title', 'Prestamos');
 
         $this->engine->display('header.tpl');
 
@@ -24,6 +24,7 @@ class c_prestarPublicacion extends super_controller {
         $contadorReserva = 0;
         $contadorNormal = 0;
         $ejemplares = $this->session['libros'];
+        $this->orm->connect();
         foreach ($ejemplares as $ejemplar) {
             $ejemplar = unserialize($ejemplar);
             $options['publicacion']['lvl2'] = "one";
@@ -42,7 +43,6 @@ class c_prestarPublicacion extends super_controller {
         }
 
         date_default_timezone_set("America/Bogota");
-        $this->orm->connect();
         foreach ($ejemplares as $ejemplar) {
             $ejemplar = unserialize($ejemplar);
             $prestamo = new prestamo();
@@ -87,13 +87,26 @@ class c_prestarPublicacion extends super_controller {
             throw_exception("En este momento, no puedes realizar renovaciones");
         }
 
-        if (!isset($this->session['libros'])) {
-            
-        } else {
+        if (isset($this->session['libros'])) {
+            $this->orm->connect();
             $buscados = array();
-            foreach ($this->session['libros'] as $publicacion) {
-                $publicacion = unserialize($publicacion);
-                array_push($buscados, $publicacion);
+            $seleccionados = $this->session['libros'];
+            foreach ($seleccionados as $ejemplar) {
+                $ejemplar = unserialize($ejemplar);
+
+                $options['ejemplar']['lvl2'] = "all";
+                $options['publicacion']['lvl2'] = "one";
+                $components['ejemplar']['publicacion'] = array("e_p");
+                $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+                $data['ejemplar']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+                $this->orm->read_data(array("ejemplar","publicacion"), $options, $data);
+
+                $ejemplare = $this->orm->get_objects("ejemplar", $components);
+                $publicacion = $this->orm->get_objects("publicacion", $components);
+                $ejemplare = $ejemplare[0];
+                $publicacion = $publicacion[0];
+
+                array_push($buscados, $ejemplar);
             }
             $this->engine->assign('preview', $buscados);
         }

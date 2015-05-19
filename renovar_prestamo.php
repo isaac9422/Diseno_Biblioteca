@@ -5,7 +5,7 @@ require('modules/m_phpass/PasswordHash.php');
 class c_renovarPrestamo extends super_controller {
 
     public function display() {
-        $this->engine->assign('title', 'Página inicial Usuario');
+        $this->engine->assign('title', 'Renovar prestamo');
 
         $this->engine->display('header.tpl');
 

@@ -5,7 +5,7 @@ require('modules/m_phpass/PasswordHash.php');
 class c_devolverPrestamo extends super_controller {
 
     public function display() {
-        $this->engine->assign('title', 'Página inicial Usuario');
+        $this->engine->assign('title', 'Devoluciones');
 
         $this->engine->display('header.tpl');
 
