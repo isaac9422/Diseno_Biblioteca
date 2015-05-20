@@ -4,8 +4,8 @@
             
                 <tr><td>
 
-                    <b>código de la publicación:</b> <input type="text" name="codigo_publicacion" /><br />
-                    <input class="btn btn-primary" type="submit" value="seleccionar" /><br />
+                    <b>Código de la publicación:</b> <input type="text" name="codigo_publicacion" /><br />
+                    <input class="btn btn-primary" type="submit" value="Seleccionar" /><br />
 
                 </td></tr></table>
     </form>

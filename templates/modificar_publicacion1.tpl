@@ -27,11 +27,27 @@
             <b>MODIFICAR PUBLICACION</b><br /><br />       
 
             <b>Código Publicación:</b> <input type="text" name="codigo_publicacion" value="{if isset($object)}{$object->get('codigo_publicacion')}{/if}"/><br />
-            <b>Categoría:</b> <input type="text" name="categoria" value="{if isset($object)}{$object->get('categoria')}{/if}"/><br />
-            <b>Tipo:</b> <input type="text" name="tipo" value="{if isset($object)}{$object->get('tipo')}{/if}"/><br />
             <b>Nombre:</b> <input type="text" name="nombre" value="{if isset($object)}{$object->get('nombre')}{/if}"/><br />
-            <b>Fecha de publicación:</b> <input type="text" name="fecha_publicacion" value="{if isset($object)}{$object->get('fecha_publicacion')}{/if}"/><br />
-            <b>Clasificación:</b> <input type="text" name="clasificacion" value="{if isset($object)}{$object->get('clasificacion')}{/if}" /><br />
+            <b>Tipo:* </b>
+            <select name ="tipo">
+                <option value="libro" {if $object->get('tipo') == 'libro'}selected{/if}>Libro</option>
+                <option value="revista" {if $object->get('tipo') == 'revista'}selected{/if}>Revista</option>
+                <option value="cd" {if $object->get('tipo') == 'cd'}selected{/if}>CD</option>
+            </select> <br />
+            <b>Categoría:* </b>
+            <select name ="categoria">
+                <option value="ciencia" {if $object->get('categoria') == 'ciencia'}selected{/if}>Ciencia</option>
+                <option value="deporte" {if $object->get('categoria') == 'deporte'}selected{/if}>Deporte</option>
+                <option value="espectáculos" {if $object->get('categoria') == 'espectáculos'}selected{/if}>Espéctaculos</option>
+                <option value="literatura" {if $object->get('categoria') == 'literatura'}selected{/if}>Literatura</option>
+            </select> <br />
+            <b>Clasificación:* </b>
+            <select name ="clasificacion">
+                <option value="general" {if $object->get('clasificacion') == 'general'}selected{/if}>General</option>
+                <option value="reserva" {if $object->get('clasificacion') == 'reserva'}selected{/if}>Reserva</option>                                    
+            </select> <br />
+            <b>Fecha de publicación:</b> <input type="date" name="fecha_publicacion" value="{if isset($object)}{$object->get('fecha_publicacion')}{/if}"/><br />
+  
             
             <input class="btn btn-primary" type="submit" value="Modificar" /><br />
             
