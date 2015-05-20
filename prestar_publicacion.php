@@ -83,7 +83,7 @@ class c_prestarPublicacion extends super_controller {
         $user = unserialize($this->session[objeto_usuario]);
 
         if (strcasecmp($user->get('estado'), "ACTIVO") != 0) {
-            throw_exception("En este momento, no puedes realizar renovaciones");
+            throw_exception("En este momento, no puedes realizar prestamos");
         }
 
         $options['prestamo']['lvl2'] = "for_return";
