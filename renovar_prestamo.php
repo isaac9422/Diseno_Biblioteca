@@ -78,7 +78,7 @@ class c_renovarPrestamo extends super_controller {
                         $prestamo->set('fecha_fin', date("Y-m-d", $d));
                     }
                 } else {
-                    $d = strtotime("+16 days", $fechaFinLong);
+                    $d = strtotime("+14 days", $fechaFinLong);
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
                 }
                 $this->orm->update_data("normal", $prestamo);

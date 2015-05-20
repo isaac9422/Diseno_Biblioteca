@@ -26,7 +26,6 @@ class publicacion extends object_standard {
 
     public function relational_keys($class, $rel_name) {
         switch ($class) {
-
             default :
                 break;
         }

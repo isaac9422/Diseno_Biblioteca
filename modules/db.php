@@ -422,6 +422,10 @@ class db {
                         $codigo_biblioteca = mysqli_real_escape_string($this->cn, $data['codigo_biblioteca']);
                         $info = $this->get_data("SELECT * FROM ejemplar WHERE codigo_biblioteca = '$codigo_biblioteca'");
                         break;
+                    case "by_publicacion":
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
+                        $info = $this->get_data("SELECT * FROM ejemplar WHERE codigo_publicacion = '$codigo_publicacion'");
+                        break;
                 }
                 break;
 
@@ -438,6 +442,10 @@ class db {
                     case "for_return":
                         $usuario = mysqli_real_escape_string($this->cn, $data['usuario']);
                         $info = $this->get_data("SELECT * FROM prestamo WHERE usuario='$usuario' AND fecha_entrega IS NULL;");
+                        break;
+                    case "by_codigo_biblioteca":
+                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $data['codigo_biblioteca']);
+                        $info = $this->get_data("SELECT * FROM prestamo where codigo_biblioteca = '$codigo_biblioteca' AND fecha_entrega IS NULL");
                         break;
                 }
                 break;
