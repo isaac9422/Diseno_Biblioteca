@@ -3,8 +3,8 @@
     <tr> 
         <td> <form action="{$gvar.l_global}buscarPublicacion.php?option=lookup" method="post">
                 <select name ="criterioBusqueda"> 
-                    <option value="by_autor"> autor</option>
-                    <option value="by_nombre">nombre publicación</option>
+                    <option value="by_autor"> Autor</option>
+                    <option value="by_nombre">Nombre publicación</option>
                 </select> 
                 <input type='text' name='textoBusqueda' placeholder='Buscar'>
                 <button class="btn btn-success">Buscar</button>
