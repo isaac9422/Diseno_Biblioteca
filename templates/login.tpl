@@ -13,8 +13,8 @@
                         </form>
                     {else}
                         <form class="well well-small form-search" action="{$gvar.l_global}login.php" method="post" name="login">
-                            <input name="email" type="email" class="input-medium" placeholder="Email *" required><br>
-                            <input name="contraseña" type="password" class="input-medium" placeholder="Contraseña *" required>
+                            <input name="email" type="email" class="input-small" placeholder="Email *" required><br>
+                            <input name="contraseña" type="password" class="input-small" placeholder="Contraseña *" required>
                             <div class="center-block"  align="left">
                                 <br>
                             <input class="radio" type="radio" name="rol" value="usuario"><font color="Black">  Usuario</font ><br>

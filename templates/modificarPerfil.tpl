@@ -11,7 +11,7 @@
             <b class="etiq">Telefono          :</b><input class="campos" type="tel" name="telefono" value="{$objeto->get('telefono')}" /> <br> 
             <b class="etiq">Direccion         :</b><input class="campos" type="text" name="direccion" value="{$objeto->get('direccion')}"/> <br> 
             <br> 
-            <input class="btn btn-primary" type="submit" value="Modificar" name="modificar" />
+            <input class="btn btn-success" type="submit" value="Modificar" name="modificar" />
             <input class="btn btn-warning" type="submit" value="Cancelar" name="cancelar" />
         </form>
     {/if}

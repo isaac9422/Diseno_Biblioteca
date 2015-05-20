@@ -23,14 +23,13 @@ class c_prestarPublicacion extends super_controller {
 
         $contadorReserva = 0;
         $contadorNormal = 0;
-        $ejemplares = $this->session['libros'];
         $this->orm->connect();
-        foreach ($ejemplares as $ejemplar) {
-            $ejemplar = unserialize($ejemplar);
+        foreach ($this->post->prestados as $ejemplar) {
+            $ejemplar = explode(",", $ejemplar);
             $options['publicacion']['lvl2'] = "one";
-            $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+            $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
             $this->orm->read_data(array("publicacion"), $options, $data);
-            $publicacion = $this->orm->get_objects("publicacion", $components);
+            $publicacion = $this->orm->get_objects("publicacion");
             $publicacion = $publicacion[0];
             if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
                 $contadorReserva++;
@@ -39,20 +38,20 @@ class c_prestarPublicacion extends super_controller {
             }
         }
         if ($contadorReserva > 1 || $contadorNormal > 3) {
-            throw_exception("Excedes el máximo permitido para prestar");
+            throw_exception("Excedes el máximo número permitido de ejemplares para prestar");
         }
 
         date_default_timezone_set("America/Bogota");
-        foreach ($ejemplares as $ejemplar) {
-            $ejemplar = unserialize($ejemplar);
+        foreach ($this->post->prestados as $ejemplar) {
+            $ejemplar = explode(",", $ejemplar);
             $prestamo = new prestamo();
-            $prestamo->set('codigo_biblioteca', $ejemplar->get('codigo_biblioteca'));
+            $prestamo->set('codigo_biblioteca', $ejemplar[0]);
             $prestamo->set('usuario', $user->get('identificacion'));
             $prestamo->set('fecha_inicio', date('Y-m-d'));
             $options['publicacion']['lvl2'] = "one";
-            $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+            $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
             $this->orm->read_data(array("publicacion"), $options, $data);
-            $publicacion = $this->orm->get_objects("publicacion", $components);
+            $publicacion = $this->orm->get_objects("publicacion");
             $publicacion = $publicacion[0];
             if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
                 if (getdate() . wday > 4) {
@@ -87,29 +86,52 @@ class c_prestarPublicacion extends super_controller {
             throw_exception("En este momento, no puedes realizar renovaciones");
         }
 
-        if (isset($this->session['libros'])) {
-            $this->orm->connect();
-            $buscados = array();
-            $seleccionados = $this->session['libros'];
-            foreach ($seleccionados as $ejemplar) {
-                $ejemplar = unserialize($ejemplar);
+        $options['prestamo']['lvl2'] = "for_return";
+        $data['prestamo']['usuario'] = $user->get('identificacion');
+        $this->orm->connect();
+        $this->orm->read_data(array("prestamo"), $options, $data);
+        $prestamos = $this->orm->get_objects("prestamo");
+        if (count($prestamos) > 3) {
+            throw_exception("Excedes el máximo número permitido de ejemplares prestados");
+        }
 
-                $options['ejemplar']['lvl2'] = "all";
+        if (isset($this->session['libros'])) {
+            $buscados = array();
+            foreach ($this->session['libros'] as $ejemplar) {
+                $ejemplar = unserialize($ejemplar);
+                $options['ejemplar']['lvl2'] = "by_publicacion";
                 $options['publicacion']['lvl2'] = "one";
                 $components['ejemplar']['publicacion'] = array("e_p");
                 $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
                 $data['ejemplar']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
-                $this->orm->read_data(array("ejemplar","publicacion"), $options, $data);
+                $this->orm->read_data(array("ejemplar", "publicacion"), $options, $data);
 
-                $ejemplare = $this->orm->get_objects("ejemplar", $components);
-                $publicacion = $this->orm->get_objects("publicacion", $components);
-                $ejemplare = $ejemplare[0];
+                $ejemplares = $this->orm->get_objects("ejemplar");
+                $publicacion = $this->orm->get_objects("publicacion");
+                $i = 0;
+                do {
+                    $ejemplare = $ejemplares[$i];
+                    $options['prestamo']['lvl2'] = "by_codigo_biblioteca";
+                    $data['prestamo']['codigo_biblioteca'] = $ejemplare->get('codigo_biblioteca');
+                    $this->orm->read_data(array("prestamo"), $options, $data);
+                    $prestamo = $this->orm->get_objects("prestamo");
+                    if (is_empty($prestamo)) {
+                        break;
+                    }
+                    $i++;
+                } while (true);
                 $publicacion = $publicacion[0];
+                $ejemplar->set('nombre', $publicacion->get('nombre'));
+                $ejemplar->set('clasificacion', $publicacion->get('clasificacion'));
+                $ejemplar->set('codigo_biblioteca', $ejemplare->get('codigo_biblioteca'));
 
-                array_push($buscados, $ejemplar);
+                if (!in_array($ejemplar, $buscados)) {
+                    array_push($buscados, $ejemplar);
+                }
             }
             $this->engine->assign('preview', $buscados);
         }
+        $this->orm->close();
     }
 
     public function run() {
@@ -122,10 +144,13 @@ class c_prestarPublicacion extends super_controller {
                     header("location: inicio_$tipo.php");
                 }
             }
-            if (isset($this->get->option)) {
-                $this->{$this->get->option}();
+            if (isset($this->post->cancelar)) {
+                header("location: index.php");
             }
             $this->listarBuscados();
+            if (isset($this->post->prestar)) {
+                $this->prestar();
+            }
         } catch (Exception $e) {
             $this->error = 1;
             $this->engine->assign('object', $this->post);

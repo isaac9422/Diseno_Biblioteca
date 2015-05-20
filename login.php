@@ -42,7 +42,6 @@ class c_login extends super_controller {
         $usuario = $usuario[0];
 
         $encriptada = $usuario->get('contraseña');
-        echo $encriptada;
         
         $contraseña = $this->post->contraseña; //contraseña del tpl
         $hasher = new PasswordHash(8, FALSE); //contraseña aleatoria de 8 carateres
