@@ -15,6 +15,7 @@
     <tr>
         <td>
             <form action="{$gvar.l_global}buscarPublicacion.php" method="post">
+                {if isset($publicacion)}
             <table id="busqueda" class="table table-bordered table-hover table-condensed">
                 <thead>
                     <tr style="font-weight: bold;"> 
@@ -47,7 +48,7 @@
 
 
             </table>
-                
+              {/if}  
             <br/>
             
             <button class="btn btn-inverse" name="adicionar">Adicionar</button>

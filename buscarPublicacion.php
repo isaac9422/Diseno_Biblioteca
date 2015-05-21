@@ -8,11 +8,6 @@ class c_buscarPublicacion extends super_controller {
 
     public function display() {
 
-        if ($this->publicacion == NULL) {
-            $this->publicacion = array();
-        }
-
-        $this->engine->assign('publicacion', $this->publicacion);
         $this->engine->assign('title', 'Buscar');
 
         $this->engine->display('header.tpl');
@@ -47,6 +42,7 @@ class c_buscarPublicacion extends super_controller {
             throw_exception("No se produjo algún resultado");
         }
         //print_r2($this->publicacion);
+        $this->engine->assign('publicacion', $this->publicacion);
     }
 
     public function adicionar() {
