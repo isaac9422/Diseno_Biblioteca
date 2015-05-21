@@ -24,7 +24,8 @@ class c_buscarPublicacion extends super_controller {
 
     public function lookup() {
 
-        if (!is_empty($this->post->textoBusqueda)) { // cuando el campo esta vacio
+
+        if (is_empty($this->post->textoBusqueda)) { // cuando el campo esta vacio
             throw_exception("Debe ingresar un criterio de búsqueda.");
         }
 

@@ -31,7 +31,7 @@
                                     <option value="general">General</option>
                                     <option value="reserva">Reserva</option>                                    
                                 </select> <br />
-                                <b>Fecha publicación:* </b> <input type="date" name="fecha_publicacion" required value=""/><br />
+                                <b>Fecha publicación (dd/mm/aaaa):* </b> <input type="date" name="fecha_publicacion" required value="" placeholder="dd/mm/aaaa"/><br />
                             </td>                         
                             <td>
                                 <select multiple="multiple" id="autores" name="mis_autores[]" style="width:200px;height:400px">

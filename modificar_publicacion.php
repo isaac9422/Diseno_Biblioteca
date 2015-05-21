@@ -4,6 +4,43 @@ require('configs/include.php');
 
 class c_modificar_publicacion extends super_controller {
 
+    function validateDate($date,$format = 'Y-m-d'){
+        $fecha = explode("/",$date);
+        print_r2($fecha);
+        var_dump(!checkdate($fecha[1], $fecha[0], $fecha[2]));
+        if(!checkdate($fecha[1], $fecha[0], $fecha[2])){
+            return FALSE;
+        }
+        try{
+            $d_system = new DateTime("now");
+            $d_publicacion = new DateTime($date);
+        } catch (Exception $ex) {
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
+        return $d_publicacion <= $d_system;
+    }
+    
+        public function verificar() {
+        $publicacion = new publicacion($this->post);
+        if(is_empty($publicacion->get('codigo_publicacion'))){
+            throw_exception("Ingrese Código publicación correctamente");
+        }else if(is_empty($publicacion->get('nombre'))){
+            throw_exception("Ingrese nombre correctamente");
+        }else if(is_empty($publicacion->get('categoria'))){
+            throw_exception("Ingrese categoría correctamente");
+        }else if(is_empty($publicacion->get('tipo'))){
+            throw_exception("Ingrese tipo correctamente");
+        }else if(is_empty($publicacion->get('clasificacion'))){
+            throw_exception("Ingrese clasificación correctamente");
+        }else if(is_empty($publicacion->get('fecha_publicacion'))){
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
+
+        if(!($this->validateDate($publicacion->get('fecha_publicacion')))){
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
+    }
+    
     public function add() {
         $options['publicacion']['lvl2'] = "one";
         $cods['publicacion']['codigo_publicacion'] = $this->post->codigo_publicacion;
@@ -39,6 +76,8 @@ class c_modificar_publicacion extends super_controller {
         if (is_empty($publicacion->get('codigo_publicacion'))) {
             throw_exception("No se produjo ningún resultado, código incorrecto");
         }
+        
+        $this->verificar();
 
         $this->orm->connect();
         $this->orm->update_data("normal", $publicacion);

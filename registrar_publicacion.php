@@ -3,13 +3,20 @@
 require('configs/include.php');
 
 class c_registrar_publicacion extends super_controller {
-    
-    public function verificarFecha($fecha){
-        $day = explode("/",$fecha);
-        $month= explode("/",$fecha);
-        $year = explode("/",$fecha);
+    function validateDate($date,$format = 'Y-m-d'){
+        $fecha = explode("/",$date);
+        if(!checkdate($fecha[1], $fecha[0], $fecha[2])){
+            return FALSE;
+        }
+        try{
+            $d_system = new DateTime("now");
+            $d_publicacion = new DateTime($date);
+        } catch (Exception $ex) {
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
+        return $d_publicacion <= $d_system;
     }
-    
+
     public function verificar() {
         $publicacion = new publicacion($this->post);
         if(is_empty($publicacion->get('codigo_publicacion'))){
@@ -26,6 +33,9 @@ class c_registrar_publicacion extends super_controller {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
 
+        if(!($this->validateDate($publicacion->get('fecha_publicacion')))){
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
         $mis_autores = $this->post->mis_autores;
         
         if(count($mis_autores) < 1){
