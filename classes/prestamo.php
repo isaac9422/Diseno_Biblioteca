@@ -39,7 +39,7 @@ class prestamo extends object_standard {
             case "ejemplar":
                 switch ($rel_name) {
                     case "p_e":
-                        return array("ejemplar");
+                        return array("codigo_biblioteca");
                         break;
                 }
                 break;

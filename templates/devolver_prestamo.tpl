@@ -12,6 +12,7 @@
                     <tr>
                         <th></th>
                         <th>Código biblioteca</th>
+                        <th>Nombre</th>
                         <th>Número de renovaciones</th>
                         <th>Fecha Inicio</th>   
                         <th>Fecha Fin</th>
@@ -22,6 +23,7 @@
                         <tr>
                             <td><input type="checkbox" name="devoluciones[]" value="{$entregas[i]->get('codigo_biblioteca')},{$entregas[i]->get('fecha_inicio')},{$entregas[i]->get('fecha_fin')},{$entregas[i]->get('cantidad_renovacion')}"> </td>
                             <td>{$entregas[i]->get('codigo_biblioteca')}</td>
+                            <td>{$entregas[i]->get('nombre')}</td>
                             <td>{$entregas[i]->get('cantidad_renovacion')}</td>
                             <td>{$entregas[i]->get('fecha_inicio')}</td>
                             <td>{$entregas[i]->get('fecha_fin')}</td>

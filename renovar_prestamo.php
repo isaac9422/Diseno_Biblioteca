@@ -28,12 +28,24 @@ class c_renovarPrestamo extends super_controller {
         $this->orm->connect();
         $this->orm->read_data(array("prestamo"), $options, $data);
         $prestamos = $this->orm->get_objects("prestamo");
-        $this->orm->close();
-        if (is_empty($prestamos)) {
-            throw_exception("No tienes prestamos activos");
-        } else {
-            $this->engine->assign('prestamos', $prestamos);
+
+        for ($i = 0; $i < count($prestamos); $i++) {
+            $prestamo = $prestamos[$i];
+            $options['ejemplar']['lvl2'] = "one";
+            $options['publicacion']['lvl2'] = "one";
+            $data['ejemplar']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+            $this->orm->read_data(array("ejemplar"), $options, $data);
+            $ejemplar = $this->orm->get_objects("ejemplar");
+            $ejemplar = $ejemplar[0];
+            $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+            $this->orm->read_data(array("publicacion"), $options, $data);
+            $publicacion = $this->orm->get_objects("publicacion");
+            $publicacion = $publicacion[0];
+            $prestamos[$i]->set('nombre', $publicacion->get('nombre'));
         }
+
+        $this->orm->close();
+        $this->engine->assign('prestamos', $prestamos);
     }
 
     public function renovar() {
@@ -53,24 +65,24 @@ class c_renovarPrestamo extends super_controller {
                 $prestamo->set("fecha_fin", $seleccion[2]);
                 $prestamo->set("cantidad_renovacion", 1 + $seleccion[3]);
                 $prestamo->set('usuario', $user->get('identificacion'));
-                
+
                 $options['ejemplar']['lvl2'] = "one";
                 $options['publicacion']['lvl2'] = "one";
                 $data['ejemplar']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
                 $this->orm->read_data(array("ejemplar"), $options, $data);
-                $ejemplar = $this->orm->get_objects("ejemplar", $components);
+                $ejemplar = $this->orm->get_objects("ejemplar");
                 $ejemplar = $ejemplar[0];
                 $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
                 $this->orm->read_data(array("publicacion"), $options, $data);
-                $publicacion = $this->orm->get_objects("publicacion", $components);
+                $publicacion = $this->orm->get_objects("publicacion");
                 $publicacion = $publicacion[0];
-                
+
                 //Cojo la fecha que tiene parseada actualmente
                 $fechaFinDate = $prestamo->get('fecha_fin');
                 //Se convierte a timestamp para operar
                 $fechaFinLong = strtotime($fechaFinDate);
                 if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
-                    if (getdate($fechaFinLong) . wday > 4) {
+                    if (getdate($fechaFinLong)['wday'] > 4) {
                         $d = strtotime("next Monday", $fechaFinLong);
                         $prestamo->set('fecha_fin', date("Y-m-d", $d));
                     } else {

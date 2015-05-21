@@ -24,16 +24,12 @@ class c_buscarPublicacion extends super_controller {
 
     public function lookup() {
 
-        if (!isset($this->post->textoBusqueda)) { // cuando el campo esta vacio
+        if (!is_empty($this->post->textoBusqueda)) { // cuando el campo esta vacio
             throw_exception("Debe ingresar un criterio de búsqueda.");
         }
 
         $criterio = $this->post->criterioBusqueda;
         $text = $this->post->textoBusqueda;
-
-//        if($this->post->cantidad_disponible <= 3){
-//            throw_exception("No hay ejemplares disponibles");
-//        }
 
         $option['publicacion']['lvl2'] = $criterio;
         $auxiliars['publicacion'] = array("nombreAutor", "cantidad");

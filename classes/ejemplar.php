@@ -25,7 +25,7 @@ class ejemplar extends object_standard {
             case "publicacion":
                 switch ($rel_name) {
                     case "e_p":
-                        return array("publicacion");
+                        return array("codigo_publicacion");
                     default :
                         break;
                 }

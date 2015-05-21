@@ -24,17 +24,22 @@ class c_prestarPublicacion extends super_controller {
         $contadorReserva = 0;
         $contadorNormal = 0;
         $this->orm->connect();
-        foreach ($this->post->prestados as $ejemplar) {
-            $ejemplar = explode(",", $ejemplar);
-            $options['publicacion']['lvl2'] = "one";
-            $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
-            $this->orm->read_data(array("publicacion"), $options, $data);
-            $publicacion = $this->orm->get_objects("publicacion");
-            $publicacion = $publicacion[0];
-            if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
-                $contadorReserva++;
-            } else {
-                $contadorNormal++;
+        if (!isset($this->post->prestados)) {
+            $this->type_warning = "warning";
+            $this->msg_warning = "No has seleccionado nada";
+        } else {
+            foreach ($this->post->prestados as $ejemplar) {
+                $ejemplar = explode(",", $ejemplar);
+                $options['publicacion']['lvl2'] = "one";
+                $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
+                $this->orm->read_data(array("publicacion"), $options, $data);
+                $publicacion = $this->orm->get_objects("publicacion");
+                $publicacion = $publicacion[0];
+                if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
+                    $contadorReserva++;
+                } else {
+                    $contadorNormal++;
+                }
             }
         }
         if ($contadorReserva > 1 || $contadorNormal > 3) {
@@ -42,37 +47,42 @@ class c_prestarPublicacion extends super_controller {
         }
 
         date_default_timezone_set("America/Bogota");
-        foreach ($this->post->prestados as $ejemplar) {
-            $ejemplar = explode(",", $ejemplar);
-            $prestamo = new prestamo();
-            $prestamo->set('codigo_biblioteca', $ejemplar[0]);
-            $prestamo->set('usuario', $user->get('identificacion'));
-            $prestamo->set('fecha_inicio', date('Y-m-d'));
-            $options['publicacion']['lvl2'] = "one";
-            $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
-            $this->orm->read_data(array("publicacion"), $options, $data);
-            $publicacion = $this->orm->get_objects("publicacion");
-            $publicacion = $publicacion[0];
-            if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
-                if (getdate() . wday > 4) {
-                    $d = strtotime("next Monday");
-                    $prestamo->set('fecha_fin', date("Y-m-d", $d));
+        if (!isset($this->post->prestados)) {
+            $this->type_warning = "warning";
+            $this->msg_warning = "No has seleccionado nada";
+        } else {
+            foreach ($this->post->prestados as $ejemplar) {
+                $ejemplar = explode(",", $ejemplar);
+                $prestamo = new prestamo();
+                $prestamo->set('codigo_biblioteca', $ejemplar[0]);
+                $prestamo->set('usuario', $user->get('identificacion'));
+                $prestamo->set('fecha_inicio', date('Y-m-d'));
+                $options['publicacion']['lvl2'] = "one";
+                $data['publicacion']['codigo_publicacion'] = $ejemplar[1];
+                $this->orm->read_data(array("publicacion"), $options, $data);
+                $publicacion = $this->orm->get_objects("publicacion");
+                $publicacion = $publicacion[0];
+                if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
+                    if (getdate()['wday'] > 4) {
+                        $d = strtotime("next Monday");
+                        $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                    } else {
+                        $d = strtotime("tomorrow");
+                        $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                    }
                 } else {
-                    $d = strtotime("tomorrow");
+                    $d = strtotime("+14 days");
                     $prestamo->set('fecha_fin', date("Y-m-d", $d));
                 }
-            } else {
-                $d = strtotime("+14 days");
-                $prestamo->set('fecha_fin', date("Y-m-d", $d));
-            }
-            $this->orm->insert_data("normal", $prestamo);
+                $this->orm->insert_data("normal", $prestamo);
 
-            $this->type_warning = "success";
-            $this->msg_warning = "Prestamo registrado correctamente";
+                $this->type_warning = "success";
+                $this->msg_warning = "Prestamo registrado correctamente";
+            }
+            unset($_SESSION['libros']);
+            $this->session = $_SESSION;
         }
         $this->orm->close();
-        unset($_SESSION['libros']);
-        $this->session = $_SESSION;
 
         $this->temp_aux = 'message.tpl';
         $this->engine->assign('type_warning', $this->type_warning);
@@ -106,8 +116,8 @@ class c_prestarPublicacion extends super_controller {
                 $data['ejemplar']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
                 $this->orm->read_data(array("ejemplar", "publicacion"), $options, $data);
 
-                $ejemplares = $this->orm->get_objects("ejemplar");
-                $publicacion = $this->orm->get_objects("publicacion");
+                $ejemplares = $this->orm->get_objects("ejemplar", $components);
+                $publicacion = $ejemplares[0]->components['publicacion']['e_p'][0];
                 $i = 0;
                 do {
                     $ejemplare = $ejemplares[$i];
@@ -120,7 +130,6 @@ class c_prestarPublicacion extends super_controller {
                     }
                     $i++;
                 } while (true);
-                $publicacion = $publicacion[0];
                 $ejemplar->set('nombre', $publicacion->get('nombre'));
                 $ejemplar->set('clasificacion', $publicacion->get('clasificacion'));
                 $ejemplar->set('codigo_biblioteca', $ejemplare->get('codigo_biblioteca'));

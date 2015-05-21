@@ -12,6 +12,7 @@
                     <tr>
                         <th></th>
                         <th>Código biblioteca</th>
+                        <th>Nombre</th>
                         <th>Número de renovaciones</th>
                         <th>Fecha Inicio</th>
                         <th>Fecha Fin</th>
@@ -22,6 +23,7 @@
                         <tr>
                             <td><input type="checkbox" name="renovaciones[]" value="{$prestamos[i]->get('codigo_biblioteca')},{$prestamos[i]->get('fecha_inicio')},{$prestamos[i]->get('fecha_fin')},{$prestamos[i]->get('cantidad_renovacion')}"> </td>
                             <td>{$prestamos[i]->get('codigo_biblioteca')}</td>
+                            <td>{$prestamos[i]->get('nombre')}</td>
                             <td>{$prestamos[i]->get('cantidad_renovacion')}</td>
                             <td>{$prestamos[i]->get('fecha_inicio')}</td>
                             <td>{$prestamos[i]->get('fecha_fin')}</td>

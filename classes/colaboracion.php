@@ -33,7 +33,7 @@ class colaboracion extends object_standard {
             case "publicacion":
                 switch ($rel_name) {
                     case "c_p":
-                        return array("publicacion");
+                        return array("codigo_publicacion");
                         break;
                 }
                 break;
