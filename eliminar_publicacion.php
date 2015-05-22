@@ -4,10 +4,10 @@ require('configs/include.php');
 
 class c_eliminar_publicacion extends super_controller {
     
-    public function add()
+    public function eliminar()
     {
         $publicacion = new publicacion($this->post);
-        if(is_empty($publicacion->get('codigo_biblioteca')))
+        if(is_empty($publicacion->get('codigo_publicacion')))
 		{throw_exception("No se produjo ningún resultado, código incorrecto");}
                 
         

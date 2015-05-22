@@ -57,7 +57,8 @@ class c_buscarPublicacion extends super_controller {
             if(isset($this->session['libros'])){
                 
                 $buscados =$this->session['libros'];
-                
+               
+            
             }
             
             
@@ -72,6 +73,10 @@ class c_buscarPublicacion extends super_controller {
             }
             $_SESSION['libros'] = $buscados;
             $this->session = $_SESSION;
+            
+            $this->type_warning = "success";
+            $this->msg_warning = "Has agregado una publicación para ser prestada";
+            $this->temp_aux = 'message.tpl';
         }
         $this->engine->assign('type_warning', $this->type_warning);
         $this->engine->assign('msg_warning', $this->msg_warning);

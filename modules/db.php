@@ -403,12 +403,82 @@ class db {
 
                     case "by_nombre":
                         $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, a.nombre as nombreAutor, IFNULL((SELECT COUNT(codigo_publicacion) from ejemplar e left join prestamo pr on e.codigo_biblioteca = pr.codigo_biblioteca where e.codigo_publicacion=p.codigo_publicacion and (pr.fecha_entrega is NULL or pr.fecha_entrega< now()) group by codigo_publicacion),0) as cantidad from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor  WHERE p.nombre like '%$nombre%';");
+                        $info = $this->get_data("SELECT codigo_publicacion,
+                                                        categoria,
+                                                        tipo,
+                                                        nombre,
+                                                        clasificacion,
+                                                        fecha_publicacion,
+                                                        disponibles as cantidad,
+                                                        GROUP_CONCAT(nombreAutor SEPARATOR ', ') as nombreAutor
+                                                      FROM (
+                                                        SELECT p.codigo_publicacion,
+                                                        p.categoria,
+                                                        p.tipo,
+                                                        p.nombre,
+                                                        p.clasificacion,
+                                                        p.fecha_publicacion,
+                                                        a.nombre as nombreAutor,
+                                                        SUM(IF(pr.codigo_biblioteca IS null, 1, 0)) AS disponibles
+                                                        FROM ejemplar e 
+                                                        LEFT JOIN ( /*ejemplares que estan prestados*/
+                                                        SELECT codigo_biblioteca,
+                                                        fecha_entrega
+                                                        FROM prestamo
+                                                        WHERE fecha_entrega IS null) pr ON e.codigo_biblioteca = pr.codigo_biblioteca 
+                                                        INNER JOIN publicacion p ON e.codigo_publicacion = p.codigo_publicacion 
+                                                        INNER JOIN colaboracion c ON c.codigo_publicacion = p.codigo_publicacion 
+                                                        INNER JOIN autor a ON a.consecutivo = c.autor
+                                                        WHERE p.nombre like '%$nombre%'
+                                                        GROUP BY p.codigo_publicacion,
+                                                        p.categoria,
+                                                        p.tipo,
+                                                        p.nombre,
+                                                        p.clasificacion,
+                                                        p.fecha_publicacion,
+                                                        a.nombre
+                                                      ) result
+                                                      GROUP BY codigo_publicacion;");
                         break;
 
                     case "by_autor":
                         $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
-                        $info = $this->get_data("select p.*, IFNULL((SELECT COUNT(codigo_publicacion) from ejemplar e left join prestamo pr on e.codigo_biblioteca = pr.codigo_biblioteca where e.codigo_publicacion=p.codigo_publicacion and (pr.fecha_entrega is NULL or pr.fecha_entrega< now()) group by codigo_publicacion),0) as cantidad, a.nombre as nombreAutor from publicacion p inner join colaboracion c on c.codigo_publicacion=p.codigo_publicacion inner join autor a on a.consecutivo=c.autor where a.nombre like '%$autor%';");
+                        $info = $this->get_data("SELECT * from (SELECT codigo_publicacion,
+                                                        categoria,
+                                                        tipo,
+                                                        nombre,
+                                                        clasificacion,
+                                                        fecha_publicacion,
+                                                        disponibles as cantidad,
+                                                        GROUP_CONCAT(nombreAutor SEPARATOR ', ') as nombreAutor
+                                                      FROM (
+                                                        SELECT p.codigo_publicacion,
+                                                        p.categoria,
+                                                        p.tipo,
+                                                        p.nombre,
+                                                        p.clasificacion,
+                                                        p.fecha_publicacion,
+                                                        a.nombre as nombreAutor,
+                                                        SUM(IF(pr.codigo_biblioteca IS null, 1, 0)) AS disponibles
+                                                        FROM ejemplar e 
+                                                        LEFT JOIN ( /*ejemplares que estan prestados*/
+                                                        SELECT codigo_biblioteca,
+                                                        fecha_entrega
+                                                        FROM prestamo
+                                                        WHERE fecha_entrega IS null) pr ON e.codigo_biblioteca = pr.codigo_biblioteca 
+                                                        INNER JOIN publicacion p ON e.codigo_publicacion = p.codigo_publicacion 
+                                                        INNER JOIN colaboracion c ON c.codigo_publicacion = p.codigo_publicacion 
+                                                        INNER JOIN autor a ON a.consecutivo = c.autor
+                                                        
+                                                        GROUP BY p.codigo_publicacion,
+                                                        p.categoria,
+                                                        p.tipo,
+                                                        p.nombre,
+                                                        p.clasificacion,
+                                                        p.fecha_publicacion,
+                                                        a.nombre
+                                                      ) result 
+                                                      GROUP BY codigo_publicacion) l WHERE nombreAutor like '%$autor%';");
                         break;
                 }
                 break;
