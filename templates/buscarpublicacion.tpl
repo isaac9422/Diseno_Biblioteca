@@ -16,42 +16,42 @@
         <td>
             <form action="{$gvar.l_global}buscarPublicacion.php" method="post">
                 {if isset($publicacion)}
-            <table id="busqueda" class="table table-bordered table-hover table-condensed">
-                <thead>
-                    <tr style="font-weight: bold;"> 
-                        <td>Código Publicación</td>
-                        <td>Categoría</td>
-                        <td>Tipo</td>
-                        <td>Nombre</td>
-                        <td>Fecha de publicación</td>
-                        <td>Nombre Autor</td>
-                        <td>Disponibles</td>
-                        <td>Prestar</td>
-                        
-                    </tr>
-                </thead>
-                {section loop=$publicacion name=i}
+                    <table id="busqueda" class="table table-bordered table-hover table-condensed">
+                        <thead>
+                            <tr style="font-weight: bold;"> 
+                                <td>Código Publicación</td>
+                                <td>Categoría</td>
+                                <td>Tipo</td>
+                                <td>Nombre</td>
+                                <td>Fecha de publicación</td>
+                                <td>Nombre Autor</td>
+                                <td>Disponibles</td>
+                                <td>Prestar</td>
 
-                    <tr>  
-                        <td> {$publicacion[i]->get('codigo_publicacion')}</td> 
-                        <td> {$publicacion[i]->get('categoria')}</td> 
-                        <td> {$publicacion[i]->get('tipo')}</td> 
-                        <td> {$publicacion[i]->get('nombre')}</td> 
-                        <td> {$publicacion[i]->get('fecha_publicacion')}</td> 
-                        <td> {$publicacion[i]->auxiliars['nombreAutor']}</td> 
-                        <td> {$publicacion[i]->auxiliars['cantidad']}</td>
-                        <td style="text-align: center;">
-                           <input {if $publicacion[i]->auxiliars['cantidad']>0}{else}disabled="disabled"{/if} type="checkbox" name="buscados[]" value="{$publicacion[i]->get('codigo_publicacion')}"/></td>
-                    </tr>
+                            </tr>
+                        </thead>
+                        {section loop=$publicacion name=i}
 
-                {/section}
+                            <tr>  
+                                <td> {$publicacion[i]->get('codigo_publicacion')}</td> 
+                                <td> {$publicacion[i]->get('categoria')}</td> 
+                                <td> {$publicacion[i]->get('tipo')}</td> 
+                                <td> {$publicacion[i]->get('nombre')}</td> 
+                                <td> {$publicacion[i]->get('fecha_publicacion')}</td> 
+                                <td> {$publicacion[i]->auxiliars['nombreAutor']}</td> 
+                                <td> {$publicacion[i]->auxiliars['cantidad']}</td>
+                                <td style="text-align: center;">
+                                    <input {if $publicacion[i]->auxiliars['cantidad']>0}{else}disabled="disabled"{/if} type="checkbox" name="buscados[]" value="{$publicacion[i]->get('codigo_publicacion')}"/></td>
+                            </tr>
 
+                        {/section}
+                    </table>  
+                    <br/>
+                    {if isset($smarty.session.objeto_usuario)}
 
-            </table>
-              {/if}  
-            <br/>
-            
-            <button class="btn btn-inverse" name="adicionar">Adicionar</button>
+                        <button class="btn btn-inverse" name="adicionar">Adicionar</button>
+                    {/if}
+                {/if}
             </form>
         </td> 
     </tr>
