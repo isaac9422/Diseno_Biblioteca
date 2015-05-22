@@ -60,7 +60,9 @@ class c_modificarPerfil extends super_controller {
         if (is_empty($this->post->nombre)) {
             throw_exception("Nombre no puede ser vacio");
         }
-
+        if(!filter_var($this->post->email, FILTER_VALIDATE_EMAIL)){
+            throw_exception("Ingrese e-mail correctamente");
+        }
         //Asignación por el tipo de usuario
         if ($this->session['tipo_usuario'] == 'usuario') {
             $user = new usuario($this->post);
