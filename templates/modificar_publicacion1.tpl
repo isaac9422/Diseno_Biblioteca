@@ -64,7 +64,7 @@
 
 <script >
     function paginaInicial() {
-        location.href = 'index.php';
+        location.href = 'inicio_empleado.php';
     }
 </script>
 </html>
