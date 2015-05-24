@@ -4,20 +4,21 @@ require('configs/include.php');
 
 class c_modificar_publicacion extends super_controller {
 
-    function validateDate($date,$format = 'Y-m-d'){
+    function validateDate($date){
         $fecha = explode("/",$date);
-        print_r2($fecha);
-        var_dump(!checkdate($fecha[1], $fecha[0], $fecha[2]));
-        if(!checkdate($fecha[1], $fecha[0], $fecha[2])){
-            return FALSE;
-        }
+        if(!checkdate($fecha[1], $fecha[2], $fecha[0])){
+            $fecha = explode("-",$date);
+            if (!checkdate($fecha[1], $fecha[2], $fecha[0])) {
+                return FALSE;
+            }
+        }   
         try{
             $d_system = new DateTime("now");
             $d_publicacion = new DateTime($date);
         } catch (Exception $ex) {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
-        return $d_publicacion <= $d_system;
+        return $d_publicacion < $d_system || $d_publicacion == $d_system;
     }
     
         public function verificar() {
