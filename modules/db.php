@@ -333,7 +333,7 @@ class db {
                 switch ($options['lvl2']) {
                     case "normal":
                         $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get("codigo_publicacion"));
-			$this->do_operation("delete from publicacion where codigo_publicacion='$codigo_publicacion'"); 
+			$this->do_operation("delete from publicacion where codigo_publicacion='$codigo_publicacion' and not exists (select codigo_publicacion as codigo from ejemplar)"); 
                     break;
                 }
                 break;

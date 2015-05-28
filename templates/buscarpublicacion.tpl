@@ -1,4 +1,8 @@
 
+<!-DOCTYPE html>
+<html>
+    <body>
+
 <table border="0" width="100%" cellpadding="0" cellspacing="10" >
     <tr> 
         <td> <form action="{$gvar.l_global}buscarPublicacion.php?option=lookup" method="post">
@@ -50,9 +54,19 @@
                     {if isset($smarty.session.objeto_usuario)}
 
                         <button class="btn btn-inverse" name="adicionar">Adicionar</button>
+                        <button class="btn btn-warning" onclick="buscar()" name="cancelar">  Cancelar</button>
                     {/if}
                 {/if}
             </form>
+                
         </td> 
     </tr>
 </table>
+           
+    </body>
+     <script >
+    function buscar() {
+        location.href = 'inicio_usuario.php';
+    }
+    </script>
+</html>

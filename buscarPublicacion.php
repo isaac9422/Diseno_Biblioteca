@@ -8,7 +8,7 @@ class c_buscarPublicacion extends super_controller {
 
     public function display() {
 
-        $this->engine->assign('title', 'Buscar');
+        $this->engine->assign('title', 'Buscar Publicación');
 
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);

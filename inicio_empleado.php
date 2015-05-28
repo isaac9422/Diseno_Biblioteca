@@ -5,7 +5,9 @@ require('modules/m_phpass/PasswordHash.php');
 class c_inicioEmpleado extends super_controller {
 
     public function display() {
-        $this->engine->assign('title', $this->gvar['n_index']);
+        //$this->engine->assign('title', $this->gvar['n_index']);
+        
+        $this->engine->assign('title', 'Página inicial empleado');
 
         $this->engine->display('header.tpl');
 
