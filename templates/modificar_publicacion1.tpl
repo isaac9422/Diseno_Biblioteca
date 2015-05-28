@@ -32,7 +32,11 @@
             <select name ="tipo">
                 <option value="libro" {if $object->get('tipo') == 'libro'}selected{/if}>Libro</option>
                 <option value="revista" {if $object->get('tipo') == 'revista'}selected{/if}>Revista</option>
-                <option value="cd" {if $object->get('tipo') == 'cd'}selected{/if}>CD</option>
+                <option value="documento" {if $object->get('tipo') == 'documento'}selected{/if}>Documento</option>
+                <option value="audio" {if $object->get('tipo') == 'audio'}selected{/if}>Audio</option>
+                <option value="periodico" {if $object->get('tipo') == 'periodico'}selected{/if}>Periódico</option>
+                <option value="revista" {if $object->get('tipo') == 'revista'}selected{/if}>Revista</option>
+                <option value="video" {if $object->get('tipo') == 'video'}selected{/if}>Video</option>
             </select> <br />
             <b>Categoría:* </b>
             <select name ="categoria">

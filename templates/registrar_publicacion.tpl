@@ -17,7 +17,10 @@
                                 <select name ="tipo">
                                     <option value="libro">Libro</option>
                                     <option value="revista">Revista</option>
-                                    <option value="cd">CD</option>
+                                    <option value="documento">Documento</option>
+                                    <option value="audio">Audio</option>
+                                    <option value="periodico">Periódico</option>
+                                    <option value="video">Video</option>
                                 </select> <br />
                                 <b>Categoría:* </b>
                                 <select name ="categoria">
