@@ -337,6 +337,15 @@ class db {
                     break;
                 }
                 break;
+            
+            case "ejemplar":
+                switch ($options['lvl2']) {
+                    case "normal":
+                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get("codigo_biblioteca"));
+			$this->do_operation("delete from ejemplar where codigo_biblioteca='$codigo_biblioteca'"); 
+                    break;
+                }
+                break;
 
             default: break;
         }
@@ -373,6 +382,8 @@ class db {
                         break;
                 }
                 break;
+            
+            
 
             case "administrador":
                 switch ($option['lvl2']) {
@@ -394,6 +405,11 @@ class db {
                     case "one" :
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
                         $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion'");
+                        break;
+                    
+                    case "delete":
+                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
+                        $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion' not in (select e.codigo_publicacion  from publicacion p inner join ejemplar e)");
                         break;
 
 //                   case "by_codigo_publicacion":

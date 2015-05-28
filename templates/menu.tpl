@@ -11,6 +11,8 @@
                 <button class="btn btn-xs" onclick="registryPublicacion()"><a>Registrar Publicación</a></button>
                 <button class="btn btn-xs" onclick="registryEjemplar()"><a>Registrar Ejemplar</a></button>
                 <button class="btn btn-xs" onclick="modifyPublicacion()"><a>Modificar Publicacion</a></button>
+                <button class="btn btn-xs" onclick="deletePublicacion()"><a>Eliminar Publicacion</a></button>
+                <button class="btn btn-xs" onclick="deleteEjemplar()"><a>Eliminar Ejemplar</a></button>
             {else}
                 <button class="btn btn-xs" onclick="prestar()"><a>Prestar Publicación</a></button>
                 <button class="btn btn-xs" onclick="renovar()"><a>Renovar Prestamo</a></button>
@@ -61,5 +63,11 @@
     }
     function registryPublicacion(){
         location.href = 'registrar_publicacion.php';
+    }
+    function deletePublicacion(){
+        location.href = 'eliminar_publicacion.php';
+    }
+    function deleteEjemplar(){
+        location.href = 'eliminar_ejemplar.php';
     }
 </script>
