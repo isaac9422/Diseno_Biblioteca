@@ -47,7 +47,7 @@ class c_registrar_ejemplar extends super_controller {
     }
 
     public function display() {
-
+        $this->engine->assign('title', 'Registrar ejemplar');
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('registrar_ejemplar.tpl');

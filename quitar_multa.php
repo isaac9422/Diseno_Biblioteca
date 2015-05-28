@@ -21,6 +21,7 @@ class c_update extends super_controller {
     }
     
     public function display() {
+        $this->engine->assign('title', 'Quitar multa');
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('quitar_multa.tpl');
