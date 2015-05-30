@@ -103,6 +103,7 @@ class c_registrar_publicacion extends super_controller {
     }
 
     public function display() {
+        $this->engine->assign('title', 'Registrar publicación');
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('registrar_publicacion.tpl');

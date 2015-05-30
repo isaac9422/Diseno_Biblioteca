@@ -42,6 +42,7 @@ class c_registrar_autor extends super_controller {
     }
 
     public function display() {
+        $this->engine->assign('title', 'Registrar autor');
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('registrar_autor.tpl');

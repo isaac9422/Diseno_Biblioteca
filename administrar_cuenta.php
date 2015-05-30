@@ -5,6 +5,7 @@ require('configs/include.php');
 class c_administrar extends super_controller {
 
     public function display() {
+        $this->engine->assign('title', 'Administrar cuenta');
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('administrar_cuenta.tpl');
