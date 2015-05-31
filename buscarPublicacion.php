@@ -27,7 +27,7 @@ class c_buscarPublicacion extends super_controller {
         $criterio = $this->post->criterioBusqueda;
         $text = $this->post->textoBusqueda;
 
-        $option['publicacion']['lvl2'] = $criterio;
+        $option['publicacion']['lvl2'] = $criterio;  
         $auxiliars['publicacion'] = array("nombreAutor", "cantidad");
         $data['publicacion']['textoBusqueda'] = $text;
         $this->orm->connect();
