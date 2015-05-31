@@ -5,10 +5,11 @@ require('configs/include.php');
 class c_modificar_publicacion extends super_controller {
 
     function validateDate($date){
-        $fecha = explode("/",$date);
+        print_r2($date);
+        $fecha = explode("-", $date);
+        print_r2($fecha);
         if(!checkdate($fecha[1], $fecha[2], $fecha[0])){
-            $fecha = explode("-",$date);
-            if (!checkdate($fecha[1], $fecha[2], $fecha[0])) {
+            if(!checkdate($fecha[1], $fecha[0], $fecha[2])){
                 return FALSE;
             }
         }   
@@ -18,7 +19,8 @@ class c_modificar_publicacion extends super_controller {
         } catch (Exception $ex) {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
-        return $d_publicacion < $d_system || $d_publicacion == $d_system;
+        print_r2($d_publicacion);
+         return $d_publicacion < $d_system || $d_publicacion == $d_system;
     }
     
         public function verificar() {
@@ -37,6 +39,14 @@ class c_modificar_publicacion extends super_controller {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
 
+        $newFecha1= str_replace('/', '-', $publicacion->get('fecha_publicacion'));
+        $newFecha=date("Y-m-d",strtotime($newFecha1));
+        $auxfecha1 = explode("-", $newFecha1);//d-m-Y
+        $auxfecha = explode("-", $newFecha);//Y-m-d
+        if($auxfecha[0] != $auxfecha1[2] || $auxfecha[2] != $auxfecha1[0] || $auxfecha[1] != $auxfecha1[1]){
+            throw_exception("Ingrese Fecha publicación correctamente");
+        }
+        $publicacion->cambiarFecha($newFecha);
         if(!($this->validateDate($publicacion->get('fecha_publicacion')))){
             throw_exception("Ingrese Fecha publicación correctamente");
         }

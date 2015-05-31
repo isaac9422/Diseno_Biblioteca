@@ -24,10 +24,25 @@
                                 </select> <br />
                                 <b>Categoría:* </b>
                                 <select name ="categoria">
+                                    <option value="arte">Arte</option>
                                     <option value="ciencia">Ciencia</option>
                                     <option value="deporte">Deporte</option>
-                                    <option value="espectáculos">Espéctaculos</option>
-                                    <option value="literatura">Literatura</option>
+                                    <option value="economia">Economía</option>
+                                    <option value="enciclopedia">Enciclopedia</option>
+                                    <option value="espectaculos">Espectáculos</option>
+                                    <option value="filosofia">Filosofía</option>
+                                    <option value="fisica">Física</option>
+                                    <option value="literatura colombiana">Literatura Colombiana</option>
+                                    <option value="literatura infantil">Literatura Infantil</option>
+                                    <option value="literatura juvenil">Literatura Juvenil</option>                                    
+                                    <option value="literatura universal">Literatura Universal</option>
+                                    <option value="matematica">Matemática</option>
+                                    <option value="politica">Política</option>
+                                    <option value="quimica">Química</option>
+                                    <option value="religion">Religión</option>
+                                    <option value="salud">Salud</option>
+                                    <option value="tecnologia">Tecnología</option>
+                                    <option value="otros">--Otros--</option>
                                 </select> <br />
                                 <b>Clasificación:* </b>
                                 <select name ="clasificacion">

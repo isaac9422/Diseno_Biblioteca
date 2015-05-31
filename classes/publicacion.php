@@ -31,6 +31,9 @@ class publicacion extends object_standard {
         }
     }
 
+    public function cambiarFecha($fecha){
+        $this->fecha_publicacion = $fecha;
+    }
 }
 
 ?>

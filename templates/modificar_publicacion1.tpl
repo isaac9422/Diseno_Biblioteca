@@ -40,10 +40,24 @@
             </select> <br />
             <b>Categoría:* </b>
             <select name ="categoria">
+                <option value="arte" {if $object->get('categoria') == 'arte'}selected{/if}>Arte</option>
                 <option value="ciencia" {if $object->get('categoria') == 'ciencia'}selected{/if}>Ciencia</option>
                 <option value="deporte" {if $object->get('categoria') == 'deporte'}selected{/if}>Deporte</option>
-                <option value="espectáculos" {if $object->get('categoria') == 'espectáculos'}selected{/if}>Espéctaculos</option>
-                <option value="literatura" {if $object->get('categoria') == 'literatura'}selected{/if}>Literatura</option>
+                <option value="economia" {if $object->get('categoria') == 'economia'}selected{/if}>Economía</option>
+                <option value="enciclopedia" {if $object->get('categoria') == 'enciclopedia'}selected{/if}>Enciclopedia</option>
+                <option value="espectaculos" {if $object->get('categoria') == 'espectaculos'}selected{/if}>Espectáculos</option>
+                <option value="filosofia" {if $object->get('categoria') == 'filosofia'}selected{/if}>Filosofía</option>
+                <option value="literatura colombiana" {if $object->get('categoria') == 'literatura colombiana'}selected{/if}>Literatura Colombiana</option>
+                <option value="literatura infantil" {if $object->get('categoria') == 'literatura infantil'}selected{/if}>Literatura Infantil</option>
+                <option value="literatura juvenil" {if $object->get('categoria') == 'literatura juvenil'}selected{/if}>Literatura Juvenil</option>
+                <option value="literatura universal" {if $object->get('categoria') == 'literatura universal'}selected{/if}>Literatura Universal</option>
+                <option value="matematica" {if $object->get('categoria') == 'matematica'}selected{/if}>Matemática</option>
+                <option value="politica" {if $object->get('categoria') == 'politica'}selected{/if}>Política</option>
+                <option value="quimica" {if $object->get('categoria') == 'quimica'}selected{/if}>Química</option>
+                <option value="religion" {if $object->get('categoria') == 'religion'}selected{/if}>Religión</option>
+                <option value="salud" {if $object->get('categoria') == 'salud'}selected{/if}>Salud</option>
+                <option value="tecnologia" {if $object->get('categoria') == 'tecnologia'}selected{/if}>Tecnología</option>
+                <option value="otros" {if $object->get('categoria') == 'otros'}selected{/if}>--Otros--</option>
             </select> <br />
             <b>Clasificación:* </b>
             <select name ="clasificacion">
