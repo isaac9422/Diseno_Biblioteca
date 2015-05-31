@@ -4,9 +4,7 @@ require('configs/include.php');
 
 class c_registrar_publicacion extends super_controller {
     function validateDate($date){
-        print_r2($date);
         $fecha = explode("-", $date);
-        print_r2($fecha);
         if(!checkdate($fecha[1], $fecha[2], $fecha[0])){
             if(!checkdate($fecha[1], $fecha[0], $fecha[2])){
                 return FALSE;
@@ -18,7 +16,6 @@ class c_registrar_publicacion extends super_controller {
         } catch (Exception $ex) {
             throw_exception("Ingrese Fecha publicación correctamente");
         }
-        print_r2($d_publicacion);
          return $d_publicacion < $d_system || $d_publicacion == $d_system;
     }
 
