@@ -56,8 +56,9 @@ class c_modificar_publicacion extends super_controller {
 
             throw_exception("Debe ingresar un código válido");
         } else {
+            
             $this->engine->assign('object',$publicacion[0]);
-            $this->temp_aux2 = 'modificar_publicacion1.tpl';
+            $this->temp_aux2 = 'modificar_publicacion1.tpl'; //se cambia al segundo tpl
             
             //print_r2($publicacion[0]);
         }

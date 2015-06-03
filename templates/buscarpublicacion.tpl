@@ -30,7 +30,9 @@
                                 <td>Fecha de publicación</td>
                                 <td>Nombre Autor</td>
                                 <td>Disponibles</td>
+                                 {if isset($smarty.session.objeto_usuario)}
                                 <td>Prestar</td>
+                                {/if}
 
                             </tr>
                         </thead>
@@ -44,8 +46,11 @@
                                 <td> {$publicacion[i]->get('fecha_publicacion')}</td> 
                                 <td> {$publicacion[i]->auxiliars['nombreAutor']}</td> 
                                 <td> {$publicacion[i]->auxiliars['cantidad']}</td>
+                                {if isset($smarty.session.objeto_usuario)}
                                 <td style="text-align: center;">
-                                    <input {if $publicacion[i]->auxiliars['cantidad']>0}{else}disabled="disabled"{/if} type="checkbox" name="buscados[]" value="{$publicacion[i]->get('codigo_publicacion')}"/></td>
+                                    <input {if $publicacion[i]->auxiliars['cantidad']>0}{else}disabled="disabled"{/if} type="checkbox" name="buscados[]" value="{$publicacion[i]->get('codigo_publicacion')}"/>
+                                </td>
+                                 {/if}
                             </tr>
 
                         {/section}

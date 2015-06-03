@@ -309,7 +309,7 @@ class db {
                         $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
                         $fecha_publicacion=mysqli_real_escape_string($this->cn,$object->get('fecha_publicacion'));
                         $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
-                        $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
+                        $this->do_operation("UPDATE publicacion SET categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
                         break;
                 }
                 break;

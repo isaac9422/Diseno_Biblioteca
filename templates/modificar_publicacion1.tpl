@@ -26,7 +26,8 @@
         
             <b>MODIFICAR PUBLICACION</b><br /><br />       
 
-            <b>Código Publicación:</b> <input type="text" name="codigo_publicacion" value="{if isset($object)}{$object->get('codigo_publicacion')}{/if}"/><br />
+            <b>Código Publicación:</b> <input type="text" disabled="disabled" value="{if isset($object)}{$object->get('codigo_publicacion')}{/if}"/><br />
+                                        <input type="hidden" name="codigo_publicacion"  value="{if isset($object)}{$object->get('codigo_publicacion')}{/if}"/>
             <b>Nombre:</b> <input type="text" name="nombre" value="{if isset($object)}{$object->get('nombre')}{/if}"/><br />
             <b>Tipo:* </b>
             <select name ="tipo">
