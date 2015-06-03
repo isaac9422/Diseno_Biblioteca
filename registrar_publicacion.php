@@ -39,9 +39,12 @@ class c_registrar_publicacion extends super_controller {
         $newFecha=date("Y-m-d",strtotime($newFecha1));
         $auxfecha1 = explode("-", $newFecha1);//d-m-Y
         $auxfecha = explode("-", $newFecha);//Y-m-d
-        if($auxfecha[0] != $auxfecha1[2] || $auxfecha[2] != $auxfecha1[0] || $auxfecha[1] != $auxfecha1[1]){
-            throw_exception("Ingrese Fecha publicación correctamente");
+        if(!($auxfecha[0] == $auxfecha1[0] && $auxfecha[1] == $auxfecha1[1] && $auxfecha[2] == $auxfecha1[2])){
+            if($auxfecha[0] != $auxfecha1[2] || $auxfecha[2] != $auxfecha1[0] || $auxfecha[1] != $auxfecha1[1]){
+                throw_exception("Ingrese Fecha publicación correctamente");
+            }
         }
+
         $publicacion->cambiarFecha($newFecha);
         if(!($this->validateDate($publicacion->get('fecha_publicacion')))){
             throw_exception("Ingrese Fecha publicación correctamente");
@@ -52,10 +55,8 @@ class c_registrar_publicacion extends super_controller {
         if(count($mis_autores) < 1){
             throw_exception("Elija al menos un autor");
         }
-        print_r2($publicacion);
         $this->registrar($publicacion);
-
-        
+       
         settype($data, 'object');
         $data->codigo_publicacion = $publicacion->get('codigo_publicacion');
         
@@ -67,7 +68,7 @@ class c_registrar_publicacion extends super_controller {
     }
 
     public function registrar($publicacion) {
-        print_r2($publicacion);
+
         $this->orm->connect();
         $this->orm->insert_data("normal", $publicacion);
         $this->orm->close();

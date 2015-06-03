@@ -31,7 +31,9 @@
                                 <td>Nombre Autor</td>
                                 <td>Disponibles</td>
                                  {if isset($smarty.session.objeto_usuario)}
+                                     {if $smarty.session.tipo_usuario == "usuario"}
                                 <td>Prestar</td>
+                                {/if}
                                 {/if}
 
                             </tr>
@@ -47,9 +49,11 @@
                                 <td> {$publicacion[i]->auxiliars['nombreAutor']}</td> 
                                 <td> {$publicacion[i]->auxiliars['cantidad']}</td>
                                 {if isset($smarty.session.objeto_usuario)}
+                                    {if $smarty.session.tipo_usuario == "usuario"}
                                 <td style="text-align: center;">
                                     <input {if $publicacion[i]->auxiliars['cantidad']>0}{else}disabled="disabled"{/if} type="checkbox" name="buscados[]" value="{$publicacion[i]->get('codigo_publicacion')}"/>
                                 </td>
+                                {/if}
                                  {/if}
                             </tr>
 
@@ -57,9 +61,10 @@
                     </table>  
                     <br/>
                     {if isset($smarty.session.objeto_usuario)}
-
+                        {if $smarty.session.tipo_usuario == "usuario"}
                         <button class="btn btn-inverse" name="adicionar">Adicionar</button>
                         <button class="btn btn-warning" onclick="buscar()" name="cancelar">  Cancelar</button>
+                        {/if}
                     {/if}
                 {/if}
             </form>
