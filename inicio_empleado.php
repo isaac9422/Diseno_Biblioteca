@@ -10,7 +10,7 @@ class c_inicioEmpleado extends super_controller {
         $this->engine->assign('title', 'Página inicial empleado');
 
         $this->engine->display('header.tpl');
-
+        $this->engine->display('buscarpublicacion.tpl');
         $this->engine->display('menu.tpl');
 
         $this->engine->display('footer.tpl');

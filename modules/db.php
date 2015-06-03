@@ -247,7 +247,7 @@ class db {
                         $telefono = mysqli_real_escape_string($this->cn, $object->get('telefono'));
                         $contraseña = mysqli_real_escape_string($this->cn, $object->get('contraseña'));
 
-                        $this->do_operation("UPDATE  empleado SET identificacion = '$identificacion',nombre = '$nombre'"
+                        $this->do_operation("UPDATE  empleado SET identificacion = '$identificacion',nombre = '$nombre',"
                                 . "contraseña = '$contraseña', email = '$email', direccion = '$direccion'"
                                 . ",telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
@@ -296,6 +296,7 @@ class db {
                         break;
                 }
                 break;
+            /*
 <<<<<<< HEAD
             
             
@@ -311,7 +312,7 @@ class db {
                         $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
                         $this->do_operation("UPDATE publicacion SET categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
 =======
-
+*/
 
             case "publicacion":
                 switch ($options['lvl2']) {
@@ -323,7 +324,7 @@ class db {
                         $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
                         $clasificacion = mysqli_real_escape_string($this->cn, $object->get('clasificacion'));
                         $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
->>>>>>> 730b5623a11f8496d9665bc7554cb9c1212636c6
+//>>>>>>> 730b5623a11f8496d9665bc7554cb9c1212636c6
                         break;
                 }
                 break;
