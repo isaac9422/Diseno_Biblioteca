@@ -40,6 +40,30 @@ class c_prestarPublicacion extends super_controller {
                 } else {
                     $contadorNormal++;
                 }
+
+                $options['prestamo']['lvl2'] = "for_renew";
+                $data['prestamo']['usuario'] = $user->get('identificacion');
+                $this->orm->read_data(array("prestamo"), $options, $data);
+                $prestamos = $this->orm->get_objects("prestamo");
+
+                for ($i = 0; $i < count($prestamos); $i++) {
+                    $prestamo = $prestamos[$i];
+                    $options['ejemplar']['lvl2'] = "one";
+                    $options['publicacion']['lvl2'] = "one";
+                    $data['ejemplar']['codigo_biblioteca'] = $prestamo->get('codigo_biblioteca');
+                    $this->orm->read_data(array("ejemplar"), $options, $data);
+                    $ejemplar = $this->orm->get_objects("ejemplar");
+                    $ejemplar = $ejemplar[0];
+                    $data['publicacion']['codigo_publicacion'] = $ejemplar->get('codigo_publicacion');
+                    $this->orm->read_data(array("publicacion"), $options, $data);
+                    $publicacion = $this->orm->get_objects("publicacion");
+                    $publicacion = $publicacion[0];
+                    if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
+                        $contadorReserva++;
+                    } else {
+                        $contadorNormal++;
+                    }
+                }
             }
         }
         if ($contadorReserva > 1 || $contadorNormal > 3) {

@@ -49,7 +49,7 @@ class c_renovarPrestamo extends super_controller {
     }
 
     public function renovar() {
-
+        $bandera = false;
         date_default_timezone_set("America/Bogota");
         $user = unserialize($this->session[objeto_usuario]);
         $this->orm->connect();
@@ -81,23 +81,32 @@ class c_renovarPrestamo extends super_controller {
                 $fechaFinDate = $prestamo->get('fecha_fin');
                 //Se convierte a timestamp para operar
                 $fechaFinLong = strtotime($fechaFinDate);
-                if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
-                    if (getdate($fechaFinLong)['wday'] > 4) {
-                        $d = strtotime("next Monday", $fechaFinLong);
-                        $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                if ($fechaFinLong > getdate()[0]) {
+                    if (strcasecmp($publicacion->get('clasificacion'), "Reserva") == 0) {
+                        if (getdate($fechaFinLong)['wday'] > 4) {
+                            $d = strtotime("next Monday", $fechaFinLong);
+                            $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                        } else {
+                            $d = strtotime("tomorrow", $fechaFinLong);
+                            $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                        }
                     } else {
-                        $d = strtotime("tomorrow", $fechaFinLong);
+                        $d = strtotime("+14 days", $fechaFinLong);
                         $prestamo->set('fecha_fin', date("Y-m-d", $d));
                     }
+                    $this->orm->update_data("normal", $prestamo);
                 } else {
-                    $d = strtotime("+14 days", $fechaFinLong);
-                    $prestamo->set('fecha_fin', date("Y-m-d", $d));
+                    $bandera = true;
+                    continue;
                 }
-                $this->orm->update_data("normal", $prestamo);
             }
-
-            $this->type_warning = "success";
-            $this->msg_warning = "Publicación(es) renovada(s) exitosamente";
+            if (!$bandera) {
+                $this->type_warning = "success";
+                $this->msg_warning = "Publicación(es) renovada(s) exitosamente";
+            } else {
+                $this->type_warning = "warning";
+                $this->msg_warning = "Alguna(s) publicación(es) no pudieron ser renovadas";
+            }
         }
         $this->orm->close();
         $this->temp_aux = 'message.tpl';
