@@ -7,6 +7,7 @@ class c_registrar_usuario extends super_controller {
 
     public function verificar() {
         $usuario = new usuario($this->post);
+        $this->engine->assign('object',$usuario);
         if (is_empty($usuario->get('email'))) {
             throw_exception("Ingrese e-mail correctamente");
         } elseif (is_empty($usuario->get('identificacion'))) {
@@ -89,8 +90,14 @@ class c_registrar_usuario extends super_controller {
                 $this->cancelar();
             }
         } catch (Exception $e) {
+            @$codExcepcion = mysqli_errno($this->orm->db->cn);
+
+            if ($codExcepcion == 1062) {
+                $this->msg_warning = "Usuario ya existe";
+            } else {
+                $this->msg_warning = $e->getMessage();
+            }
             $this->error = 1;
-            $this->msg_warning = $e->getMessage();
             $this->engine->assign('type_warning', $this->type_warning);
             $this->engine->assign('msg_warning', $this->msg_warning);
             $this->temp_aux = 'message.tpl';

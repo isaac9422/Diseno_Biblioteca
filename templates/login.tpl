@@ -17,9 +17,12 @@
                             <input name="contraseña" type="password" class="input-small" placeholder="Contraseña *" required>
                             <div class="center-block"  align="left">
                                 <br>
-                            <input class="radio" type="radio" name="rol" value="usuario"><font color="Black">  Usuario</font ><br>
-                            <input class="radio" type="radio" name="rol" value="administrador"><font color="Black">  Administrador   </font ><br>
-                            <input class="radio" type="radio" name="rol" value="empleado"><font color="Black">  Empleado   </font ><br>
+                            <input class="radio" type="radio" name="rol" id="usuario" value="usuario">
+                            <label for="usuario"><font color="Black">  Usuario</font ></label><br>
+                            <input class="radio" type="radio" name="rol" id="administrador" value="administrador">
+                            <label for="administrador"><font color="Black">  Administrador   </font ></label><br>
+                            <input class="radio" type="radio" name="rol" id="empleado" value="empleado">
+                            <label for="empleado"><font color="Black">  Empleado   </font ></label><br>
                             </div>
                             <button class="btn btn-primary" name ="btn_ingresar">Ingresar</button>
                         </form>
