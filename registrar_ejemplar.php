@@ -51,6 +51,8 @@ class c_registrar_ejemplar extends super_controller {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('registrar_ejemplar.tpl');
+
+        $this->engine->display('menu.tpl');
         $this->engine->display('footer.tpl');
     }
 

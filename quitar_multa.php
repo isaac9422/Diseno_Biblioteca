@@ -25,6 +25,8 @@ class c_update extends super_controller {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('quitar_multa.tpl');
+
+        $this->engine->display('menu.tpl');
         $this->engine->display('footer.tpl');
     }
 
@@ -82,6 +84,9 @@ class c_update extends super_controller {
                 header("location: inicio_empleado.php");
             }
 
+            if (isset($this->post->cancelar)) {
+                header("location: index.php");
+            }
             if (isset($this->get->option)) {
                 $this->{$this->get->option}();
             }

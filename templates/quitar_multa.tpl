@@ -7,18 +7,14 @@
 
                     <b>Identificacion:</b> <input type="text" name="identificacion" /><br />
 
-                    <input class="btn btn-info" type="submit" value="Seleccionar" />
                 </td></tr></table>  
+        <input class="btn btn-info" type="submit" value="Seleccionar" />
+        <button class="btn btn-warning" onclick="indice()" name="cancelar">  Cancelar</button>
+        <script >
+            function indice() {
+                location.href = 'index.php';
+            }
+        </script>
     </form>
-    <table width="100%" border="0" cellpadding="0" cellspacing="5">
-        <tr><td>
-                <button class="btn btn-warning" onclick="indice()" name="cancelar">  Cancelar</button>
-            </td></tr></table>  
 </div>
 <br>            
-
-<script >
-    function indice() {
-        location.href = 'index.php';
-    }
-</script>
