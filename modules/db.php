@@ -148,7 +148,7 @@ class db {
                         break;
                 }
                 break;
-            case "autor":
+             case "autor":
                 switch ($options['lvl2']) {
                     case "normal":
                         $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
@@ -158,7 +158,7 @@ class db {
                 break;
             case "publicacion":
                 switch ($options['lvl2']) {
-                    case "normal":
+                    case "normal":                        
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
                         $nombre = mysqli_real_escape_string($this->cn, $object->get('nombre'));
                         $categoria = mysqli_real_escape_string($this->cn, $object->get('categoria'));
@@ -172,18 +172,18 @@ class db {
                         break;
                 }
                 break;
-
-            case "ejemplar":
+            
+               case "ejemplar":
                 switch ($options['lvl2']) {
-                    case "normal":
+                    case "normal":                        
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get('codigo_publicacion'));
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
+                         $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get('codigo_biblioteca'));
 
                         $this->do_operation("INSERT INTO ejemplar VALUES ('$codigo_biblioteca','$codigo_publicacion');");
                         break;
                 }
                 break;
-
+            
             case "colaboracion":
                 switch ($options['lvl2']) {
                     case "normal":
@@ -215,25 +215,26 @@ class db {
                                 . ", email = '$email', direccion = '$direccion'"
                                 . ", telefono = '$telefono' WHERE identificacion = '$identificacion';");
                         break;
-
+                    
                     case "multar":
                         $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
                         $multa = mysqli_real_escape_string($this->cn, $object->get('multa'));
                         $this->do_operation("UPDATE usuario SET estado='INACTIVO', multa = '$multa'"
                                 . " WHERE identificacion = '$identificacion';");
                         break;
-
+                    
                     case "multa":
                         $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
 
                         $this->do_operation("UPDATE  usuario SET multa=0, estado='ACTIVO' WHERE identificacion = '$identificacion';");
                         break;
-
+                    
                     case "bloquear":
                         $identificacion = mysqli_real_escape_string($this->cn, $object->get('identificacion'));
-                        $estado = mysqli_real_escape_string($this->cn, $object->get('estado'));
+                         $estado = mysqli_real_escape_string($this->cn, $object->get('estado'));
                         $this->do_operation("UPDATE  usuario SET multa=0, estado='$estado' WHERE identificacion = '$identificacion';");
                         break;
+                    
                 }
                 break;
 
@@ -270,7 +271,7 @@ class db {
                         break;
                 }
                 break;
-
+            
             case "prestamo":
                 switch ($options['lvl2']) {
                     case "normal":
@@ -296,23 +297,9 @@ class db {
                         break;
                 }
                 break;
-            /*
-<<<<<<< HEAD
+
             
-            
-             case "publicacion":
-                switch($options['lvl2'])
-                {
-                        case "normal":
-                        $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get('codigo_publicacion'));
-                        $categoria=mysqli_real_escape_string($this->cn,$object->get('categoria'));
-                        $tipo=mysqli_real_escape_string($this->cn,$object->get('tipo'));
-                        $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
-                        $fecha_publicacion=mysqli_real_escape_string($this->cn,$object->get('fecha_publicacion'));
-                        $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
-                        $this->do_operation("UPDATE publicacion SET categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
-=======
-*/
+
 
             case "publicacion":
                 switch ($options['lvl2']) {
@@ -324,13 +311,14 @@ class db {
                         $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
                         $clasificacion = mysqli_real_escape_string($this->cn, $object->get('clasificacion'));
                         $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
-//>>>>>>> 730b5623a11f8496d9665bc7554cb9c1212636c6
+
                         break;
                 }
                 break;
 
             default: break;
         }
+    
     }
 
     //function for delete data from db
@@ -343,22 +331,22 @@ class db {
                         break;
                 }
                 break;
-
+            
             case "publicacion":
                 switch ($options['lvl2']) {
                     case "normal":
-                        $codigo_publicacion = mysqli_real_escape_string($this->cn, $object->get("codigo_publicacion"));
-                        $this->do_operation("delete from publicacion where codigo_publicacion='$codigo_publicacion'");
-                        break;
+                        $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get("codigo_publicacion"));
+			$this->do_operation("delete from publicacion where codigo_publicacion='$codigo_publicacion'"); 
+                    break;
                 }
                 break;
-
+            
             case "ejemplar":
                 switch ($options['lvl2']) {
                     case "normal":
-                        $codigo_biblioteca = mysqli_real_escape_string($this->cn, $object->get("codigo_biblioteca"));
-                        $this->do_operation("delete from ejemplar where codigo_biblioteca='$codigo_biblioteca'");
-                        break;
+                        $codigo_biblioteca=mysqli_real_escape_string($this->cn,$object->get("codigo_biblioteca"));
+			$this->do_operation("delete from ejemplar where codigo_biblioteca='$codigo_biblioteca'"); 
+                    break;
                 }
                 break;
 
@@ -383,7 +371,7 @@ class db {
                     case "id":
                         $identificacion = mysqli_real_escape_string($this->cn, $data['identificacion']);
                         $info = $this->get_data("SELECT * FROM usuario WHERE identificacion='$identificacion';");
-                        break;
+                        break;                   
                 }
                 break;
             case "empleado":
@@ -397,6 +385,8 @@ class db {
                         break;
                 }
                 break;
+            
+            
 
             case "administrador":
                 switch ($option['lvl2']) {
@@ -419,7 +409,7 @@ class db {
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
                         $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion'");
                         break;
-
+                    
                     case "delete":
                         $codigo_publicacion = mysqli_real_escape_string($this->cn, $data['codigo_publicacion']);
                         $info = $this->get_data("SELECT * FROM publicacion WHERE codigo_publicacion = '$codigo_publicacion' not in (select e.codigo_publicacion  from publicacion p inner join ejemplar e)");
@@ -431,7 +421,7 @@ class db {
 //                        break;
 
                     case "by_nombre":
-                        $nombre = mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
+                        $nombre= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("SELECT codigo_publicacion,
                                                         categoria,
                                                         tipo,
@@ -471,7 +461,7 @@ class db {
                         break;
 
                     case "by_autor":
-                        $autor = mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
+                        $autor= mysqli_real_escape_string($this->cn, $data['textoBusqueda']);
                         $info = $this->get_data("SELECT * from (SELECT codigo_publicacion,
                                                         categoria,
                                                         tipo,
