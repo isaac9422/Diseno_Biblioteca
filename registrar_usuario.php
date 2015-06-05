@@ -69,6 +69,8 @@ class c_registrar_usuario extends super_controller {
         $this->engine->display('header.tpl');
         $this->engine->display($this->temp_aux);
         $this->engine->display('registrar_usuario.tpl');
+
+        $this->engine->display('menu.tpl');
         $this->engine->display('footer.tpl');
     }
 

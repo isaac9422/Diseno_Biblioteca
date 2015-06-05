@@ -77,17 +77,8 @@ class c_modificar_publicacion extends super_controller {
             $this->engine->assign('object',$publicacion[0]);
             $this->temp_aux2 = 'modificar_publicacion1.tpl'; //se cambia al segundo tpl
             
-            
-            //print_r2($publicacion[0]);
         }
 
-//        
-//        $this->type_warning = "success";
-//        $this->msg_warning = "Publicacion actualizada correctamente";
-//        
-        //$this->temp_aux = 'message.tpl';
-//        $this->engine->assign('type_warning',$this->type_warning);
-//        $this->engine->assign('msg_warning',$this->msg_warning);
     }
     
     public function modificar(){
@@ -123,6 +114,8 @@ class c_modificar_publicacion extends super_controller {
         }        
         
         $this->engine->display($this->temp_aux2);
+
+        $this->engine->display('menu.tpl');
         $this->engine->display('footer.tpl');
     }
 
@@ -130,6 +123,9 @@ class c_modificar_publicacion extends super_controller {
         $this->temp_aux2 = 'modificar_publicacion.tpl';
        
         try {
+            if (isset($this->post->cancelar)) {
+                header("location: index.php");
+            }
             if (isset($this->get->option)) {
                 $this->{$this->get->option}();                
             }

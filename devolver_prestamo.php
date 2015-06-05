@@ -13,6 +13,8 @@ class c_devolverPrestamo extends super_controller {
 
         $this->engine->display('devolver_prestamo.tpl');
 
+        $this->engine->display('menu.tpl');
+
         $this->engine->display('footer.tpl');
     }
 

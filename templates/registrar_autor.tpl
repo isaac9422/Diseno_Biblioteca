@@ -24,11 +24,8 @@
                                 <h3>Registrar autor</h3>
                                 <b>Nombre:* </b> <input type="text" name="nombre" required value=""/><br />
                                 <input class="btn btn-primary" type="submit" value="Registrar Autor" name="btn_registrar_autor"/>
-                               
+                                <input class="btn btn-warning" type="submit" value="Cancelar" name="btn_cancelar" />
                             </form>
-                                <form action="{$gvar.l_global}registrar_usuario.php" method="post">
-                                     <input class="btn btn-warning" type="submit" value="Cancelar" name="btn_cancelar" />
-                                </form>
                         </td></tr>
                 </table>
             {/if}

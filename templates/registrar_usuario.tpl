@@ -32,13 +32,17 @@
                                 <b>Contraseña:*</b> <input type="password" name="contraseña" required/><br />
                                 <b>Repetir contraseña:*</b> <input type="password" name="contraseña2" required/><br />
                                 <input class="btn btn-primary" type="submit" value="Registrar Usuario" name="btn_registrar_usuario"/>
-                            </form>
-                            <form action="{$gvar.l_global}registrar_usuario.php" method="post">
-                                <input class="btn btn-warning" type="submit" value="Cancelar" name="btn_cancelar" />
+
+                                <button class="btn btn-warning" onclick="volver()" name="cancelar">Cancelar</button>
                             </form>
                         </td></tr>
                 </table>
             {/if}
+            <script >
+                function volver() {
+                    location.href = 'index.php';
+                }
+            </script>
         </div>
     </body>
 </html>

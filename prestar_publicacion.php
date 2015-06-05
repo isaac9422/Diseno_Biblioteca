@@ -12,6 +12,8 @@ class c_prestarPublicacion extends super_controller {
 
         $this->engine->display('prestar_publicacion.tpl');
 
+        $this->engine->display('menu.tpl');
+
         $this->engine->display('footer.tpl');
     }
 
