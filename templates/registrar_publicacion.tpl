@@ -11,8 +11,8 @@
                     <form action="{$gvar.l_global}registrar_publicacion.php" method="post">
                         <tr><td>
                                 <h3>Registrar publicación</h3>
-                                <b>Código publicación:* </b> <input type="text" name="codigo_publicacion" required value=""/><br />
-                                <b>Nombre:* </b> <input type="text" name="nombre" required value=""/><br />
+                                <b>Código publicación:* </b> <input type="text" name="codigo_publicacion" required value="{if isset($objeto)}{$objeto->get('codigo_publicacion')}{/if}"/><br />
+                                <b>Nombre:* </b> <input type="text" name="nombre" required value="{if isset($objeto)}{$objeto->get('nombre')}{/if}"/><br />
                                 <b>Tipo:* </b>
                                 <select name ="tipo">
                                     <option value="libro">Libro</option>
@@ -49,7 +49,7 @@
                                     <option value="general">General</option>
                                     <option value="reserva">Reserva</option>                                    
                                 </select> <br />
-                                <b>Fecha publicación (dd/mm/aaaa):* </b> <input type="date" name="fecha_publicacion" required value="" placeholder="dd/mm/aaaa"/><br />
+                                <b>Fecha publicación (dd/mm/aaaa):* </b> <input type="date" name="fecha_publicacion" required value="{if isset($objeto)}{$objeto->get('fecha_publicacion')}{/if}" placeholder="dd/mm/aaaa"/><br />
                             </td>                         
                             <td>
                                 <select multiple="multiple" id="autores" name="mis_autores[]" style="width:200px;height:400px">

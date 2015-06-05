@@ -21,6 +21,9 @@ class c_registrar_publicacion extends super_controller {
 
     public function verificar() {
         $publicacion = new publicacion($this->post);
+        //C
+        $this->engine->assign('objeto',$publicacion);
+        //C
         if(is_empty($publicacion->get('codigo_publicacion'))){
             throw_exception("Ingrese Código publicación correctamente");
         }else if(is_empty($publicacion->get('nombre'))){
@@ -130,6 +133,8 @@ class c_registrar_publicacion extends super_controller {
                 header("location: index.php");
             }
             $this->mostrar_autor();
+            
+            
             
             if (isset($this->post->btn_registrar_publicacion)) {
                 $this->verificar();

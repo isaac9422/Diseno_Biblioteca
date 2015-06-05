@@ -16,7 +16,7 @@ class c_login extends super_controller {
         }
     }
     
-    public function ingresar() {
+     public function verificarRol(&$option, &$data) {
         $tipo_usuario = $this->post->rol;
         if($tipo_usuario == "administrador"){
             $option['administrador']['lvl2'] = 'by_email';
@@ -28,7 +28,11 @@ class c_login extends super_controller {
             $option['usuario']['lvl2'] = 'by_email';
             $data['usuario']['email'] = $this->post->email;
         }
-
+        
+     }
+    public function ingresar() {
+        $tipo_usuario = $this->post->rol;
+        $this->verificarRol($option, $data);
         
         $this->orm->connect();
         $this->orm->read_data(array($tipo_usuario), $option, $data);
