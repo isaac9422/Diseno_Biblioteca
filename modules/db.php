@@ -297,28 +297,9 @@ class db {
                         break;
                 }
                 break;
-<<<<<<< HEAD
-=======
-            /*
-<<<<<<< HEAD
->>>>>>> 53339cd625c55100f2cf56ef86c1edcedc189dc6
+
             
-            
-             case "publicacion":
-                switch($options['lvl2'])
-                {
-                        case "normal":
-                        $codigo_publicacion=mysqli_real_escape_string($this->cn,$object->get('codigo_publicacion'));
-                        $categoria=mysqli_real_escape_string($this->cn,$object->get('categoria'));
-                        $tipo=mysqli_real_escape_string($this->cn,$object->get('tipo'));
-                        $nombre=mysqli_real_escape_string($this->cn,$object->get('nombre'));
-                        $fecha_publicacion=mysqli_real_escape_string($this->cn,$object->get('fecha_publicacion'));
-                        $clasificacion=mysqli_real_escape_string($this->cn,$object->get('clasificacion'));
-                        $this->do_operation("UPDATE publicacion SET categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
-<<<<<<< HEAD
-=======
-=======
-*/
+
 
             case "publicacion":
                 switch ($options['lvl2']) {
@@ -330,14 +311,14 @@ class db {
                         $fecha_publicacion = mysqli_real_escape_string($this->cn, $object->get('fecha_publicacion'));
                         $clasificacion = mysqli_real_escape_string($this->cn, $object->get('clasificacion'));
                         $this->do_operation("UPDATE publicacion SET codigo_publicacion='$codigo_publicacion', categoria='$categoria', tipo='$tipo', nombre='$nombre', fecha_publicacion='$fecha_publicacion', clasificacion='$clasificacion' WHERE codigo_publicacion='$codigo_publicacion';"); //WHERE codigo_biblioteca='$id_ant' para modificar el codigo_biblioteca
-//>>>>>>> 730b5623a11f8496d9665bc7554cb9c1212636c6
->>>>>>> 53339cd625c55100f2cf56ef86c1edcedc189dc6
+
                         break;
                 }
                 break;
 
             default: break;
         }
+    
     }
 
     //function for delete data from db
