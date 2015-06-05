@@ -82,8 +82,9 @@ class c_modificar_publicacion extends super_controller {
     }
     
     public function modificar(){
-        
+        $this->temp_aux2 = 'modificar_publicacion1.tpl';
         $publicacion = new publicacion($this->post);
+        $this->engine->assign('object',$publicacion);
         if (is_empty($publicacion->get('codigo_publicacion'))) {
             throw_exception("No se produjo ningún resultado, código incorrecto");
         }
@@ -121,10 +122,15 @@ class c_modificar_publicacion extends super_controller {
         $this->temp_aux2 = 'modificar_publicacion.tpl';
         try {
             if (isset($this->get->option)) {
-                $this->{$this->get->option}();
+                $this->{$this->get->option}();                
             }
         } catch (Exception $e) {
             $this->error = 1;
+            if($e->getMessage() == "Debe ingresar un código válido"){
+                $this->temp_aux2 = 'modificar_publicacion.tpl';
+            }else{
+                $this->temp_aux2 = 'modificar_publicacion1.tpl';
+            }
             $this->msg_warning = $e->getMessage();
             $this->engine->assign('type_warning', $this->type_warning);
             $this->engine->assign('msg_warning', $this->msg_warning);
