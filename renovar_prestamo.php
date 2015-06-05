@@ -20,7 +20,7 @@ class c_renovarPrestamo extends super_controller {
         $user = unserialize($this->session[objeto_usuario]);
 
         if (strcasecmp($user->get('estado'), "ACTIVO") != 0) {
-            throw_exception("En este momento, no puedes realizar renovaciones");
+            throw_exception("En este momento, no puedes realizar renovaciones debido a que estas multado.");
         }
 
         $options['prestamo']['lvl2'] = "for_renew";
