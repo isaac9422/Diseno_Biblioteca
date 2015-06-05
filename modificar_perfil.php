@@ -39,10 +39,10 @@ class c_modificarPerfil extends super_controller {
         $user;
         //Verificación de los datos ingresados
         if (is_empty($this->post->contraseña)) {
-            throw_exception("Contraseña no puede ser vacio");
+            throw_exception("Nueva contraseña no puede ser vacio");
         }
         if (is_empty($this->post->contraseñaA)) {
-            throw_exception("Contraseña no puede ser vacio");
+            throw_exception("Contraseña actual no puede ser vacio");
         }
         if (is_empty($this->post->email)) {
             throw_exception("Email no puede ser vacio");

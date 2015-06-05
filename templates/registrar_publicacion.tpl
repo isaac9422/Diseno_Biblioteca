@@ -42,6 +42,8 @@
                                     <option value="religion">Religión</option>
                                     <option value="salud">Salud</option>
                                     <option value="tecnologia">Tecnología</option>
+                                     <option value="tecnologia">Networking</option>
+                                      <option value="tecnologia">Ingeniería</option>
                                     <option value="otros">--Otros--</option>
                                 </select> <br />
                                 <b>Clasificación:* </b>

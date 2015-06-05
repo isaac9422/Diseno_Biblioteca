@@ -60,13 +60,14 @@ class c_modificar_publicacion extends super_controller {
     }
     
     public function add() {
+        
         $options['publicacion']['lvl2'] = "one";
         $cods['publicacion']['codigo_publicacion'] = $this->post->codigo_publicacion;
-
 
         $this->orm->connect();
         $this->orm->read_data(array('publicacion'), $options, $cods);
         $publicacion = $this->orm->get_objects("publicacion");
+        
         $this->orm->close();
 
         if (!isset($publicacion[0])) {
