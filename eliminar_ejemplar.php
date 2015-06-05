@@ -66,7 +66,7 @@ class c_eliminar_ejemplar extends super_controller {
                         
                         }
                     
-			$this->error=1; $this->msg_warning=$e->getMessage();
+			$this->error=1; //$this->msg_warning=$e->getMessage();
 			$this->engine->assign('type_warning',$this->type_warning);
 			$this->engine->assign('msg_warning',$this->msg_warning);
 			$this->temp_aux = 'message.tpl';
