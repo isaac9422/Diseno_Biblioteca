@@ -2,6 +2,8 @@
 
 require('configs/include.php');
 
+
+
 class c_modificar_publicacion extends super_controller {
 
     function validateDate($date){
@@ -21,19 +23,25 @@ class c_modificar_publicacion extends super_controller {
     }
     
         public function verificar() {
+           
         $publicacion = new publicacion($this->post);
+        
+        //C
+        $this->engine->assign('objeto',$publicacion);
+        //C
+        
         if(is_empty($publicacion->get('codigo_publicacion'))){
             throw_exception("Ingrese Código publicación correctamente");
-        }else if(is_empty($publicacion->get('nombre'))){
-            throw_exception("Ingrese nombre correctamente");
+        }else if(is_empty($publicacion->get('nombre'))){                 
+            throw_exception("Ingrese nombre");          
         }else if(is_empty($publicacion->get('categoria'))){
-            throw_exception("Ingrese categoría correctamente");
+            throw_exception("Ingrese categoría ");
         }else if(is_empty($publicacion->get('tipo'))){
-            throw_exception("Ingrese tipo correctamente");
+            throw_exception("Ingrese tipo ");
         }else if(is_empty($publicacion->get('clasificacion'))){
-            throw_exception("Ingrese clasificación correctamente");
+            throw_exception("Ingrese clasificación ");
         }else if(is_empty($publicacion->get('fecha_publicacion'))){
-            throw_exception("Ingrese Fecha publicación correctamente");
+            throw_exception("Ingrese Fecha publicación ");
         }
 
         $newFecha1= str_replace('/', '-', $publicacion->get('fecha_publicacion'));
@@ -85,6 +93,8 @@ class c_modificar_publicacion extends super_controller {
     public function modificar(){
         
         $publicacion = new publicacion($this->post);
+        
+        
         if (is_empty($publicacion->get('codigo_publicacion'))) {
             throw_exception("No se produjo ningún resultado, código incorrecto");
         }
@@ -110,24 +120,28 @@ class c_modificar_publicacion extends super_controller {
         if ($this->error == 1) {
             $this->engine->display($this->temp_aux);   
         }        
+        
         $this->engine->display($this->temp_aux2);
         $this->engine->display('footer.tpl');
     }
 
     public function run() {
         $this->temp_aux2 = 'modificar_publicacion.tpl';
+       
         try {
             if (isset($this->get->option)) {
                 $this->{$this->get->option}();
             }
         } catch (Exception $e) {
+            
             $this->error = 1;
             $this->msg_warning = $e->getMessage();
             $this->engine->assign('type_warning', $this->type_warning);
             $this->engine->assign('msg_warning', $this->msg_warning);
             $this->temp_aux = 'message.tpl';
+        
         }
-
+        
         //if(isset($this->get->Actualizar)){
         //}
 
