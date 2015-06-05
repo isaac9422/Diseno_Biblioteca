@@ -124,6 +124,13 @@ class c_modificar_publicacion extends super_controller {
         $this->temp_aux2 = 'modificar_publicacion.tpl';
        
         try {
+            $tipo = $this->session['tipo_usuario'];
+            if ($tipo == "usuario" || $tipo == "administrador") {
+                header("location: inicio_$tipo.php");
+            }else if($tipo != 'empleado'){
+                header("location: index.php");
+            }
+            
             if (isset($this->post->cancelar)) {
                 header("location: index.php");
             }
